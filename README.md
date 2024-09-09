@@ -46,4 +46,4 @@ You will find all the components used, and you can edit your information accordi
 
 ## Report Bug or Request Feature
 
-Feel free to report any bugs or request new features by opening an issue [here](https://github.com/ihend47/Portfolio/issues).
+Feel free to report any bugs or request new features by opening an issue [here](https://github.com/ihend47/Portfolio/issues).# devportfilio-
