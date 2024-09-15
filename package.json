@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
-  "homepage": "https://ihend47.github.io/issachendersondev/",
+  "homepage": "https://issachenderson47.github.io/devportfilio/",
   "dependencies": {
     "@react-pdf/renderer": "^2.2.0",
     "@testing-library/jest-dom": "^5.16.2",
@@ -23,7 +23,7 @@
     "react-tsparticles": "^1.42.2",
     "typewriter-effect": "^2.18.2",
     "web-vitals": "^2.1.4"
-  },
+  },  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -53,7 +53,7 @@
   "devDependencies": {
     "gh-pages": "^6.1.1"
   },
-  "description": "<h2 align=\"center\">\r   Portfolio Website - v2.0<br/>\r   <a href=\"https://catnip-moustache-356.notion.site/Portfolio-Blog-28e81ca52dc54445900249fe715c5dfc\" target=\"_blank\">https://www.issachendersondev.com/</a>\r </h2>\r <div align=\"center\">\r   <img alt=\"Demo\" src=\"./Images/readme-img1.png\" />\r </div>",
+  "description": "<h2 align=\"center\">\r Portfolio Website - v2.0<br/>\r <a href=\"https://issac-ops.com\" target=\"_blank\">https://issac-ops.com</a>\r </h2>\r <div align=\"center\">\r <img alt=\"Demo\" src=\"./Images/readme-img1.png\" />\r </div>",
   "author": "",
   "license": "ISC",
   "keywords": []
