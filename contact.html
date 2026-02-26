@@ -21,8 +21,6 @@
         .btn-tactical:hover { background-color: #003a7a; color: white; }
         .contact-card { border: none; border-radius: 0; border-left: 5px solid var(--tactical-blue); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .form-control:focus { border-color: var(--tactical-blue); box-shadow: none; }
-        /* Anti-spam honeypot - hides the field from users */
-        .hidden-field { display: none; }
     </style>
 </head>
 <body class="d-flex flex-column h-100">
@@ -46,14 +44,18 @@
             <div class="container px-5">
                 <div class="text-center mb-5">
                     <h1 class="display-5 military-header">Establish <span class="text-accent">Communication</span></h1>
-                    <p class="lead fw-normal text-muted mb-0">Direct line for infrastructure projects and network consulting.</p>
+                    <p class="lead fw-normal text-muted mb-4">Direct line for infrastructure projects and network consulting.</p>
+                    
+                    <a href="https://calendly.com/buildwithissac/30min" target="_blank" class="btn btn-outline-dark px-4 py-2 text-uppercase fw-bold">
+                        <i class="bi bi-calendar-event me-2"></i>Schedule a 30-Min Briefing
+                    </a>
                 </div>
 
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
                         
                         <div class="card contact-card bg-white p-4 p-md-5">
-                            <form id="contactForm" action="https://formspree.io/f/buildwithissac@gmail.com" method="POST">
+                            <form id="contactForm" action="https://formspree.io/f/xgoldbbo" method="POST">
                                 
                                 <div class="mb-4">
                                     <label class="small text-uppercase fw-bold mb-1" for="name">Full Name</label>
@@ -75,9 +77,7 @@
                                     <textarea class="form-control py-3" id="message" name="message" style="height: 10rem" placeholder="Briefly describe the mission scope..." required></textarea>
                                 </div>
 
-                                <div class="hidden-field">
-                                    <input type="text" name="_gotcha">
-                                </div>
+                                <input type="text" name="_gotcha" style="display:none" />
 
                                 <div class="d-grid">
                                     <button class="btn btn-tactical btn-lg py-3 text-uppercase" id="submitButton" type="submit">Deploy Message</button>
