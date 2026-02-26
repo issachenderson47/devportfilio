@@ -5,23 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Issac Henderson - Network Infrastructure & Cloud Specialist" />
     <meta name="author" content="Issac Henderson" />
-    <title>Issac Henderson - Network Infrastructure & Cloud Architect</title>
+    <title>Issac Henderson | Network Infrastructure & Cloud Architect</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .military-header { font-weight: 800; letter-spacing: -1px; }
-        .straightforward-text { line-height: 1.7; color: #333; }
-        .card { border: 1px solid #e0e0e0; }
+        :root {
+            --tactical-blue: #004a99; /* Professional deep blue accent */
+            --military-dark: #1a1a1a;
+        }
+        body { font-family: 'Inter', sans-serif; color: #333; }
+        .military-header { font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; }
+        
+        /* Profile Image "Pop" - Subtle glow/border */
+        .profile-container {
+            position: relative;
+            display: inline-block;
+            padding: 8px;
+            border: 2px solid var(--tactical-blue);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 0 20px rgba(0, 74, 153, 0.15);
+        }
+        .profile-img {
+            max-height: 400px;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Tactical Accents */
+        .text-accent { color: var(--tactical-blue); }
+        .btn-tactical { background-color: var(--tactical-blue); color: white; border: none; }
+        .btn-tactical:hover { background-color: #003a7a; color: white; }
+        .border-accent { border-left: 4px solid var(--tactical-blue) !important; }
+        .nav-link:hover { color: var(--tactical-blue) !important; }
     </style>
 </head>
 <body class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 sticky-top">
         <div class="container px-5">
-            <a class="navbar-brand text-uppercase fw-bold" href="index.html">Issac Henderson</a>
+            <a class="navbar-brand fw-bold" href="index.html">ISSAC <span class="text-accent">HENDERSON</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder text-uppercase">
@@ -43,19 +68,23 @@
                         <div class="badge bg-dark text-white mb-4 py-2 px-3 text-uppercase fw-bold">
                             Infrastructure • AWS Cloud • Telecommunications
                         </div>
-                        <h1 class="display-4 military-header mb-4 text-dark">Mission-Ready Network & Cloud Infrastructure</h1>
-                        <p class="lead fw-normal straightforward-text mb-5">
-                            Delivering secure, high-performance IT and physical network solutions. Certified in AWS and BICSI, specializing in enterprise-scale deployments, robust structured cabling, and zero-downtime operations.
+                        <h1 class="display-4 military-header mb-4">Building <span class="text-accent">Reliable</span> Network Foundations</h1>
+                        <p class="lead fw-normal mb-5">
+                            BICSI & AWS Certified Specialist. Delivering secure, high-performance IT and physical network solutions for enterprise environments. 
                         </p>
-                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-start mb-3">
-                            <a class="btn btn-dark btn-lg px-5 py-3 me-sm-3 fw-bolder text-uppercase" href="#experience">View Service Record</a>
-                            <a class="btn btn-outline-dark btn-lg px-5 py-3 fw-bolder text-uppercase" href="#projects">View Projects</a>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-start">
+                            <a class="btn btn-tactical btn-lg px-5 py-3 fw-bolder text-uppercase" href="#projects">View Projects</a>
+                            <a class="btn btn-outline-dark btn-lg px-5 py-3 fw-bolder text-uppercase" href="https://docs.google.com/document/d/1eV-Mx5CfY3vHzoBW5Pd2f033CwNsdYAtu1eOAY2tLvg/edit?usp=drivesdk" target="_blank">
+                                <i class="bi bi-file-earmark-pdf me-2"></i>Resume
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-xxl-6">
                     <div class="d-flex justify-content-center mt-5 mt-xxl-0">
-                        <img class="img-fluid rounded shadow-sm" src="assets/profile.png" alt="Issac Henderson Profile" style="max-height: 400px; object-fit: cover;" />
+                        <div class="profile-container">
+                            <img class="profile-img" src="assets/profile.png" alt="Issac Henderson Profile" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,15 +95,16 @@
         <div class="container px-5">
             <div class="row gx-5 justify-content-center">
                 <div class="col-xxl-8">
-                    <div class="my-5 text-start">
-                        <h2 class="display-6 military-header mb-4 border-bottom border-secondary pb-3">Operational Profile</h2>
+                    <div class="my-5">
+                        <h2 class="display-6 military-header mb-4 pb-3 border-bottom border-secondary">Operational Profile</h2>
                         <p class="lead fw-light mb-4">Results-driven Network Infrastructure and Cloud Specialist with 7+ years of experience engineering telecommunications and IT solutions throughout New York City.</p>
-                        <p class="mb-4" style="color: #ccc;">
-                            Committed to strict compliance with OSHA safety standards and BICSI best practices. I bring a highly disciplined, analytical approach to building hierarchical star networks and fiber optic backbones. My field expertise is backed by top-tier certifications (AWS Solutions Architect) and a strong history of managing enterprise IT operations for 10,000+ users, executing high-volume technical resolutions, and leading cross-functional teams using the STAR method.
+                        <p class="mb-4 text-muted">
+                            Committed to strict compliance with OSHA safety standards and BICSI best practices. I bring a highly disciplined, analytical approach to building hierarchical star networks and fiber optic backbones. My field expertise is backed by AWS Solutions Architect certification and a history of managing enterprise IT operations for 10,000+ users.
                         </p>
-                        <div class="d-flex fs-3 gap-4 mt-4">
-                            <a class="text-white" href="https://www.linkedin.com/in/issachenderson" target="_blank"><i class="bi bi-linkedin"></i></a>
-                            <a class="text-white" href="https://github.com/your-github" target="_blank"><i class="bi bi-github"></i></a>
+                        <div class="d-flex align-items-center gap-4 mt-5">
+                            <a class="text-accent fs-2" href="https://www.linkedin.com/in/issachenderson" target="_blank"><i class="bi bi-linkedin"></i></a>
+                            <a class="text-accent fs-2" href="https://github.com/issachenderson47" target="_blank"><i class="bi bi-github"></i></a>
+                            <a href="https://docs.google.com/document/d/1eV-Mx5CfY3vHzoBW5Pd2f033CwNsdYAtu1eOAY2tLvg/edit?usp=drivesdk" target="_blank" class="btn btn-sm btn-outline-light px-3 text-uppercase fw-bold">Open Full Resume</a>
                         </div>
                     </div>
                 </div>
@@ -84,126 +114,57 @@
 
     <section class="py-5 bg-light" id="experience">
         <div class="container px-5 my-5">
-            <h2 class="display-6 military-header mb-5 text-dark border-bottom pb-3">Professional Experience</h2>
-            
+            <h2 class="display-6 military-header mb-5 text-dark border-bottom pb-3">Service Record</h2>
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-11 col-xl-10">
-
-                    <div class="card shadow-sm rounded-0 mb-4">
+                    <div class="card shadow-sm rounded-0 mb-4 border-accent">
                         <div class="card-body p-5">
                             <div class="row gx-5">
                                 <div class="col-md-4 mb-4 mb-md-0 border-end">
-                                    <div class="text-dark fw-bolder text-uppercase mb-2">2024 – Present</div>
-                                    <div class="h5 fw-bolder text-dark">Network Infrastructure Installer (BICSI)</div>
-                                    <div class="small text-muted">NYC College of Technology | New York, NY</div>
+                                    <div class="text-accent fw-bolder text-uppercase mb-2">2024 – Present</div>
+                                    <div class="h5 fw-bolder text-dark">BICSI Installer 1</div>
+                                    <div class="small text-muted">NYC College of Technology</div>
                                 </div>
-                                <div class="col-md-8 straightforward-text">
+                                <div class="col-md-8">
                                     <ul class="mb-0">
-                                        <li class="mb-2">Executed precision installation and termination of Cat 6 (T568A/B) twisted-pair and coaxial cables per strict ANSI/TIA-568 standards.</li>
-                                        <li class="mb-2">Deployed copper and OM4 multimode fiber runs from Equipment Rooms (ER) to Telecommunications Rooms (TRs) and Enclosures (TEs).</li>
-                                        <li class="mb-2">Engineered scalable hierarchical star networks, interconnecting topologies to maximize bandwidth and operational performance.</li>
-                                        <li class="mb-0">Operated strictly adhering to blueprints, technical work orders, and rigorous OSHA site safety practices.</li>
+                                        <li>Precision installation/termination of Cat 6 & Coaxial per ANSI/TIA-568.</li>
+                                        <li>Built hierarchical star networks utilizing copper and OM4 fiber.</li>
+                                        <li>Reviewed blueprints and work orders for 100% standards compliance.</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="card shadow-sm rounded-0 mb-4">
-                        <div class="card-body p-5">
-                            <div class="row gx-5">
-                                <div class="col-md-4 mb-4 mb-md-0 border-end">
-                                    <div class="text-dark fw-bolder text-uppercase mb-2">Apr 2022 – Feb 2024</div>
-                                    <div class="h5 fw-bolder text-dark">Senior IT Analyst (Tier 2/3)</div>
-                                    <div class="small text-muted">HCLTech (Wells Fargo & CSL Plasma)</div>
-                                </div>
-                                <div class="col-md-8 straightforward-text">
-                                    <ul class="mb-0">
-                                        <li class="mb-2">Directed enterprise identity and access management (IAM) securing global access for 10,000+ concurrent users via Okta, Citrix, and CyberArk.</li>
-                                        <li class="mb-2">Maintained rapid-response operational tempo, resolving 50–100 critical ServiceNow incidents daily with a 95% first-contact resolution rate.</li>
-                                        <li class="mb-0">Authored critical standard operating procedures (SOPs) in Salesforce, driving a 30% reduction in recurring enterprise network tickets.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
-                    <div class="card shadow-sm rounded-0 mb-4">
-                        <div class="card-body p-5">
-                            <div class="row gx-5">
-                                <div class="col-md-4 mb-4 mb-md-0 border-end">
-                                    <div class="text-dark fw-bolder text-uppercase mb-2">Jul 2021 – Apr 2022</div>
-                                    <div class="h5 fw-bolder text-dark">Field Engineer / Service Desk Lead</div>
-                                    <div class="small text-muted">Resource Computer Solutions</div>
-                                </div>
-                                <div class="col-md-8 straightforward-text">
-                                    <ul class="mb-0">
-                                        <li class="mb-2">Commanded site installations of critical network hardware, firewalls, and data patch panels.</li>
-                                        <li class="mb-2">Spearheaded rapid mitigation of Tier 3 network outages, restoring DHCP servers and Switch infrastructure under tight SLAs.</li>
-                                        <li class="mb-0">Achieved 100% Service Level Agreement (SLA) compliance across all commercial client portfolios.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card shadow-sm rounded-0">
-                        <div class="card-body p-5">
-                            <div class="row gx-5">
-                                <div class="col-md-4 mb-4 mb-md-0 border-end">
-                                    <div class="text-dark fw-bolder text-uppercase mb-2">Oct 2016 – May 2021</div>
-                                    <div class="h5 fw-bolder text-dark">Systems Administrator</div>
-                                    <div class="small text-muted">Topgolf</div>
-                                </div>
-                                <div class="col-md-8 straightforward-text">
-                                    <ul class="mb-0">
-                                        <li class="mb-2">Engineered automated Google Workspace system workflows, slashing ticket processing times by 85% and saving 16,170 operational hours annually.</li>
-                                        <li class="mb-2">Architected and deployed enterprise tracking tools across 60+ national venues.</li>
-                                        <li class="mb-0">Developed robust training pipelines that accelerated personnel onboarding and drastically improved CSAT metrics.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </section>
 
     <section class="bg-white py-5" id="projects">
         <div class="container px-5 my-5">
-            <h2 class="display-6 military-header mb-5 text-dark border-bottom pb-3">Technical Projects</h2>
+            <h2 class="display-6 military-header mb-5 text-dark border-bottom pb-3">Mission Logs</h2>
             <div class="row gx-5">
-
                 <div class="col-lg-6 mb-5">
                     <div class="card h-100 shadow-sm rounded-0 border-dark">
                         <div class="card-body p-4">
-                            <h5 class="card-title fw-bolder text-uppercase">Structured Cabling & Hierarchical Star Network</h5>
+                            <h5 class="card-title fw-bolder text-uppercase text-accent">Structured Cabling & Hierarchical Star Network</h5>
                             <hr class="my-3">
-                            <p class="card-text straightforward-text">
-                                Installed Cat 6 (T568A/B), coaxial (F-connectors), and OM4 fiber from ER to multiple TRs and TEs. Terminated at patch panels and configured hierarchical star topology per blueprints and work orders.
-                            </p>
+                            <p class="card-text">Installed Cat 6 (T568A/B), coaxial (F-connectors), and OM4 fiber from ER to multiple TRs and TEs. Terminated at patch panels and configured hierarchical star topology per blueprints and work orders.</p>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-6 mb-5">
                     <div class="card h-100 shadow-sm rounded-0 border-dark">
                         <div class="card-body p-4">
-                            <h5 class="card-title fw-bolder text-uppercase">Cable Terminations</h5>
+                            <h5 class="card-title fw-bolder text-uppercase text-accent">Cable Terminations</h5>
                             <hr class="my-3">
-                            <p class="card-text straightforward-text">
-                                Implemented cable terminations utilizing low voltage tools.
-                            </p>
+                            <p class="card-text">Implemented cable terminations utilizing low voltage tools.</p>
                         </div>
                     </div>
                 </div>
-
             </div>
-            
             <div class="text-start mt-2">
-                <a href="https://warm-event-5e5.notion.site/Networking-Cabling-Projects-3034be7c324a8053857ec93dd998b2cb?source=copy_link" target="_blank" class="btn btn-dark px-4 py-2 text-uppercase fw-bold">Access Complete Project Logs →</a>
+                <a href="https://warm-event-5e5.notion.site/Networking-Cabling-Projects-3034be7c324a8053857ec93dd998b2cb?source=copy_link" target="_blank" class="btn btn-dark px-4 py-2 text-uppercase fw-bold">Full Project Documentation →</a>
             </div>
         </div>
     </section>
@@ -212,56 +173,20 @@
         <div class="container px-5 my-5">
             <div class="row gx-5">
                 <div class="col-lg-5 mb-5 mb-lg-0">
-                    <h2 class="h3 military-header mb-4 text-dark text-uppercase">Credentials & Training</h2>
-                    <ul class="list-group list-group-flush border-top border-bottom">
-                        <li class="list-group-item bg-transparent py-3 fw-bold text-dark">
-                            <i class="bi bi-cloud-check-fill text-primary me-2"></i> AWS Certified Solutions Architect – Associate
-                        </li>
-                        <li class="list-group-item bg-transparent py-3 fw-bold text-dark">
-                            <i class="bi bi-shield-check text-primary me-2"></i> BICSI Level 1 Cable Installer
-                        </li>
-                        <li class="list-group-item bg-transparent py-3 text-dark">
-                            <i class="bi bi-tools text-dark me-2"></i> OSHA 30 Construction
-                        </li>
-                        <li class="list-group-item bg-transparent py-3 text-dark">
-                            <i class="bi bi-hard-hat text-dark me-2"></i> Site Safety Training 40 (SST)
-                        </li>
-                        <li class="list-group-item bg-transparent py-3 text-dark">
-                            <i class="bi bi-server text-dark me-2"></i> Site System Administration Certificate
-                        </li>
+                    <h2 class="h3 military-header mb-4 text-dark text-uppercase">Technical Credentials</h2>
+                    <ul class="list-group list-group-flush border-top border-bottom shadow-sm">
+                        <li class="list-group-item bg-white py-3 fw-bold"><i class="bi bi-check-circle-fill text-accent me-2"></i> AWS Solutions Architect – Associate</li>
+                        <li class="list-group-item bg-white py-3 fw-bold"><i class="bi bi-check-circle-fill text-accent me-2"></i> BICSI Level 1 Cable Installer</li>
+                        <li class="list-group-item bg-white py-3 fw-bold"><i class="bi bi-shield-check text-dark me-2"></i> OSHA 30 & SST 40 Certified</li>
                     </ul>
-                    <div class="mt-4 straightforward-text text-muted">
-                        <em>Associate’s Degree in Progress – Dallas College (Expected 2026)</em>
-                    </div>
                 </div>
-
                 <div class="col-lg-7">
-                    <h2 class="h3 military-header mb-4 text-dark text-uppercase">Core Competencies</h2>
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="p-3 border bg-white h-100">
-                                <h6 class="fw-bolder text-uppercase">Network Architecture</h6>
-                                <p class="small text-muted mb-0">Hierarchical star deployments, AWS cloud integration, enterprise IAM (Okta, CyberArk).</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 border bg-white h-100">
-                                <h6 class="fw-bolder text-uppercase">Physical Infrastructure</h6>
-                                <p class="small text-muted mb-0">Termination of Coaxial & Twisted Pair (Cat6), OM4 Fiber Optics, 8-pin modular & F-connectors.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 border bg-white h-100">
-                                <h6 class="fw-bolder text-uppercase">Testing & Diagnostics</h6>
-                                <p class="small text-muted mb-0">Wire toners, line probers, network testers, cable meters, hardware fault isolation.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 border bg-white h-100">
-                                <h6 class="fw-bolder text-uppercase">Compliance Standards</h6>
-                                <p class="small text-muted mb-0">Strict adherence to ANSI/TIA/EIA, NEC, and BICSI codes.</p>
-                            </div>
-                        </div>
+                    <h2 class="h3 military-header mb-4 text-dark text-uppercase">Tactical Skills</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6"><div class="p-3 border bg-white border-accent"><strong>Fiber/Copper:</strong> OM4, Cat6, Coax</div></div>
+                        <div class="col-md-6"><div class="p-3 border bg-white border-accent"><strong>Cloud:</strong> AWS Infrastructure, IAM</div></div>
+                        <div class="col-md-6"><div class="p-3 border bg-white border-accent"><strong>Systems:</strong> Okta, CyberArk, Citrix</div></div>
+                        <div class="col-md-6"><div class="p-3 border bg-white border-accent"><strong>Methods:</strong> STAR Method, ITIL, SLAs</div></div>
                     </div>
                 </div>
             </div>
@@ -269,15 +194,12 @@
     </section>
 </main>
 
-<footer class="bg-dark text-white py-4 mt-auto">
-    <div class="container px-5">
-        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-            <div class="col-auto"><div class="small m-0 text-muted">Copyright &copy; Issac Henderson 2025 | Ready for Deployment.</div></div>
-        </div>
+<footer class="bg-dark text-white py-4">
+    <div class="container px-5 text-center">
+        <div class="small m-0 text-muted">Issac Henderson | 2025 | Built for Infrastructure.</div>
     </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/scripts.js"></script>
 </body>
 </html>
