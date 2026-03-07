@@ -1,103 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Modern Business - Start Bootstrap Template</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body class="d-flex flex-column h-100 bg-light">
-        <main class="flex-shrink-0">
-            <!-- Navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-                <div class="container px-5">
-                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Start Bootstrap</span></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
-                            <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        </ul>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Issac Henderson - Project Documentation" />
+    <meta name="author" content="Issac Henderson" />
+    <title>Project Documentation | Issac Henderson</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+        :root {
+            --tactical-blue: #004a99;
+            --military-dark: #1a1a1a;
+        }
+        body { font-family: 'Inter', sans-serif; color: #333; }
+        .military-header { font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; }
+        
+        .text-accent { color: var(--tactical-blue); }
+        .btn-tactical { background-color: var(--tactical-blue); color: white; border: none; }
+        .btn-tactical:hover { background-color: #003a7a; color: white; }
+        .border-accent { border-left: 4px solid var(--tactical-blue) !important; }
+        .nav-link:hover { color: var(--tactical-blue) !important; }
+        
+        /* Specific project page styles */
+        .project-meta { font-size: 0.9rem; font-weight: 600; color: #6c757d; text-transform: uppercase; }
+        .spec-list li { margin-bottom: 0.5rem; }
+        .portfolio-img { object-fit: cover; border-radius: 4px; border: 2px solid var(--military-dark); }
+        .diagnostic-step { border-left: 3px solid #dee2e6; padding-left: 1.5rem; position: relative; }
+        .diagnostic-step::before { content: ''; position: absolute; left: -9px; top: 0; width: 15px; height: 15px; border-radius: 50%; background: var(--tactical-blue); }
+        .gallery-caption { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; text-align: center; margin-top: 0.5rem; color: #6c757d; }
+    </style>
+</head>
+<body class="d-flex flex-column h-100 bg-light">
+<main class="flex-shrink-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 sticky-top">
+        <div class="container px-5">
+            <a class="navbar-brand fw-bold" href="index.html">ISSAC <span class="text-accent">HENDERSON</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder text-uppercase">
+                    <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link text-accent" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-5 bg-dark text-white">
+        <div class="container px-5 pb-4 mt-4 text-center">
+            <div class="badge bg-primary text-white mb-3 py-2 px-3 text-uppercase fw-bold" style="background-color: var(--tactical-blue) !important;">
+                Field Operations • Case Studies
+            </div>
+            <h1 class="display-5 military-header mb-3">Project <span class="text-accent">Documentation</span></h1>
+            <p class="lead fw-light w-75 mx-auto">Detailed technical breakdowns of recent physical network infrastructure deployments, cabling standards, and server hardware diagnostics.</p>
+        </div>
+    </header>
+
+    <section class="py-5 bg-white border-bottom">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 mb-5">
+                <div class="col-lg-12 text-center">
+                    <div class="project-meta mb-2">Enterprise Infrastructure Deployment</div>
+                    <h2 class="display-6 military-header text-dark">Structured Cabling & Hierarchical Network</h2>
+                    <p class="lead w-75 mx-auto">Engineered a scalable hierarchical star backbone routing Category 6 and OM4 Fiber Optics from a central Equipment Room (ER) to multiple localized Telecommunications Rooms (TRs) and Enclosures (TEs).</p>
+                </div>
+            </div>
+
+            <div class="row gx-5">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h5 class="fw-bolder text-uppercase mb-3 border-bottom pb-2">Operational Objectives</h5>
+                    <ul class="list-unstyled spec-list mb-4 text-muted">
+                        <li><i class="bi bi-check-circle-fill text-accent me-2"></i> Deliver standards-compliant, future-proof cabling infrastructure.</li>
+                        <li><i class="bi bi-check-circle-fill text-accent me-2"></i> Support high-speed data, voice, and video applications.</li>
+                        <li><i class="bi bi-check-circle-fill text-accent me-2"></i> Create a scalable, easily maintainable network backbone with excellent fault isolation.</li>
+                    </ul>
+
+                    <h5 class="fw-bolder text-uppercase mb-3 border-bottom pb-2 mt-4">Technical Execution</h5>
+                    <div class="d-flex mb-3">
+                        <div class="me-3 fs-3 text-accent"><i class="bi bi-diagram-3-fill"></i></div>
+                        <div>
+                            <strong>Hierarchical Topology</strong>
+                            <p class="text-muted small mb-0">Interconnected individual star topologies. Established backbone runs consisting of 6 Cat 6 cables and 2 fiber optic cables from ER (North) to TR East, TR West, and TE South through a central conduit cross box.</p>
+                                                    </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <div class="me-3 fs-3 text-accent"><i class="bi bi-hdd-network-fill"></i></div>
+                        <div>
+                            <strong>Copper & Fiber Implementation</strong>
+                            <p class="text-muted small mb-0">Installed and terminated Cat 6 UTP (T568A/B configs) and coaxial (F-connector). Replaced legacy OS1 with high-bandwidth OM4 Multimode Fiber. Terminated all horizontal and backbone cabling at patch panels for organized cross-connects.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <div class="me-3 fs-3 text-accent"><i class="bi bi-shield-check"></i></div>
+                        <div>
+                            <strong>Compliance & Standards</strong>
+                            <p class="text-muted small mb-0">Performed all work in strict accordance with ANSI/TIA-568 guidelines and BICSI testing standards to ensure top-tier performance, safety, and code compliance.</p>
+                        </div>
                     </div>
                 </div>
-            </nav>
-            <!-- Projects Section-->
-            <section class="py-5">
-                <div class="container px-5 mb-5">
-                    <div class="text-center mb-5">
-                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Projects</span></h1>
+
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <img src="assets/er_north.jpg" alt="Acting ER North Handling Backbone Cabling" class="img-fluid portfolio-img w-100" />
+                            <div class="gallery-caption">Acting ER (North) - Main Backbone Hub</div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="assets/central_conduit.jpg" alt="Central Conduit Routing" class="img-fluid portfolio-img w-100" />
+                            <div class="gallery-caption">Central Conduit Cross Box</div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="assets/te_south.jpg" alt="TE South Simulated" class="img-fluid portfolio-img w-100" />
+                            <div class="gallery-caption">TE South Enclosure</div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="assets/tr_east.jpg" alt="TR East Rack" class="img-fluid portfolio-img w-100" />
+                            <div class="gallery-caption">Telecommunications Room (TR) East</div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="assets/tr_west.jpg" alt="TR West Rack" class="img-fluid portfolio-img w-100" />
+                            <div class="gallery-caption">Telecommunications Room (TR) West</div>
+                        </div>
                     </div>
-                    <div class="row gx-5 justify-content-center">
-                        <div class="col-lg-11 col-xl-9 col-xxl-8">
-                            <!-- Project Card 1-->
-                            <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
-                                <div class="card-body p-0">
-                                    <div class="d-flex align-items-center">
-                                        <div class="p-5">
-                                            <h2 class="fw-bolder">Project Name 1</h2>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>
-                                        </div>
-                                        <img class="img-fluid" src="https://dummyimage.com/300x400/343a40/6c757d" alt="..." />
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Project Card 2-->
-                            <div class="card overflow-hidden shadow rounded-4 border-0">
-                                <div class="card-body p-0">
-                                    <div class="d-flex align-items-center">
-                                        <div class="p-5">
-                                            <h2 class="fw-bolder">Project Name 2</h2>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>
-                                        </div>
-                                        <img class="img-fluid" src="https://dummyimage.com/300x400/343a40/6c757d" alt="..." />
-                                    </div>
-                                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light border-bottom">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-12 mb-4 text-center">
+                    <div class="project-meta mb-2">Cross-Connect Infrastructure</div>
+                    <h2 class="display-6 military-header text-dark">110 & 66 Block Terminations</h2>
+                    <p class="lead w-75 mx-auto">Executed precision punch-down terminations for voice and data cross-connects, ensuring immaculate wire management and industry-standard bend radiuses.</p>
+                </div>
+            </div>
+            
+            <div class="row gx-5 mt-4">
+                <div class="col-md-6 mb-5">
+                    <div class="card h-100 shadow-sm border-0 border-accent bg-white">
+                        <div class="card-body p-4">
+                            <h4 class="fw-bolder text-uppercase mb-3"><i class="bi bi-hdd-network text-accent me-2"></i> 110 Block Systems</h4>
+                            <p class="text-muted mb-4">Terminated Unshielded Twisted Pair (UTP) cabling on high-density 110 punch-down blocks. Maintained optimal pair twist right up to the point of termination to mitigate near-end crosstalk (NEXT).</p>
+                            
+                            <img src="assets/IMG_4563.jpeg" alt="110 Block Termination Complete" class="img-fluid portfolio-img mb-3 w-100" />
+                            <div class="row g-2">
+                                <div class="col-6"><img src="assets/IMG_4573.jpeg" alt="110 Block Wiring Detail" class="img-fluid portfolio-img w-100" /></div>
+                                <div class="col-6"><img src="assets/IMG_4275.jpeg" alt="110 Block Routing Detail" class="img-fluid portfolio-img w-100" /></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- Call to action section-->
-            <section class="py-5 bg-gradient-primary-to-secondary text-white">
-                <div class="container px-5 my-5">
-                    <div class="text-center">
-                        <h2 class="display-4 fw-bolder mb-4">Let's build something together</h2>
-                        <a class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="contact.html">Contact me</a>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <!-- Footer-->
-        <footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Your Website 2023</div></div>
-                    <div class="col-auto">
-                        <a class="small" href="#!">Privacy</a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="#!">Terms</a>
-                        <span class="mx-1">&middot;</span>
-                        <a class="small" href="#!">Contact</a>
+                
+                <div class="col-md-6 mb-5">
+                    <div class="card h-100 shadow-sm border-0 border-accent bg-white">
+                        <div class="card-body p-4">
+                            <h4 class="fw-bolder text-uppercase mb-3"><i class="bi bi-telephone-fill text-accent me-2"></i> 66 Block Systems</h4>
+                            <p class="text-muted mb-4">Configured traditional 66 blocks for analog voice distribution and legacy systems. Demonstrated clean cable routing, proper strain relief, and precise punch-down force calibration.</p>
+                            
+                            <img src="assets/IMG_4522.jpeg" alt="66 Block Full View" class="img-fluid portfolio-img mb-3 w-100" />
+                            <img src="assets/295E133C-01E4-459D-B1DA-29074D8EFE18.jpeg" alt="66 Block Close Up" class="img-fluid portfolio-img w-100" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 mb-4">
+                <div class="col-lg-12 text-center">
+                    <div class="project-meta mb-2">Systems Engineering & Hardware Repair</div>
+                    <h2 class="display-6 military-header text-dark">Dell Server Hardware & OS Restoration</h2>
+                    <p class="lead w-75 mx-auto mb-4">Comprehensive root-cause analysis and remediation of a severe boot loop failure, encompassing hardware isolation and operating system integrity repair.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-secondary border-accent mb-5 shadow-sm" role="alert">
+                <div class="row">
+                    <div class="col-md-6 border-end border-secondary">
+                        <strong><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i> Issue:</strong> Server stuck in boot loop/hang state with No POST and No VGA Output.
+                    </div>
+                    <div class="col-md-6 ps-md-4">
+                        <strong><i class="bi bi-wrench-adjustable-circle-fill text-accent me-2"></i> Root Cause:</strong> Defective RAM module causing POST failure, leading to Windows Server OS file corruption.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row gx-5">
+                <div class="col-lg-6">
+                    <div class="diagnostic-step mb-4">
+                        <h5 class="fw-bolder">1. Initial Identification</h5>
+                        <p class="text-muted mb-2">Remote checks via IPMI confirmed the system was receiving power but failing to initialize video output. Proceeded to physical hardware diagnostics.</p>
+                    </div>
+
+                    <div class="diagnostic-step mb-4">
+                        <h5 class="fw-bolder">2. Hardware Isolation</h5>
+                        <p class="text-muted mb-2">Tested CMOS battery (nominal voltage). Proceeded to reseat memory modules. Intermittent video return indicated a hardware fault, not a connection issue.</p>
+                    </div>
+
+                    <div class="diagnostic-step mb-4">
+                        <h5 class="fw-bolder">3. Fault Isolation & POST Success</h5>
+                        <p class="text-muted mb-2">Systematically removed RAM sticks to isolate the defective component. Successfully identified one faulty module. Server POSTed with stable video output (operating at 2GB for lab constraints).</p>
+                        <img src="assets/HEIF_Image_POST.jpg" alt="Successful POST Screen" class="img-fluid portfolio-img w-100 mt-2" />
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card bg-light border-0 shadow-sm h-100">
+                        <div class="card-body p-5">
+                            <h4 class="fw-bolder mb-4 border-bottom pb-2">Operating System Restoration</h4>
+                            <p class="text-muted"><strong>Challenge:</strong> Repeated failed boot attempts corrupted Windows Server OS files, halting boot sequence even after hardware repair.</p>
+                            
+                            <ul class="list-unstyled mb-4 text-muted small">
+                                <li class="mb-2"><i class="bi bi-arrow-right-short text-accent fs-5"></i> Accessed the <strong>Windows Recovery Environment (WinRE)</strong>.</li>
+                                <li class="mb-2"><i class="bi bi-arrow-right-short text-accent fs-5"></i> Executed built-in <strong>Startup Repair</strong> to rebuild Boot Configuration Data (BCD).</li>
+                                <li class="mb-2"><i class="bi bi-arrow-right-short text-accent fs-5"></i> Executed a Safe Mode (Network Enabled) boot to verify OS integrity before a standard restart.</li>
+                            </ul>
+
+                            <h5 class="fw-bolder mt-4 mb-3 border-bottom pb-2">Final Verification</h5>
+                            <ul class="list-group list-group-flush mb-4 small">
+                                <li class="list-group-item bg-transparent px-0"><i class="bi bi-check2-circle text-success me-2"></i> <strong>Hardware:</strong> Passed POST, stable output.</li>
+                                <li class="list-group-item bg-transparent px-0"><i class="bi bi-check2-circle text-success me-2"></i> <strong>Software:</strong> Windows Server boot sequence successful.</li>
+                                <li class="list-group-item bg-transparent px-0"><i class="bi bi-info-circle text-primary me-2"></i> <strong>Network:</strong> Fully operational; login halted intentionally due to isolated Active Directory (AD) lab configuration unreachable from current domain.</li>
+                            </ul>
+                            
+                            <img src="assets/HEIF_Image_Login.jpg" alt="Windows Login Screen" class="img-fluid portfolio-img w-100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5 pt-4 border-top">
+                <a href="index.html" class="btn btn-outline-dark btn-lg px-5 py-3 fw-bolder text-uppercase">
+                    <i class="bi bi-arrow-left me-2"></i> Return to Main Profile
+                </a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container px-5 text-center">
+        <div class="small m-0 text-muted">Issac Henderson | 2026 | Built for Infrastructure</div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
