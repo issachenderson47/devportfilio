@@ -85,7 +85,7 @@
                         <div>
                             <strong>Hierarchical Topology</strong>
                             <p class="text-muted small mb-0">Interconnected individual star topologies. Established backbone runs consisting of 6 Cat 6 cables and 2 fiber optic cables from ER (North) to TR East, TR West, and TE South through a central conduit cross box.</p>
-                                                    </div>
+                        </div>
                     </div>
                     <div class="d-flex mb-3">
                         <div class="me-3 fs-3 text-accent"><i class="bi bi-hdd-network-fill"></i></div>
@@ -101,6 +101,45 @@
                             <p class="text-muted small mb-0">Performed all work in strict accordance with ANSI/TIA-568 guidelines and BICSI testing standards to ensure top-tier performance, safety, and code compliance.</p>
                         </div>
                     </div>
+
+                    <div class="card border-dark shadow-sm my-4">
+                        <div class="card-header bg-dark text-white fw-bold text-uppercase">
+                            <i class="bi bi-diagram-3-fill me-2"></i> Logical Topology Blueprint
+                        </div>
+                        <div class="card-body bg-light text-center overflow-auto">
+                            <div class="mermaid">
+                                graph TD
+                                %% Styling for CAD look
+                                classDef hub fill:#004a99,stroke:#000,stroke-width:2px,color:#fff;
+                                classDef node fill:#e0e0e0,stroke:#333,stroke-width:2px,color:#000;
+                                classDef poe fill:#f9f9f9,stroke:#d9534f,stroke-width:2px,stroke-dasharray: 5 5;
+
+                                %% Main Equipment Room
+                                ER["ER (North)<br>Main Distribution Hub<br>Core Switches"]:::hub
+
+                                %% Telecommunications Rooms / Enclosures
+                                TRE["TR (East)<br>Access Switches"]:::node
+                                TRW["TR (West)<br>Access Switches"]:::node
+                                TES["TE (South)<br>Access Switches"]:::node
+
+                                %% Backbone Connections (ER to TRs)
+                                ER == "2x OM4 Fiber<br>6x Cat 6 Copper" ==> TRE
+                                ER == "2x OM4 Fiber<br>6x Cat 6 Copper" ==> TRW
+                                ER == "2x OM4 Fiber<br>6x Cat 6 Copper" ==> TES
+
+                                %% Horizontal PoE Runs
+                                TRE -. "Cat 6 (IEEE 802.3at)" .-> Cam1["PoE+ IP Security Camera"]:::poe
+                                TRE -. "Cat 6 (IEEE 802.3af)" .-> Phone1["VoIP Desk Phone"]:::poe
+
+                                TRW -. "Cat 6 (IEEE 802.3at)" .-> Cam2["PoE+ IP Security Camera"]:::poe
+                                TRW -. "Cat 6 (PoE)" .-> Intercom1["SIP Door Intercom"]:::poe
+
+                                TES -. "Cat 6 (IEEE 802.3af)" .-> Phone2["VoIP Desk Phone"]:::poe
+                                TES -. "Cat 6 (PoE)" .-> Intercom2["SIP Door Intercom"]:::poe
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <div class="col-lg-6">
@@ -254,5 +293,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
 </body>
 </html>
