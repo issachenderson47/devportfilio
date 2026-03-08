@@ -1,299 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Issac Henderson - Project Documentation" />
-    <meta name="author" content="Issac Henderson" />
-    <title>Project Documentation | Issac Henderson</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <style>
-        :root {
-            --tactical-blue: #004a99;
-            --military-dark: #1a1a1a;
-        }
-        body { font-family: 'Inter', sans-serif; color: #333; }
-        .military-header { font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; }
-        
-        .text-accent { color: var(--tactical-blue); }
-        .btn-tactical { background-color: var(--tactical-blue); color: white; border: none; }
-        .btn-tactical:hover { background-color: #003a7a; color: white; }
-        .border-accent { border-left: 4px solid var(--tactical-blue) !important; }
-        .nav-link:hover { color: var(--tactical-blue) !important; }
-        
-        /* Specific project page styles */
-        .project-meta { font-size: 0.9rem; font-weight: 600; color: #6c757d; text-transform: uppercase; }
-        .spec-list li { margin-bottom: 0.5rem; }
-        .portfolio-img { object-fit: cover; border-radius: 4px; border: 2px solid var(--military-dark); }
-        .diagnostic-step { border-left: 3px solid #dee2e6; padding-left: 1.5rem; position: relative; }
-        .diagnostic-step::before { content: ''; position: absolute; left: -9px; top: 0; width: 15px; height: 15px; border-radius: 50%; background: var(--tactical-blue); }
-        .gallery-caption { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; text-align: center; margin-top: 0.5rem; color: #6c757d; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Issac Henderson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{--bg:#080c10;--surface:#0d1117;--panel:#111920;--border:#1e2d3d;--accent:#00d4ff;--accent2:#ff6b35;--green:#39d353;--text:#c9d1d9;--muted:#8b949e;--white:#f0f6ff;--font-mono:'Space Mono',monospace;--font-body:'DM Sans',sans-serif;--font-display:'Bebas Neue',sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+    .cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.1s;mix-blend-mode:screen}
+    .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transition:all 0.15s;mix-blend-mode:screen}
+    .grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:60px 60px}
+    header{position:fixed;top:0;left:0;right:0;z-index:900;padding:0 48px;height:70px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,12,16,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .logo{font-family:var(--font-mono);font-size:13px;color:var(--accent);letter-spacing:0.05em;text-decoration:none}
+    .logo span{color:var(--muted)}
+    nav{display:flex;align-items:center;gap:36px}
+    nav a{font-family:var(--font-mono);font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;position:relative}
+    nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width 0.3s}
+    nav a:hover,nav a.active{color:var(--accent)}
+    nav a:hover::after,nav a.active::after{width:100%}
+    .nav-cta{color:var(--accent)!important;border:1px solid var(--accent);padding:8px 20px;border-radius:2px;transition:background 0.2s,color 0.2s}
+    .nav-cta:hover{background:var(--accent);color:var(--bg)!important}
+    .nav-cta::after{display:none!important}
+    .mobile-nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer}
+    .nav-links{display:flex;align-items:center;gap:36px}
+    .page-hero{padding:160px 48px 80px;position:relative;border-bottom:1px solid var(--border)}
+    .page-hero-glow{position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,212,255,0.06) 0%,transparent 70%);pointer-events:none}
+    .page-hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+    .page-tag{font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px}
+    .page-tag::before{content:'';width:40px;height:1px;background:var(--accent)}
+    .page-title{font-family:var(--font-display);font-size:clamp(56px,9vw,120px);line-height:0.9;color:var(--white);letter-spacing:0.02em;margin-bottom:32px}
+    .page-title span{color:var(--accent);display:block}
+    .page-sub{font-family:var(--font-mono);font-size:clamp(13px,2vw,15px);color:var(--muted);max-width:560px;line-height:1.7}
+    .filter-bar{padding:32px 0;border-bottom:1px solid var(--border);position:relative;z-index:1}
+    .filter-bar-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .filter-btn{font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:8px 18px;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:2px;cursor:pointer;transition:all 0.2s}
+    .filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,0.05)}
+    .projects-section{padding:80px 0 120px;position:relative;z-index:1}
+    .container{max-width:1200px;margin:0 auto;padding:0 48px}
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .project-card{background:var(--surface);border:1px solid var(--border);padding:40px 36px;position:relative;overflow:hidden;transition:border-color 0.25s,background 0.25s;display:flex;flex-direction:column}
+    .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform 0.3s}
+    .project-card:hover{border-color:var(--accent);background:var(--panel)}
+    .project-card:hover::before{transform:scaleX(1)}
+    .project-card.featured{grid-column:span 2}
+    .project-card.featured::before{background:var(--accent2)}
+    .project-card.featured:hover{border-color:var(--accent2)}
+    .project-num{font-family:var(--font-display);font-size:72px;color:var(--border);line-height:1;margin-bottom:20px;transition:color 0.25s}
+    .project-card:hover .project-num{color:var(--accent)}
+    .project-card.featured:hover .project-num{color:var(--accent2)}
+    .project-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .project-category{font-family:var(--font-mono);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.2em}
+    .project-card.featured .project-category{color:var(--accent2)}
+    .project-year{font-family:var(--font-mono);font-size:10px;color:var(--muted)}
+    .project-title{font-size:20px;font-weight:600;color:var(--white);line-height:1.3;margin-bottom:14px}
+    .project-card.featured .project-title{font-size:24px}
+    .project-desc{font-size:14px;color:var(--text);line-height:1.75;font-weight:300;margin-bottom:24px;flex:1}
+    .project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+    .project-tag{font-family:var(--font-mono);font-size:10px;color:var(--muted);background:var(--bg);border:1px solid var(--border);padding:4px 10px;border-radius:2px}
+    .project-outcomes{list-style:none;margin-bottom:24px}
+    .project-outcomes li{font-family:var(--font-mono);font-size:11px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+    .project-outcomes li:last-child{border-bottom:none}
+    .project-outcomes li::before{content:'→';color:var(--accent);font-size:10px;flex-shrink:0}
+    .project-card.featured .project-outcomes li::before{color:var(--accent2)}
+    footer{border-top:1px solid var(--border);padding:40px 0;position:relative;z-index:1}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between}
+    .footer-logo{font-family:var(--font-mono);font-size:13px;color:var(--accent)}
+    .footer-copy{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+    .footer-social{display:flex;gap:20px}
+    .footer-social a{color:var(--muted);text-decoration:none;font-size:16px;transition:color 0.2s}
+    .footer-social a:hover{color:var(--accent)}
+    @media(max-width:900px){
+      header{padding:0 24px}
+      .nav-links{display:none;position:absolute;top:70px;left:0;right:0;background:var(--surface);flex-direction:column;padding:24px;gap:20px;border-bottom:1px solid var(--border)}
+      .nav-links.open{display:flex}
+      .mobile-nav-toggle{display:block}
+      .page-hero{padding:120px 24px 60px}
+      .container,.filter-bar-inner{padding:0 24px}
+      .projects-grid{grid-template-columns:1fr}
+      .project-card.featured{grid-column:span 1}
+      .footer-inner{flex-direction:column;gap:20px;text-align:center}
+    }
+    .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+  </style>
 </head>
-<body class="d-flex flex-column h-100 bg-light">
-<main class="flex-shrink-0">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 sticky-top">
-        <div class="container px-5">
-            <a class="navbar-brand fw-bold" href="index.html">ISSAC <span class="text-accent">HENDERSON</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder text-uppercase">
-                    <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#experience">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link text-accent" href="projects.html">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <header class="py-5 bg-dark text-white">
-        <div class="container px-5 pb-4 mt-4 text-center">
-            <div class="badge bg-primary text-white mb-3 py-2 px-3 text-uppercase fw-bold" style="background-color: var(--tactical-blue) !important;">
-                Field Operations • Case Studies
-            </div>
-            <h1 class="display-5 military-header mb-3">Project <span class="text-accent">Documentation</span></h1>
-            <p class="lead fw-light w-75 mx-auto">Detailed technical breakdowns of recent physical network infrastructure deployments, cabling standards, and server hardware diagnostics.</p>
-        </div>
-    </header>
-
-    <section class="py-5 bg-white border-bottom">
-        <div class="container px-5 my-5">
-            <div class="row gx-5 mb-5">
-                <div class="col-lg-12 text-center">
-                    <div class="project-meta mb-2">Enterprise Infrastructure Deployment</div>
-                    <h2 class="display-6 military-header text-dark">Structured Cabling & Hierarchical Network</h2>
-                    <p class="lead w-75 mx-auto">Engineered a scalable hierarchical star backbone routing Category 6 and OM4 Fiber Optics from a central Equipment Room (ER) to multiple localized Telecommunications Rooms (TRs) and Enclosures (TEs).</p>
-                </div>
-            </div>
-
-            <div class="row gx-5">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h5 class="fw-bolder text-uppercase mb-3 border-bottom pb-2">Operational Objectives</h5>
-                    <ul class="list-unstyled spec-list mb-4 text-muted">
-                        <li><i class="bi bi-check-circle-fill text-accent me-2"></i> Deliver standards-compliant, future-proof cabling infrastructure.</li>
-                        <li><i class="bi bi-check-circle-fill text-accent me-2"></i> Support high-speed data, voice, and video applications.</li>
-                        <li><i class="bi bi-check-circle-fill text-accent me-2"></i> Create a scalable, easily maintainable network backbone with excellent fault isolation.</li>
-                    </ul>
-
-                    <h5 class="fw-bolder text-uppercase mb-3 border-bottom pb-2 mt-4">Technical Execution</h5>
-                    <div class="d-flex mb-3">
-                        <div class="me-3 fs-3 text-accent"><i class="bi bi-diagram-3-fill"></i></div>
-                        <div>
-                            <strong>Hierarchical Topology</strong>
-                            <p class="text-muted small mb-0">Interconnected individual star topologies. Established backbone runs consisting of 6 Cat 6 cables and 2 fiber optic cables from ER (North) to TR East, TR West, and TE South through a central conduit cross box.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <div class="me-3 fs-3 text-accent"><i class="bi bi-hdd-network-fill"></i></div>
-                        <div>
-                            <strong>Copper & Fiber Implementation</strong>
-                            <p class="text-muted small mb-0">Installed and terminated Cat 6 UTP (T568A/B configs) and coaxial (F-connector). Replaced legacy OS1 with high-bandwidth OM4 Multimode Fiber. Terminated all horizontal and backbone cabling at patch panels for organized cross-connects.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <div class="me-3 fs-3 text-accent"><i class="bi bi-shield-check"></i></div>
-                        <div>
-                            <strong>Compliance & Standards</strong>
-                            <p class="text-muted small mb-0">Performed all work in strict accordance with ANSI/TIA-568 guidelines and BICSI testing standards to ensure top-tier performance, safety, and code compliance.</p>
-                        </div>
-                    </div>
-
-                    <div class="card border-dark shadow-sm my-4">
-                        <div class="card-header bg-dark text-white fw-bold text-uppercase">
-                            <i class="bi bi-diagram-3-fill me-2"></i> Logical Topology Blueprint
-                        </div>
-                        <div class="card-body bg-light text-center overflow-auto">
-                            <div class="mermaid">
-                                graph TD
-                                %% Styling for CAD look
-                                classDef hub fill:#004a99,stroke:#000,stroke-width:2px,color:#fff;
-                                classDef node fill:#e0e0e0,stroke:#333,stroke-width:2px,color:#000;
-                                classDef poe fill:#f9f9f9,stroke:#d9534f,stroke-width:2px,stroke-dasharray: 5 5;
-
-                                %% Main Equipment Room
-                                ER["ER (North)<br>Main Distribution Hub<br>Core Switches"]:::hub
-
-                                %% Telecommunications Rooms / Enclosures
-                                TRE["TR (East)<br>Access Switches"]:::node
-                                TRW["TR (West)<br>Access Switches"]:::node
-                                TES["TE (South)<br>Access Switches"]:::node
-
-                                %% Backbone Connections (ER to TRs)
-                                ER == "2x OM4 Fiber<br>6x Cat 6 Copper" ==> TRE
-                                ER == "2x OM4 Fiber<br>6x Cat 6 Copper" ==> TRW
-                                ER == "2x OM4 Fiber<br>6x Cat 6 Copper" ==> TES
-
-                                %% Horizontal PoE Runs
-                                TRE -. "Cat 6 (IEEE 802.3at)" .-> Cam1["PoE+ IP Security Camera"]:::poe
-                                TRE -. "Cat 6 (IEEE 802.3af)" .-> Phone1["VoIP Desk Phone"]:::poe
-
-                                TRW -. "Cat 6 (IEEE 802.3at)" .-> Cam2["PoE+ IP Security Camera"]:::poe
-                                TRW -. "Cat 6 (PoE)" .-> Intercom1["SIP Door Intercom"]:::poe
-
-                                TES -. "Cat 6 (IEEE 802.3af)" .-> Phone2["VoIP Desk Phone"]:::poe
-                                TES -. "Cat 6 (PoE)" .-> Intercom2["SIP Door Intercom"]:::poe
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <img src="assets/er_north.jpg" alt="Acting ER North Handling Backbone Cabling" class="img-fluid portfolio-img w-100" />
-                            <div class="gallery-caption">Acting ER (North) - Main Backbone Hub</div>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="assets/central_conduit.jpg" alt="Central Conduit Routing" class="img-fluid portfolio-img w-100" />
-                            <div class="gallery-caption">Central Conduit Cross Box</div>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="assets/te_south.jpg" alt="TE South Simulated" class="img-fluid portfolio-img w-100" />
-                            <div class="gallery-caption">TE South Enclosure</div>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="assets/tr_east.jpg" alt="TR East Rack" class="img-fluid portfolio-img w-100" />
-                            <div class="gallery-caption">Telecommunications Room (TR) East</div>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="assets/tr_west.jpg" alt="TR West Rack" class="img-fluid portfolio-img w-100" />
-                            <div class="gallery-caption">Telecommunications Room (TR) West</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5 bg-light border-bottom">
-        <div class="container px-5 my-5">
-            <div class="row gx-5">
-                <div class="col-lg-12 mb-4 text-center">
-                    <div class="project-meta mb-2">Cross-Connect Infrastructure</div>
-                    <h2 class="display-6 military-header text-dark">110 & 66 Block Terminations</h2>
-                    <p class="lead w-75 mx-auto">Executed precision punch-down terminations for voice and data cross-connects, ensuring immaculate wire management and industry-standard bend radiuses.</p>
-                </div>
-            </div>
-            
-            <div class="row gx-5 mt-4">
-                <div class="col-md-6 mb-5">
-                    <div class="card h-100 shadow-sm border-0 border-accent bg-white">
-                        <div class="card-body p-4">
-                            <h4 class="fw-bolder text-uppercase mb-3"><i class="bi bi-hdd-network text-accent me-2"></i> 110 Block Systems</h4>
-                            <p class="text-muted mb-4">Terminated Unshielded Twisted Pair (UTP) cabling on high-density 110 punch-down blocks. Maintained optimal pair twist right up to the point of termination to mitigate near-end crosstalk (NEXT).</p>
-                            
-                            <img src="assets/IMG_4563.jpeg" alt="110 Block Termination Complete" class="img-fluid portfolio-img mb-3 w-100" />
-                            <div class="row g-2">
-                                <div class="col-6"><img src="assets/IMG_4573.jpeg" alt="110 Block Wiring Detail" class="img-fluid portfolio-img w-100" /></div>
-                                <div class="col-6"><img src="assets/IMG_4275.jpeg" alt="110 Block Routing Detail" class="img-fluid portfolio-img w-100" /></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 mb-5">
-                    <div class="card h-100 shadow-sm border-0 border-accent bg-white">
-                        <div class="card-body p-4">
-                            <h4 class="fw-bolder text-uppercase mb-3"><i class="bi bi-telephone-fill text-accent me-2"></i> 66 Block Systems</h4>
-                            <p class="text-muted mb-4">Configured traditional 66 blocks for analog voice distribution and legacy systems. Demonstrated clean cable routing, proper strain relief, and precise punch-down force calibration.</p>
-                            
-                            <img src="assets/IMG_4522.jpeg" alt="66 Block Full View" class="img-fluid portfolio-img mb-3 w-100" />
-                            <img src="assets/295E133C-01E4-459D-B1DA-29074D8EFE18.jpeg" alt="66 Block Close Up" class="img-fluid portfolio-img w-100" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5 bg-white">
-        <div class="container px-5 my-5">
-            <div class="row gx-5 mb-4">
-                <div class="col-lg-12 text-center">
-                    <div class="project-meta mb-2">Systems Engineering & Hardware Repair</div>
-                    <h2 class="display-6 military-header text-dark">Dell Server Hardware & OS Restoration</h2>
-                    <p class="lead w-75 mx-auto mb-4">Comprehensive root-cause analysis and remediation of a severe boot loop failure, encompassing hardware isolation and operating system integrity repair.</p>
-                </div>
-            </div>
-
-            <div class="alert alert-secondary border-accent mb-5 shadow-sm" role="alert">
-                <div class="row">
-                    <div class="col-md-6 border-end border-secondary">
-                        <strong><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i> Issue:</strong> Server stuck in boot loop/hang state with No POST and No VGA Output.
-                    </div>
-                    <div class="col-md-6 ps-md-4">
-                        <strong><i class="bi bi-wrench-adjustable-circle-fill text-accent me-2"></i> Root Cause:</strong> Defective RAM module causing POST failure, leading to Windows Server OS file corruption.
-                    </div>
-                </div>
-            </div>
-
-            <div class="row gx-5">
-                <div class="col-lg-6">
-                    <div class="diagnostic-step mb-4">
-                        <h5 class="fw-bolder">1. Initial Identification</h5>
-                        <p class="text-muted mb-2">Remote checks via IPMI confirmed the system was receiving power but failing to initialize video output. Proceeded to physical hardware diagnostics.</p>
-                    </div>
-
-                    <div class="diagnostic-step mb-4">
-                        <h5 class="fw-bolder">2. Hardware Isolation</h5>
-                        <p class="text-muted mb-2">Tested CMOS battery (nominal voltage). Proceeded to reseat memory modules. Intermittent video return indicated a hardware fault, not a connection issue.</p>
-                    </div>
-
-                    <div class="diagnostic-step mb-4">
-                        <h5 class="fw-bolder">3. Fault Isolation & POST Success</h5>
-                        <p class="text-muted mb-2">Systematically removed RAM sticks to isolate the defective component. Successfully identified one faulty module. Server POSTed with stable video output (operating at 2GB for lab constraints).</p>
-                        <img src="assets/HEIF_Image_POST.jpg" alt="Successful POST Screen" class="img-fluid portfolio-img w-100 mt-2" />
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="card bg-light border-0 shadow-sm h-100">
-                        <div class="card-body p-5">
-                            <h4 class="fw-bolder mb-4 border-bottom pb-2">Operating System Restoration</h4>
-                            <p class="text-muted"><strong>Challenge:</strong> Repeated failed boot attempts corrupted Windows Server OS files, halting boot sequence even after hardware repair.</p>
-                            
-                            <ul class="list-unstyled mb-4 text-muted small">
-                                <li class="mb-2"><i class="bi bi-arrow-right-short text-accent fs-5"></i> Accessed the <strong>Windows Recovery Environment (WinRE)</strong>.</li>
-                                <li class="mb-2"><i class="bi bi-arrow-right-short text-accent fs-5"></i> Executed built-in <strong>Startup Repair</strong> to rebuild Boot Configuration Data (BCD).</li>
-                                <li class="mb-2"><i class="bi bi-arrow-right-short text-accent fs-5"></i> Executed a Safe Mode (Network Enabled) boot to verify OS integrity before a standard restart.</li>
-                            </ul>
-
-                            <h5 class="fw-bolder mt-4 mb-3 border-bottom pb-2">Final Verification</h5>
-                            <ul class="list-group list-group-flush mb-4 small">
-                                <li class="list-group-item bg-transparent px-0"><i class="bi bi-check2-circle text-success me-2"></i> <strong>Hardware:</strong> Passed POST, stable output.</li>
-                                <li class="list-group-item bg-transparent px-0"><i class="bi bi-check2-circle text-success me-2"></i> <strong>Software:</strong> Windows Server boot sequence successful.</li>
-                                <li class="list-group-item bg-transparent px-0"><i class="bi bi-info-circle text-primary me-2"></i> <strong>Network:</strong> Fully operational; login halted intentionally due to isolated Active Directory (AD) lab configuration unreachable from current domain.</li>
-                            </ul>
-                            
-                            <img src="assets/HEIF_Image_Login.jpg" alt="Windows Login Screen" class="img-fluid portfolio-img w-100" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-5 pt-4 border-top">
-                <a href="index.html" class="btn btn-outline-dark btn-lg px-5 py-3 fw-bolder text-uppercase">
-                    <i class="bi bi-arrow-left me-2"></i> Return to Main Profile
-                </a>
-            </div>
-        </div>
-    </section>
-
-</main>
-
-<footer class="bg-dark text-white py-4 mt-auto">
-    <div class="container px-5 text-center">
-        <div class="small m-0 text-muted">Issac Henderson | 2026 | Built for Infrastructure</div>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="grid-bg"></div>
+  <header>
+    <a href="index.html" class="logo">IH<span>.dev</span></a>
+    <button class="mobile-nav-toggle" id="mobileToggle"><i class="fa fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <nav>
+        <a href="index.html#about">About</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="index.html#certs">Certs</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="contact.html" class="nav-cta">Hire Me</a>
+      </nav>
     </div>
-</footer>
+  </header>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
+  <div class="page-hero">
+    <div class="page-hero-glow"></div>
+    <div class="page-hero-inner">
+      <div class="page-tag">Portfolio</div>
+      <h1 class="page-title">Selected<span>Projects</span></h1>
+      <p class="page-sub">Real-world infrastructure, security, and systems work — built, deployed, and measured.</p>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-bar-inner">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="iam">IAM / Security</button>
+      <button class="filter-btn" data-filter="network">Network</button>
+      <button class="filter-btn" data-filter="cabling">Cabling</button>
+      <button class="filter-btn" data-filter="automation">Automation</button>
+    </div>
+  </div>
+
+  <main>
+    <section class="projects-section">
+      <div class="container">
+        <div class="projects-grid">
+          <div class="project-card featured fade-up" data-category="iam">
+            <div class="project-num">01</div>
+            <div class="project-meta">
+              <div class="project-category">IAM / Security — Featured</div>
+              <div class="project-year">2022 – 2023</div>
+            </div>
+            <div class="project-title">Enterprise Okta SSO and IAM Platform — Wells Fargo</div>
+            <div class="project-desc">Administered a full enterprise Okta environment for one of the largest financial institutions in the US. Responsible for SSO configuration, MFA enforcement, user lifecycle management, and third-party integrations across strict financial compliance environments. Managed privileged access vaulting via CyberArk and identity governance across global user base.</div>
+            <div class="project-tags">
+              <span class="project-tag">Okta</span><span class="project-tag">CyberArk PAM</span><span class="project-tag">Citrix</span><span class="project-tag">Azure AD</span><span class="project-tag">SSO</span><span class="project-tag">MFA</span><span class="project-tag">Zero Trust</span>
+            </div>
+            <ul class="project-outcomes">
+              <li>99.97% uptime SLA maintained across full engagement</li>
+              <li>10,000+ users secured across financial and healthcare environments</li>
+              <li>2,000+ user Okta environment administered end-to-end</li>
+            </ul>
+          </div>
+
+          <div class="project-card fade-up" data-category="network">
+            <div class="project-num">02</div>
+            <div class="project-meta">
+              <div class="project-category">Network Infrastructure</div>
+              <div class="project-year">2021 – 2022</div>
+            </div>
+            <div class="project-title">Multi-Site MSP Network Operations</div>
+            <div class="project-desc">Managed network infrastructure, security, and Office 365 across 50+ client sites in a multi-tenant MSP environment using Datto RMM. Senior escalation point for site-wide outages.</div>
+            <div class="project-tags">
+              <span class="project-tag">SonicWall</span><span class="project-tag">Datto RMM</span><span class="project-tag">Sophos</span><span class="project-tag">DHCP</span><span class="project-tag">VLANs</span>
+            </div>
+            <ul class="project-outcomes">
+              <li>50+ distinct client sites managed concurrently</li>
+              <li>Resolved routing failures, DHCP exhaustion, firewall outages</li>
+            </ul>
+          </div>
+
+          <div class="project-card fade-up" data-category="cabling">
+            <div class="project-num">03</div>
+            <div class="project-meta">
+              <div class="project-category">Structured Cabling</div>
+              <div class="project-year">2026</div>
+            </div>
+            <div class="project-title">BICSI-Standard Fiber and Copper Installation</div>
+            <div class="project-desc">End-to-end structured cabling including Cat5e/Cat6 UTP and optical fiber. ANSI/TIA-607 compliant grounding, firestopping, and Tier 1 OLTS testing for high-bandwidth uplinks.</div>
+            <div class="project-tags">
+              <span class="project-tag">BICSI</span><span class="project-tag">LC/SC Fiber</span><span class="project-tag">OLTS</span><span class="project-tag">TBB Grounding</span>
+            </div>
+            <ul class="project-outcomes">
+              <li>ANSI/TIA-607 compliant grounding and bonding implemented</li>
+              <li>Tier 1 dB loss testing passed on all uplink runs</li>
+            </ul>
+          </div>
+
+          <div class="project-card fade-up" data-category="automation">
+            <div class="project-num">04</div>
+            <div class="project-meta">
+              <div class="project-category">Automation</div>
+              <div class="project-year">2021 – 2022</div>
+            </div>
+            <div class="project-title">NOC Server Health Automation Scripts</div>
+            <div class="project-desc">Authored PowerShell automation scripts to monitor server health and bootability across a multi-client MSP portfolio. Scripts reduced manual NOC check time and flagged issues proactively.</div>
+            <div class="project-tags">
+              <span class="project-tag">PowerShell</span><span class="project-tag">Datto</span><span class="project-tag">NOC</span><span class="project-tag">Windows Server</span>
+            </div>
+            <ul class="project-outcomes">
+              <li>Automated DR appliance integrity verification across all sites</li>
+              <li>Reduced manual overnight NOC checks significantly</li>
+            </ul>
+          </div>
+
+          <div class="project-card fade-up" data-category="automation">
+            <div class="project-num">05</div>
+            <div class="project-meta">
+              <div class="project-category">Automation / Operations</div>
+              <div class="project-year">2016 – 2021</div>
+            </div>
+            <div class="project-title">Nationwide Google Workspace and IVR Deployment — Topgolf</div>
+            <div class="project-desc">Designed and deployed Google Workspace architecture and IVR call routing logic across 60+ Topgolf venues nationwide. Transformed a manual sticky-note workflow into a centralized, standardized knowledge base.</div>
+            <div class="project-tags">
+              <span class="project-tag">Google Workspace</span><span class="project-tag">IVR</span><span class="project-tag">Google Sites</span>
+            </div>
+            <ul class="project-outcomes">
+              <li>85% reduction in call processing time</li>
+              <li>16,170 operational hours saved annually</li>
+              <li>60+ venues standardized on one platform</li>
+            </ul>
+          </div>
+
+          <div class="project-card fade-up" data-category="iam">
+            <div class="project-num">06</div>
+            <div class="project-meta">
+              <div class="project-category">ITSM / Support Ops</div>
+              <div class="project-year">2023 – 2024</div>
+            </div>
+            <div class="project-title">ServiceNow KB and Ticket Reduction — BioLife</div>
+            <div class="project-desc">Built a structured Salesforce knowledge base and ticketing templates for BioLife Plasma Services. Identified top recurring issue categories and created resolution playbooks that measurably reduced escalation volume.</div>
+            <div class="project-tags">
+              <span class="project-tag">ServiceNow</span><span class="project-tag">Salesforce KB</span><span class="project-tag">ITSM</span>
+            </div>
+            <ul class="project-outcomes">
+              <li>30% reduction in 3 major recurring ticket categories</li>
+              <li>95% first-contact resolution rate on complex blockers</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="fade-up" style="margin-top:64px;text-align:center;padding:64px;background:var(--surface);border:1px dashed var(--border)">
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px">// More Coming Soon</div>
+          <div style="font-family:var(--font-display);font-size:36px;color:var(--white);margin-bottom:12px">More Projects In Progress</div>
+          <div style="font-size:14px;color:var(--muted);font-weight:300;margin-bottom:32px">Currently building CCNA lab environments and network automation projects. Check back soon.</div>
+          <a href="contact.html" style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:2px;background:transparent;color:var(--text);border:1px solid var(--border);display:inline-flex;align-items:center;gap:10px;transition:all 0.25s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+            <i class="fa fa-envelope"></i> Get In Touch
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">IH<span style="color:var(--muted)">.dev</span></div>
+        <div class="footer-copy">© 2026 Issac Henderson — All rights reserved</div>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/issachenderson/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:buildwithissac@gmail.com"><i class="fa fa-envelope"></i></a>
+          <a href="https://github.com/issachenderson47/" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-5+'px';cursor.style.top=my-5+'px'});
+    function animateRing(){rx+=(mx-rx)*0.18;ry+=(my-ry)*0.18;ring.style.left=rx-18+'px';ring.style.top=ry-18+'px';requestAnimationFrame(animateRing)}
+    animateRing();
+    document.querySelectorAll('a,button,.project-card,.filter-btn').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2.5)';ring.style.transform='scale(1.4)'});
+      el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';ring.style.transform='scale(1)'});
+    });
+    document.getElementById('mobileToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+    document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+    const filterBtns=document.querySelectorAll('.filter-btn');
+    const cards=document.querySelectorAll('.project-card');
+    filterBtns.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        filterBtns.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const f=btn.dataset.filter;
+        cards.forEach(c=>{c.style.display=(f==='all'||c.dataset.category===f)?'flex':'none'});
+      });
+    });
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});
+    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+  </script>
 </body>
 </html>
