@@ -82,6 +82,10 @@
       background-size:22px 22px}
     .tb-bar{background:var(--tbar);padding:11px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.05);position:relative;z-index:1}
     .tb-body{padding:18px 20px;line-height:2;position:relative;z-index:1}
+    .tl{display:flex;gap:8px}.tp{color:var(--tcyan)}.tc{color:var(--ttx)}
+    .to{color:var(--tmut);padding-left:16px}.to .ok{color:var(--tgrn)}.to .wa{color:var(--torg)}
+    .cur{display:inline-block;width:8px;height:13px;background:var(--tcyan);animation:blink 1.2s step-end infinite;vertical-align:middle}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
     /* ABOUT */
     #about{padding:var(--sec);background:var(--bg2)}
@@ -264,10 +268,15 @@
             <span style="color:var(--tmut);font-size:11px;margin-left:auto">status.sh</span>
           </div>
           <div class="tb-body">
-            <div class="tl"><span class="tp">$</span><span class="tc">uptime</span></div>
-            <div class="to"><span class="ok">↑</span> 99.97% SLA · zero-trust aligned</div>
-            <div class="tl" style="margin-top:6px"><span class="tp">$</span><span class="tc">location</span></div>
-            <div class="to"><span class="ok">→</span> New York, NY · remote available</div>
+            <div class="tl"><span class="tp">$</span><span class="tc">whoami</span></div>
+            <div class="to"><span class="ok">→</span> Issac Henderson, IT Infrastructure Engineer</div>
+            <div class="tl" style="margin-top:6px"><span class="tp">$</span><span class="tc">uptime</span></div>
+            <div class="to"><span class="ok">↑</span> 7+ yrs · 99.97% SLA · zero-trust aligned</div>
+            <div class="tl" style="margin-top:6px"><span class="tp">$</span><span class="tc">cat certifications.txt</span></div>
+            <div class="to"><span class="ok">✓</span> BICSI INST1 &nbsp;·&nbsp; <span class="ok">✓</span> AWS Solutions Architect</div>
+            <div class="to"><span class="ok">✓</span> OSHA 30 + SST 40 &nbsp;·&nbsp; <span class="wa">↻</span> CCNA in progress</div>
+            <div class="tl" style="margin-top:6px"><span class="tp">$</span><span class="tc">ping buildwithissac@gmail.com</span></div>
+            <div class="to"><span class="ok">PONG</span> — ready to connect. &nbsp;<span class="cur"></span></div>
           </div>
         </div>
       </div>
