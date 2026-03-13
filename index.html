@@ -7,379 +7,483 @@
   <meta name="description" content="IT Infrastructure Engineer specializing in Network, Systems, and Security. Based in New York, NY.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    @font-face { font-family: 'SF Pro Display'; src: local('SF Pro Display'), local('.SFNSDisplay'); }
     :root {
-      --bg:#ffffff;--bg-alt:#f5f5f7;--surface:#ffffff;--panel:#fbfbfd;
-      --border:#d2d2d7;--border-light:#e8e8ed;
-      --text:#1d1d1f;--text-secondary:#6e6e73;--text-tertiary:#86868b;
-      --accent:#0071e3;--accent-hover:#0077ED;
-      --green:#34c759;--green-dark:#248a3d;--orange:#ff9500;--orange-dark:#b25000;
-      --terminal-bg:#1d1d1f;--terminal-surface:#2d2d2f;--terminal-border:#3d3d3f;
-      --terminal-text:#e0e0e0;--terminal-muted:#8e8e93;
-      --terminal-accent:#64d2ff;--terminal-green:#30d158;--terminal-orange:#ff9f0a;
-      --font-display:'Inter Tight','SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;
-      --font-body:'Inter Tight','SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;
-      --font-mono:'JetBrains Mono',monospace;
-      --max-width:1080px;--section-padding:140px 0;--radius:14px;
+      --bg:#fff; --bg2:#f5f5f7; --bdr:#d2d2d7; --bdr2:#e8e8ed;
+      --tx:#1d1d1f; --tx2:#6e6e73; --tx3:#86868b;
+      --blue:#0071e3; --blue2:#0077ed;
+      --pu:#632ca6; --pu2:#7b4dbf; --pub:rgba(99,44,166,.07); --pub2:rgba(99,44,166,.22);
+      --gr:#34c759; --grd:#248a3d; --or:#ff9500; --ord:#b25000;
+      --tbg:#1a1f2e; --tbar:#222736; --ttx:#cdd6f4; --tmut:#6c7086;
+      --tcyan:#64d2ff; --tgrn:#30d158; --torg:#ff9f0a;
+      --ff:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;
+      --fm:'JetBrains Mono',monospace;
+      --mw:1080px; --sec:140px 0; --rad:14px;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-    body{font-family:var(--font-body);background:var(--bg);color:var(--text);cursor:default;line-height:1.5;overflow-x:hidden}
-    ::selection{background:var(--accent);color:white}
+    body{font-family:var(--ff);background:var(--bg);color:var(--tx);line-height:1.5;overflow-x:hidden}
+    ::selection{background:var(--pu);color:#fff}
 
-    /* NAV */
-    header{position:fixed;top:0;left:0;right:0;z-index:900;height:52px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.72);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border-light)}
-    .header-inner{max-width:var(--max-width);width:100%;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
-    .logo{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
-    .logo span{font-weight:400;color:var(--text-tertiary)}
-    nav{display:flex;align-items:center;gap:32px}
-    nav a{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--text-secondary);text-decoration:none;letter-spacing:0.02em;transition:color 0.2s}
-    nav a:hover{color:var(--text)}
-    .nav-cta{font-size:12px;font-weight:500;color:white!important;background:var(--accent);padding:6px 16px;border-radius:980px;transition:background 0.2s}
-    .nav-cta:hover{background:var(--accent-hover);color:white!important}
-    .mobile-nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:18px;cursor:pointer}
+    .stripe{height:3px;background:linear-gradient(90deg,var(--pu),var(--pu2),var(--blue));position:fixed;top:0;left:0;right:0;z-index:1000}
+
+    header{position:fixed;top:3px;left:0;right:0;z-index:900;height:52px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--bdr2)}
+    .nav-w{max-width:var(--mw);width:100%;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-weight:700;font-size:16px;color:var(--tx);text-decoration:none;letter-spacing:-.02em}
+    .logo span{font-weight:400;color:var(--tx3)}
     .nav-links{display:flex;align-items:center;gap:32px}
+    nav{display:flex;align-items:center;gap:32px}
+    nav a{font-size:12px;font-weight:500;color:var(--tx2);text-decoration:none;transition:color .2s}
+    nav a:hover{color:var(--tx)}
+    .ncta{color:#fff!important;background:var(--pu);padding:6px 16px;border-radius:980px;transition:background .2s}
+    .ncta:hover{background:var(--pu2)!important}
+    .mob{display:none;background:none;border:none;color:var(--tx);font-size:18px;cursor:pointer}
 
-    /* HERO */
-    #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 24px 80px;position:relative;overflow:hidden}
-    .hero-grid{max-width:var(--max-width);width:100%;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
-    .hero-content{position:relative;z-index:1}
-    .hero-eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px}
-    .hero-name{font-family:var(--font-display);font-weight:800;font-size:clamp(52px,7vw,80px);line-height:1.0;letter-spacing:-0.035em;color:var(--text);margin-bottom:24px}
-    .hero-subtitle{font-size:clamp(16px,2vw,19px);font-weight:400;color:var(--text-secondary);line-height:1.6;max-width:520px;margin-bottom:36px;letter-spacing:-0.01em}
-    .hero-subtitle strong{color:var(--text);font-weight:600}
-    .hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
-    .badge{font-family:var(--font-mono);font-size:11px;font-weight:400;padding:5px 12px;border-radius:980px;background:var(--bg-alt);color:var(--text-secondary);border:1px solid var(--border-light);transition:all 0.2s}
-    .badge:hover{border-color:var(--border);color:var(--text)}
-    .badge.active{background:rgba(52,199,89,0.08);border-color:rgba(52,199,89,0.3);color:var(--green-dark)}
-    .badge.active::before{content:'● ';font-size:7px;vertical-align:1px}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{font-family:var(--font-body);font-size:14px;font-weight:500;text-decoration:none;padding:12px 28px;border-radius:980px;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;letter-spacing:-0.01em}
-    .btn-primary{background:var(--accent);color:white}
-    .btn-primary:hover{background:var(--accent-hover);transform:scale(1.02)}
-    .btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-    .btn-outline:hover{background:rgba(0,113,227,0.06)}
+    /* HERO — dark with dot grid */
+    #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 24px 80px;position:relative;overflow:hidden;background:#0f1117}
+    #hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+      background-image:radial-gradient(circle,rgba(99,44,166,.22) 1px,transparent 1px),radial-gradient(circle,rgba(0,113,227,.12) 1px,transparent 1px);
+      background-size:40px 40px,80px 80px;background-position:0 0,20px 20px}
+    #hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:180px;z-index:3;pointer-events:none;
+      background:linear-gradient(to bottom,transparent,#fff)}
+    #hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;display:block}
+    .hero-grid{position:relative;z-index:4;max-width:var(--mw);width:100%;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+    .hero-eyebrow{font-family:var(--fm);font-size:11px;font-weight:500;color:#a78bfa;letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px}
+    .hero-name{font-weight:800;font-size:clamp(52px,7vw,80px);line-height:1;letter-spacing:-.035em;color:#fff;margin-bottom:24px}
+    .hero-sub{font-size:clamp(16px,2vw,19px);color:rgba(255,255,255,.65);line-height:1.65;max-width:520px;margin-bottom:36px}
+    .hero-sub strong{color:rgba(255,255,255,.9);font-weight:600}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+    .badge{font-family:var(--fm);font-size:11px;padding:5px 12px;border-radius:980px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12);transition:all .2s}
+    .badge:hover{border-color:rgba(255,255,255,.3);color:#fff}
+    .badge.on{background:rgba(52,199,89,.12);border-color:rgba(52,199,89,.35);color:#30d158}
+    .badge.on::before{content:'● ';font-size:7px;vertical-align:1px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{font-family:var(--ff);font-size:14px;font-weight:500;text-decoration:none;padding:12px 28px;border-radius:980px;transition:all .2s;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;letter-spacing:-.01em}
+    .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue2);transform:scale(1.02)}
+    .btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}.btn-ghost:hover{background:rgba(255,255,255,.18)}
+    .btn-pu{background:var(--pu);color:#fff}.btn-pu:hover{background:var(--pu2);transform:scale(1.02)}
+    .btn-out-pu{background:transparent;color:var(--pu);border:1px solid var(--pu)}.btn-out-pu:hover{background:var(--pub)}
+    .btn-out-blue{background:transparent;color:var(--blue);border:1px solid var(--blue)}.btn-out-blue:hover{background:rgba(0,113,227,.06)}
 
     /* TERMINAL */
-    .terminal{width:400px;background:var(--terminal-bg);border-radius:12px;overflow:hidden;font-family:var(--font-mono);font-size:12px;box-shadow:0 20px 60px rgba(0,0,0,0.12),0 0 0 1px rgba(0,0,0,0.06);flex-shrink:0}
-    .terminal-bar{background:var(--terminal-surface);padding:12px 16px;display:flex;align-items:center;gap:8px}
-    .dot{width:12px;height:12px;border-radius:50%}
-    .dot-r{background:#ff5f57}.dot-y{background:#febc2e}.dot-g{background:#28c840}
-    .terminal-title{color:var(--terminal-muted);font-size:11px;margin-left:auto}
-    .terminal-body{padding:20px;line-height:2}
-    .t-line{display:flex;gap:8px}
-    .t-prompt{color:var(--terminal-accent)}.t-cmd{color:var(--terminal-text)}
-    .t-out{color:var(--terminal-muted);padding-left:16px}
-    .t-out span{color:var(--terminal-green)}.t-out .warn{color:var(--terminal-orange)}
-    .t-cursor{display:inline-block;width:8px;height:14px;background:var(--terminal-accent);animation:blink 1.2s step-end infinite;vertical-align:middle}
+    .terminal{width:430px;background:var(--tbg);border-radius:14px;overflow:hidden;font-family:var(--fm);font-size:13.5px;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.07);flex-shrink:0;position:relative}
+    .terminal::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+      background-image:radial-gradient(circle,rgba(99,44,166,.14) 1px,transparent 1px);
+      background-size:24px 24px}
+    .tbar{background:var(--tbar);padding:14px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);position:relative;z-index:1}
+    .dot{width:13px;height:13px;border-radius:50%}
+    .dr{background:#ff5f57}.dy{background:#febc2e}.dg{background:#28c840}
+    .ttl{color:var(--tmut);font-size:12px;margin-left:auto}
+    .tbody{padding:22px 24px;line-height:2.1;position:relative;z-index:1}
+    .tl{display:flex;gap:10px}
+    .tp{color:var(--tcyan)}.tc{color:var(--ttx)}
+    .to{color:var(--tmut);padding-left:18px}
+    .to .ok{color:var(--tgrn)}.to .wa{color:var(--torg)}
+    .cur{display:inline-block;width:9px;height:15px;background:var(--tcyan);animation:blink 1.2s step-end infinite;vertical-align:middle}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-    /* SECTIONS */
-    .container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
-    .section-label{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--text-tertiary);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px}
-    .section-title{font-family:var(--font-display);font-weight:700;font-size:clamp(36px,5vw,56px);letter-spacing:-0.03em;color:var(--text);line-height:1.08;margin-bottom:16px}
-    .section-header{margin-bottom:64px}
+    /* SHARED */
+    .wrap{max-width:var(--mw);margin:0 auto;padding:0 24px}
+    .slbl{font-family:var(--fm);font-size:11px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+    .stitle{font-weight:700;font-size:clamp(36px,5vw,56px);letter-spacing:-.03em;color:var(--tx);line-height:1.08;margin-bottom:16px}
+    .shd{margin-bottom:64px}
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.visible{opacity:1;transform:none}
+
+    /* MINI TERMINAL BLOCK — reused in sections */
+    .term-block{background:var(--tbg);border-radius:var(--rad);overflow:hidden;font-family:var(--fm);font-size:12px;box-shadow:0 8px 32px rgba(0,0,0,.18),0 0 0 1px rgba(255,255,255,.06);margin-top:32px;position:relative}
+    .term-block::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+      background-image:radial-gradient(circle,rgba(99,44,166,.14) 1px,transparent 1px);
+      background-size:22px 22px}
+    .tb-bar{background:var(--tbar);padding:11px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.05);position:relative;z-index:1}
+    .tb-body{padding:18px 20px;line-height:2;position:relative;z-index:1}
 
     /* ABOUT */
-    #about{padding:var(--section-padding);background:var(--bg-alt)}
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-    .about-text p{font-size:16px;line-height:1.75;color:var(--text-secondary);margin-bottom:18px;font-weight:400}
-    .about-text p strong{color:var(--text);font-weight:600}
-    .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-light);margin-top:48px;border-radius:var(--radius);overflow:hidden}
+    #about{padding:var(--sec);background:var(--bg2)}
+    .ag{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .at p{font-size:16px;line-height:1.75;color:var(--tx2);margin-bottom:18px}
+    .at p strong{color:var(--tx);font-weight:600}
+    .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr2);margin-top:48px;border-radius:var(--rad);overflow:hidden}
     .stat-box{background:var(--bg);padding:28px;text-align:center}
-    .stat-num{font-family:var(--font-display);font-size:44px;font-weight:800;color:var(--text);letter-spacing:-0.03em;line-height:1}
-    .stat-label{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--text-tertiary);letter-spacing:0.08em;text-transform:uppercase;margin-top:6px}
-    .info-cards{display:flex;flex-direction:column;gap:1px;background:var(--border-light);border-radius:var(--radius);overflow:hidden}
-    .info-card{background:var(--bg);padding:16px 20px;display:flex;align-items:center;gap:14px;transition:background 0.15s}
-    .info-card:hover{background:var(--bg-alt)}
-    .info-card-icon{color:var(--text-tertiary);font-size:15px;width:20px;text-align:center;flex-shrink:0}
-    .info-card-label{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.06em}
-    .info-card-value{font-size:14px;color:var(--text);margin-top:1px;font-weight:500}
-    .ccna-banner{background:var(--bg);border:1px solid var(--border-light);border-radius:var(--radius);padding:20px 24px;margin:32px 0 0;display:flex;align-items:center;gap:16px}
-    .ccna-icon{font-size:22px;color:var(--orange)}
-    .ccna-title{font-family:var(--font-body);font-size:14px;color:var(--text);font-weight:600}
-    .ccna-sub{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);margin-top:2px}
-    .ccna-progress{margin-left:auto;text-align:right}
-    .ccna-progress-label{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
-    .progress-track{width:120px;height:4px;background:var(--border-light);border-radius:2px}
-    .progress-fill{height:100%;background:var(--orange);width:45%;border-radius:2px}
+    .stat-n{font-size:44px;font-weight:800;color:var(--tx);letter-spacing:-.03em;line-height:1}
+    .stat-n.pu{color:var(--pu)}
+    .stat-l{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+    .cards{display:flex;flex-direction:column;gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden}
+    .card{background:var(--bg);padding:16px 20px;display:flex;align-items:center;gap:14px;transition:background .15s}
+    .card:hover{background:var(--bg2)}
+    .card-ic{color:var(--tx3);font-size:15px;width:20px;text-align:center;flex-shrink:0}
+    .card-l{font-family:var(--fm);font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em}
+    .card-v{font-size:14px;color:var(--tx);margin-top:1px;font-weight:500}
+    .ccna{background:var(--bg);border:1px solid var(--bdr2);border-radius:var(--rad);padding:20px 24px;margin-top:32px;display:flex;align-items:center;gap:16px}
+    .ccna-ic{font-size:22px;color:var(--or)}
+    .ccna-t{font-size:14px;color:var(--tx);font-weight:600}
+    .ccna-s{font-family:var(--fm);font-size:11px;color:var(--tx3);margin-top:2px}
+    .ccna-r{margin-left:auto;text-align:right}
+    .prg-l{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--or);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+    .prg-tr{width:120px;height:4px;background:var(--bdr2);border-radius:2px}
+    .prg-fi{height:100%;background:var(--or);width:45%;border-radius:2px}
 
     /* SKILLS */
-    #skills{padding:var(--section-padding);background:var(--bg)}
-    .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-light);border-radius:var(--radius);overflow:hidden}
-    .skill-category{background:var(--bg);padding:32px 24px}
-    .skill-cat-title{font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:8px}
-    .skill-cat-title i{color:var(--text-tertiary);font-size:13px}
-    .skill-tag{display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);background:var(--bg-alt);padding:4px 10px;margin:3px 3px 0 0;border-radius:6px;transition:all 0.15s;border:1px solid transparent}
-    .skill-tag:hover{border-color:var(--border);color:var(--text)}
+    #skills{padding:var(--sec);background:var(--bg)}
+    .sk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden}
+    .sk-cat{background:var(--bg);padding:32px 24px}
+    .sk-hd{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--bdr2);display:flex;align-items:center;gap:8px}
+    .sk-hd i{color:var(--tx3);font-size:13px}
+    .tag{display:inline-block;font-family:var(--fm);font-size:11px;color:var(--tx2);background:var(--bg2);padding:4px 10px;margin:3px 3px 0 0;border-radius:6px;transition:all .15s;border:1px solid transparent}
+    .tag:hover{border-color:var(--bdr);color:var(--tx)}
 
     /* EXPERIENCE */
-    #experience{padding:var(--section-padding);background:var(--bg-alt)}
-    .timeline-item{padding:0 0 56px 0;display:grid;grid-template-columns:200px 1fr;gap:48px}
-    .timeline-item:last-child{padding-bottom:0}
-    .timeline-item+.timeline-item{border-top:1px solid var(--border-light);padding-top:56px}
-    .timeline-date{font-family:var(--font-mono);font-size:12px;font-weight:400;color:var(--text-tertiary);margin-bottom:8px}
-    .timeline-company{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text);letter-spacing:-0.02em;line-height:1.2}
-    .timeline-role{font-size:13px;color:var(--text-secondary);margin:4px 0 0;font-weight:400}
-    .timeline-bullets{list-style:none}
-    .timeline-bullets li{font-size:15px;color:var(--text-secondary);line-height:1.65;margin-bottom:10px;padding-left:18px;position:relative;font-weight:400}
-    .timeline-bullets li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
-    .timeline-highlight{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--green-dark);background:rgba(52,199,89,0.08);padding:5px 14px;border-radius:980px;margin-top:8px}
+    #experience{padding:var(--sec);background:var(--bg2)}
+    .xitem{padding:0 0 56px;display:grid;grid-template-columns:200px 1fr;gap:48px}
+    .xitem:last-child{padding-bottom:0}
+    .xitem+.xitem{border-top:1px solid var(--bdr2);padding-top:56px}
+    .xdate{font-family:var(--fm);font-size:12px;color:var(--tx3);margin-bottom:8px}
+    .xco{font-size:20px;font-weight:700;color:var(--tx);letter-spacing:-.02em;line-height:1.2}
+    .xrole{font-size:13px;color:var(--tx2);margin:4px 0 0}
+    .xul{list-style:none}
+    .xul li{font-size:15px;color:var(--tx2);line-height:1.65;margin-bottom:10px;padding-left:18px;position:relative}
+    .xul li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--bdr)}
+    .hl{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:11px;font-weight:500;color:var(--grd);background:rgba(52,199,89,.08);padding:5px 14px;border-radius:980px;margin-top:8px}
+    .hl.pu{color:var(--pu);background:var(--pub)}
 
     /* CERTS */
-    #certs{padding:var(--section-padding);background:var(--bg)}
-    .certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-light);border-radius:var(--radius);overflow:hidden}
-    .cert-card{background:var(--bg);padding:28px 24px;transition:background 0.15s}
-    .cert-card:hover{background:var(--bg-alt)}
-    .cert-issuer{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px}
-    .cert-name{font-size:15px;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:6px}
-    .cert-status{font-family:var(--font-mono);font-size:11px;font-weight:500;margin-top:12px}
-    .cert-status.active{color:var(--green-dark)}.cert-status.progress{color:var(--orange-dark)}
-    .cert-status.active::before{content:'✓ '}.cert-status.progress::before{content:'◌ '}
-    .cert-card.highlight{background:rgba(0,113,227,0.02)}
+    #certs{padding:var(--sec);background:var(--bg)}
+    .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden}
+    .cert{background:var(--bg);padding:28px 24px;transition:background .15s}
+    .cert:hover{background:var(--bg2)}
+    .cert-is{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+    .cert-nm{font-size:15px;font-weight:600;color:var(--tx);line-height:1.35;margin-bottom:6px}
+    .cert-st{font-family:var(--fm);font-size:11px;font-weight:500;margin-top:12px}
+    .cert-st.ok{color:var(--grd)}.cert-st.ok::before{content:'✓ '}
+    .cert-st.wip{color:var(--ord)}.cert-st.wip::before{content:'◌ '}
 
     /* PROJECTS */
-    #projects{padding:var(--section-padding);background:var(--bg-alt)}
-    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-light);border-radius:var(--radius);overflow:hidden;margin-bottom:48px}
-    .project-card{background:var(--bg);padding:32px 24px;transition:background 0.15s}
-    .project-card:hover{background:var(--bg-alt)}
-    .project-card-num{font-family:var(--font-display);font-size:48px;font-weight:800;color:var(--border-light);line-height:1;margin-bottom:16px;letter-spacing:-0.03em;transition:color 0.2s}
-    .project-card:hover .project-card-num{color:var(--accent)}
-    .project-card-category{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px}
-    .project-card-title{font-size:17px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:10px}
-    .project-card-desc{font-size:13px;color:var(--text-tertiary);line-height:1.6;font-weight:400}
-    .project-tag{display:inline-block;font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);background:var(--bg-alt);padding:3px 8px;margin:8px 3px 0 0;border-radius:4px}
-    .projects-cta{display:flex;justify-content:center}
+    #projects{padding:var(--sec);background:var(--bg2)}
+    .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:48px}
+    .proj{background:var(--bg);padding:32px 24px;transition:background .15s}
+    .proj:hover{background:var(--bg2)}
+    .proj-n{font-size:48px;font-weight:800;color:var(--bdr2);line-height:1;margin-bottom:16px;letter-spacing:-.03em;transition:color .2s}
+    .proj:hover .proj-n{color:var(--pu)}
+    .proj-cat{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--pu);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+    .proj-t{font-size:17px;font-weight:600;color:var(--tx);line-height:1.3;margin-bottom:10px}
+    .proj-d{font-size:13px;color:var(--tx3);line-height:1.6}
+    .ptag{display:inline-block;font-family:var(--fm);font-size:10px;color:var(--tx3);background:var(--bg2);padding:3px 8px;margin:8px 3px 0 0;border-radius:4px}
+    .pcta{display:flex;justify-content:center}
 
     /* CONTACT */
-    #contact{padding:var(--section-padding);background:var(--bg)}
-    .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-    .contact-tagline{font-family:var(--font-display);font-size:clamp(36px,5vw,56px);font-weight:700;color:var(--text);line-height:1.08;letter-spacing:-0.03em;margin-bottom:16px}
-    .contact-tagline em{color:var(--accent);font-style:normal}
-    .contact-sub{font-size:17px;color:var(--text-secondary);line-height:1.6;font-weight:400;margin-bottom:32px}
-    .contact-links{display:flex;flex-direction:column;gap:1px;background:var(--border-light);border-radius:var(--radius);overflow:hidden}
-    .contact-link{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--bg);color:var(--text);text-decoration:none;font-size:14px;font-weight:500;transition:background 0.15s}
-    .contact-link:hover{background:var(--bg-alt)}
-    .contact-link i{color:var(--text-tertiary);width:18px;text-align:center;font-size:14px}
+    #contact{padding:var(--sec);background:var(--bg)}
+    .con-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .con-tag{font-size:clamp(36px,5vw,56px);font-weight:700;color:var(--tx);line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
+    .con-tag em{color:var(--pu);font-style:normal}
+    .con-sub{font-size:17px;color:var(--tx2);line-height:1.6;margin-bottom:32px}
+    .con-links{display:flex;flex-direction:column;gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden}
+    .con-link{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--bg);color:var(--tx);text-decoration:none;font-size:14px;font-weight:500;transition:background .15s}
+    .con-link:hover{background:var(--bg2)}
+    .con-link i{color:var(--tx3);width:18px;text-align:center;font-size:14px}
 
     /* FOOTER */
-    footer{border-top:1px solid var(--border-light);padding:32px 0}
-    .footer-inner{display:flex;align-items:center;justify-content:space-between}
-    .footer-logo{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)}
-    .footer-logo span{font-weight:400;color:var(--text-tertiary)}
-    .footer-copy{font-size:12px;color:var(--text-tertiary)}
-    .footer-social{display:flex;gap:20px}
-    .footer-social a{color:var(--text-tertiary);text-decoration:none;font-size:15px;transition:color 0.2s}
-    .footer-social a:hover{color:var(--text)}
-
-    .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
-    .fade-up.visible{opacity:1;transform:translateY(0)}
+    footer{border-top:1px solid var(--bdr2);padding:32px 0}
+    .ft{display:flex;align-items:center;justify-content:space-between}
+    .ft-logo{font-size:14px;font-weight:700;color:var(--tx)}
+    .ft-logo span{font-weight:400;color:var(--tx3)}
+    .ft-copy{font-size:12px;color:var(--tx3)}
+    .ft-soc{display:flex;gap:20px}
+    .ft-soc a{color:var(--tx3);text-decoration:none;font-size:15px;transition:color .2s}
+    .ft-soc a:hover{color:var(--pu)}
 
     @media(max-width:900px){
-      .nav-links{display:none;position:fixed;top:52px;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);flex-direction:column;padding:24px;gap:20px;border-bottom:1px solid var(--border-light);z-index:899}
+      .nav-links{display:none;position:fixed;top:55px;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);flex-direction:column;padding:24px;gap:20px;border-bottom:1px solid var(--bdr2);z-index:899}
       .nav-links.open{display:flex}
-      .mobile-nav-toggle{display:block}
+      .mob{display:block}
       .hero-grid{grid-template-columns:1fr;text-align:center}
-      .hero-badges{justify-content:center}
-      .hero-actions{justify-content:center}
+      .badges,.actions{justify-content:center}
       .terminal{display:none}
-      .about-grid,.contact-inner{grid-template-columns:1fr;gap:48px}
-      .skills-grid,.projects-grid{grid-template-columns:1fr 1fr}
-      .certs-grid{grid-template-columns:1fr 1fr}
-      .timeline-item{grid-template-columns:1fr;gap:12px}
-      .footer-inner{flex-direction:column;gap:16px;text-align:center}
-      .ccna-banner{flex-direction:column;text-align:center}
-      .ccna-progress{margin-left:0;text-align:center}
-      .progress-track{margin:0 auto}
+      .ag,.con-grid{grid-template-columns:1fr;gap:48px}
+      .sk-grid,.proj-grid{grid-template-columns:1fr 1fr}
+      .cert-grid{grid-template-columns:1fr 1fr}
+      .xitem{grid-template-columns:1fr;gap:12px}
+      .ft{flex-direction:column;gap:16px;text-align:center}
+      .ccna{flex-direction:column;text-align:center}
+      .ccna-r{margin-left:0}.prg-tr{margin:0 auto}
     }
     @media(max-width:600px){
-      .skills-grid,.certs-grid,.projects-grid{grid-template-columns:1fr}
-      :root{--section-padding:80px 0}
+      .sk-grid,.cert-grid,.proj-grid{grid-template-columns:1fr}
+      :root{--sec:80px 0}
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <a href="index.html" class="logo">Issac Henderson <span>/ Infrastructure</span></a>
-      <button class="mobile-nav-toggle" id="mobileToggle"><i class="fa fa-bars"></i></button>
-      <div class="nav-links" id="navLinks">
-        <nav>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#experience">Experience</a>
-          <a href="#certs">Credentials</a>
-          <a href="projects.html">Projects</a>
-          <a href="contact.html" class="nav-cta">Hire Me</a>
-        </nav>
+
+<div class="stripe"></div>
+
+<header>
+  <div class="nav-w">
+    <a href="index.html" class="logo">Issac Henderson <span>/ Infrastructure</span></a>
+    <button class="mob" id="mobBtn"><i class="fa fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#certs">Credentials</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html" class="ncta">Hire Me</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">IT Infrastructure Engineer</div>
+      <h1 class="hero-name">Issac<br>Henderson</h1>
+      <p class="hero-sub">7+ years building <strong>networks</strong>, managing <strong>systems</strong>, and securing <strong>infrastructure</strong> across finance, healthcare, and enterprise — grounded in Zero Trust principles.</p>
+      <div class="badges">
+        <span class="badge on">Available for Hire</span>
+        <span class="badge">New York, NY</span>
+        <span class="badge">BICSI INST1</span>
+        <span class="badge">AWS Solutions Architect</span>
+        <span class="badge">CCNA → In Progress</span>
+        <span class="badge">OSHA 30</span>
+      </div>
+      <div class="actions">
+        <a href="#experience" class="btn btn-blue">View Experience</a>
+        <a href="contact.html" class="btn btn-ghost">Get In Touch</a>
       </div>
     </div>
-  </header>
-
-  <main>
-    <section id="hero">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <div class="hero-eyebrow">IT Infrastructure Engineer</div>
-          <h1 class="hero-name">Issac<br>Henderson</h1>
-          <p class="hero-subtitle">7+ years building <strong>networks</strong>, managing <strong>systems</strong>, and securing <strong>infrastructure</strong> across finance, healthcare, and enterprise — grounded in Zero Trust principles.</p>
-          <div class="hero-badges">
-            <span class="badge active">Available for Hire</span>
-            <span class="badge">New York, NY</span>
-            <span class="badge">BICSI INST1</span>
-            <span class="badge">AWS Solutions Architect</span>
-            <span class="badge">CCNA → In Progress</span>
-            <span class="badge">OSHA 30</span>
-          </div>
-          <div class="hero-actions">
-            <a href="#experience" class="btn btn-primary">View Experience</a>
-            <a href="contact.html" class="btn btn-outline">Get In Touch</a>
-          </div>
-        </div>
-        <div class="terminal">
-          <div class="terminal-bar">
-            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-            <span class="terminal-title">issac@nyc ~ </span>
-          </div>
-          <div class="terminal-body">
-            <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">whoami</span></div>
-            <div class="t-out">→ Issac Henderson, Infrastructure Engineer</div>
-            <div class="t-line" style="margin-top:10px"><span class="t-prompt">$</span><span class="t-cmd">cat certs.txt</span></div>
-            <div class="t-out"><span>✓</span> BICSI INST1</div>
-            <div class="t-out"><span>✓</span> AWS Solutions Architect</div>
-            <div class="t-out"><span>✓</span> OSHA 30 + SST 40</div>
-            <div class="t-out"><span class="warn">⟳</span> CCNA (In Progress)</div>
-            <div class="t-line" style="margin-top:10px"><span class="t-prompt">$</span><span class="t-cmd">ping buildwithissac@gmail.com</span></div>
-            <div class="t-out"><span>PONG</span> — ready to connect.</div>
-            <div class="t-line" style="margin-top:10px"><span class="t-prompt">$</span><span class="t-cursor"></span></div>
-          </div>
-        </div>
+    <div class="terminal">
+      <div class="tbar">
+        <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+        <span class="ttl">issac@nyc:~</span>
       </div>
-    </section>
+      <div class="tbody">
+        <div class="tl"><span class="tp">$</span><span class="tc">whoami</span></div>
+        <div class="to">→ Issac Henderson, IT Infrastructure Engineer</div>
+        <div class="tl" style="margin-top:8px"><span class="tp">$</span><span class="tc">cat certifications.txt</span></div>
+        <div class="to"><span class="ok">✓</span> BICSI INST1</div>
+        <div class="to"><span class="ok">✓</span> AWS Solutions Architect</div>
+        <div class="to"><span class="ok">✓</span> OSHA 30 + SST 40</div>
+        <div class="to"><span class="wa">↻</span> CCNA (In Progress)</div>
+        <div class="tl" style="margin-top:8px"><span class="tp">$</span><span class="tc">ping buildwithissac@gmail.com</span></div>
+        <div class="to"><span class="ok">PONG</span> — ready to connect.</div>
+        <div class="tl" style="margin-top:8px"><span class="tp">$</span><span class="cur"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="about">
-      <div class="container">
-        <div class="section-header fade-up">
-          <div class="section-label">About</div>
-          <h2 class="section-title">Building Networks.<br>Securing Systems.</h2>
+<section id="about">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">About</div><h2 class="stitle">Building Networks.<br>Securing Systems.</h2></div>
+    <div class="ag">
+      <div class="fade-up">
+        <div class="at">
+          <p><strong>New York-based IT Infrastructure Engineer</strong> with 7+ years across network operations, systems administration, and physical infrastructure. I've built and secured environments for Fortune 500 firms, healthcare systems, and enterprise hospitality.</p>
+          <p>I operate where technical execution meets security — terminating fiber in a telecom room, managing IAM for 10,000+ users, or scripting automation. Everything is Zero Trust-aligned.</p>
+          <p>Currently focused on the <strong>CCNA</strong>, sharpening the network engineering fundamentals that anchor my work.</p>
         </div>
-        <div class="about-grid">
-          <div class="fade-up">
-            <div class="about-text">
-              <p><strong>New York-based IT Infrastructure Engineer</strong> with 7+ years across network operations, systems administration, and physical infrastructure. I've built and secured environments for Fortune 500 firms, healthcare systems, and enterprise hospitality.</p>
-              <p>I operate where technical execution meets security — terminating fiber in a telecom room, managing IAM for 10,000+ users, or scripting automation. Everything is Zero Trust-aligned.</p>
-              <p>Currently focused on the <strong>CCNA</strong>, sharpening the network engineering fundamentals that anchor my work.</p>
-            </div>
-            <div class="ccna-banner">
-              <div class="ccna-icon"><i class="fa fa-network-wired"></i></div>
-              <div>
-                <div class="ccna-title">Cisco CCNA — Active Study</div>
-                <div class="ccna-sub">Routing & Switching · OSPF · VLANs · ACLs</div>
-              </div>
-              <div class="ccna-progress">
-                <div class="ccna-progress-label">Progress</div>
-                <div class="progress-track"><div class="progress-fill"></div></div>
-              </div>
-            </div>
+        <div class="ccna">
+          <div class="ccna-ic"><i class="fa fa-network-wired"></i></div>
+          <div><div class="ccna-t">Cisco CCNA — Active Study</div><div class="ccna-s">Routing &amp; Switching · OSPF · VLANs · ACLs</div></div>
+          <div class="ccna-r"><div class="prg-l">Progress</div><div class="prg-tr"><div class="prg-fi"></div></div></div>
+        </div>
+        <div class="term-block">
+          <div class="tb-bar">
+            <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+            <span style="color:var(--tmut);font-size:11px;margin-left:auto">status.sh</span>
           </div>
-          <div class="fade-up">
-            <div class="info-cards" style="margin-bottom:16px">
-              <div class="info-card"><div class="info-card-icon"><i class="fa fa-user"></i></div><div><div class="info-card-label">Name</div><div class="info-card-value">Issac Henderson</div></div></div>
-              <div class="info-card"><div class="info-card-icon"><i class="fa fa-map-marker-alt"></i></div><div><div class="info-card-label">Location</div><div class="info-card-value">New York, NY</div></div></div>
-              <div class="info-card"><div class="info-card-icon"><i class="fa fa-envelope"></i></div><div><div class="info-card-label">Email</div><div class="info-card-value">buildwithissac@gmail.com</div></div></div>
-              <div class="info-card"><div class="info-card-icon"><i class="fa fa-phone"></i></div><div><div class="info-card-label">Phone</div><div class="info-card-value">+1 (332) 302-6211</div></div></div>
-              <div class="info-card"><div class="info-card-icon"><i class="fab fa-linkedin"></i></div><div><div class="info-card-label">LinkedIn</div><div class="info-card-value">linkedin.com/in/issachenderson</div></div></div>
-            </div>
-            <div class="about-stats">
-              <div class="stat-box"><div class="stat-num">7+</div><div class="stat-label">Years Experience</div></div>
-              <div class="stat-box"><div class="stat-num">99.97%</div><div class="stat-label">SLA Uptime</div></div>
-              <div class="stat-box"><div class="stat-num">10K+</div><div class="stat-label">Users Managed</div></div>
-              <div class="stat-box"><div class="stat-num">50+</div><div class="stat-label">Client Sites</div></div>
-            </div>
+          <div class="tb-body">
+            <div class="tl"><span class="tp">$</span><span class="tc">uptime</span></div>
+            <div class="to"><span class="ok">↑</span> 99.97% SLA · zero-trust aligned</div>
+            <div class="tl" style="margin-top:6px"><span class="tp">$</span><span class="tc">location</span></div>
+            <div class="to"><span class="ok">→</span> New York, NY · remote available</div>
           </div>
         </div>
       </div>
-    </section>
-
-    <section id="skills">
-      <div class="container">
-        <div class="section-header fade-up"><div class="section-label">Skills</div><h2 class="section-title">Technical Stack</h2></div>
-        <div class="skills-grid fade-up">
-          <div class="skill-category"><div class="skill-cat-title"><i class="fa fa-server"></i> Infrastructure</div><span class="skill-tag">Cat5e/Cat6/Fiber</span><span class="skill-tag">BICSI Cabling</span><span class="skill-tag">Patch Panels</span><span class="skill-tag">UPS Management</span><span class="skill-tag">Firestopping</span><span class="skill-tag">J-Hooks / Ladder Racks</span><span class="skill-tag">TBB Grounding</span><span class="skill-tag">LC/SC Fiber</span><span class="skill-tag">OLTS Testing</span></div>
-          <div class="skill-category"><div class="skill-cat-title"><i class="fa fa-network-wired"></i> Network Ops</div><span class="skill-tag">Cisco Routing/Switching</span><span class="skill-tag">SonicWall Firewall</span><span class="skill-tag">DHCP / VLANs</span><span class="skill-tag">TCP/IP</span><span class="skill-tag">PoE Solutions</span><span class="skill-tag">Sophos</span><span class="skill-tag">NOC Operations</span><span class="skill-tag">OSPF (CCNA)</span><span class="skill-tag">ACLs (CCNA)</span></div>
-          <div class="skill-category"><div class="skill-cat-title"><i class="fa fa-shield-alt"></i> Security & IAM</div><span class="skill-tag">Okta SSO/MFA</span><span class="skill-tag">CyberArk PAM</span><span class="skill-tag">Zero Trust</span><span class="skill-tag">Active Directory</span><span class="skill-tag">Azure AD</span><span class="skill-tag">Citrix</span><span class="skill-tag">IAM Lifecycle Mgmt</span><span class="skill-tag">ANSI/TIA-607</span></div>
-          <div class="skill-category"><div class="skill-cat-title"><i class="fa fa-cog"></i> Systems & Tools</div><span class="skill-tag">Windows Server</span><span class="skill-tag">Group Policy (GPO)</span><span class="skill-tag">Datto RMM</span><span class="skill-tag">AWS (SAA-C03)</span><span class="skill-tag">SCCM</span><span class="skill-tag">ServiceNow</span><span class="skill-tag">PowerShell</span><span class="skill-tag">Office 365</span><span class="skill-tag">Google Workspace</span><span class="skill-tag">Jira/Confluence</span></div>
+      <div class="fade-up">
+        <div class="cards" style="margin-bottom:16px">
+          <div class="card"><div class="card-ic"><i class="fa fa-user"></i></div><div><div class="card-l">Name</div><div class="card-v">Issac Henderson</div></div></div>
+          <div class="card"><div class="card-ic"><i class="fa fa-map-marker-alt"></i></div><div><div class="card-l">Location</div><div class="card-v">New York, NY</div></div></div>
+          <div class="card"><div class="card-ic"><i class="fa fa-envelope"></i></div><div><div class="card-l">Email</div><div class="card-v">buildwithissac@gmail.com</div></div></div>
+          <div class="card"><div class="card-ic"><i class="fa fa-phone"></i></div><div><div class="card-l">Phone</div><div class="card-v">+1 (332) 302-6211</div></div></div>
+          <div class="card"><div class="card-ic"><i class="fab fa-linkedin"></i></div><div><div class="card-l">LinkedIn</div><div class="card-v">linkedin.com/in/issachenderson</div></div></div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="stat-n">7+</div><div class="stat-l">Years Experience</div></div>
+          <div class="stat-box"><div class="stat-n pu">99.97%</div><div class="stat-l">SLA Uptime</div></div>
+          <div class="stat-box"><div class="stat-n">10K+</div><div class="stat-l">Users Managed</div></div>
+          <div class="stat-box"><div class="stat-n pu">50+</div><div class="stat-l">Client Sites</div></div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section id="experience">
-      <div class="container">
-        <div class="section-header fade-up"><div class="section-label">Experience</div><h2 class="section-title">Work History</h2></div>
-        <div class="timeline">
-          <div class="timeline-item fade-up"><div class="timeline-meta"><div class="timeline-date">Jan 2026 — Feb 2026</div><div class="timeline-company">Brooklyn Networks</div><div class="timeline-role">BICSI INST1 Trainee · NYC</div></div><div class="timeline-content"><ul class="timeline-bullets"><li>Installed BICSI-standard Cat5e/Cat6 and fiber optic cabling — pulling, routing, and terminating at TR patch panels to commercial performance specs.</li><li>Built ANSI/TIA-607 compliant grounding and bonding systems for equipment racks; applied code-compliant firestopping across fire-rated barriers.</li><li>Terminated LC/SC fiber using mechanical cleaving and UV cure; validated dB loss margins via Tier 1 VFL and OLTS testing.</li></ul><span class="timeline-highlight"><i class="fa fa-certificate"></i> BICSI INST1 Certified</span></div></div>
-          <div class="timeline-item fade-up"><div class="timeline-meta"><div class="timeline-date">Nov 2023 — Feb 2024</div><div class="timeline-company">BioLife Plasma Services</div><div class="timeline-role">Enterprise Escalation Analyst · Remote</div></div><div class="timeline-content"><ul class="timeline-bullets"><li>Served as Tier 2 escalation point, resolving 50–100 ServiceNow tickets daily at a 95% first-contact resolution rate.</li><li>Authored Salesforce KB articles and templates that cut three major recurring ticket categories by 30%.</li></ul><span class="timeline-highlight"><i class="fa fa-chart-line"></i> 95% First-Contact Resolution</span></div></div>
-          <div class="timeline-item fade-up"><div class="timeline-meta"><div class="timeline-date">Apr 2022 — Nov 2023</div><div class="timeline-company">Wells Fargo</div><div class="timeline-role">IAM Administrator · Remote</div></div><div class="timeline-content"><ul class="timeline-bullets"><li>Administered an enterprise Okta environment for 2,000+ users — SSO, MFA, lifecycle management, and third-party integrations — at 99.97% uptime.</li><li>Secured access for 10,000+ global users across financial and healthcare compliance environments using Okta, Citrix, CyberArk, and Wells Fargo Password Manager.</li></ul><span class="timeline-highlight"><i class="fa fa-lock"></i> 99.97% SLA Uptime · 10,000+ Users</span></div></div>
-          <div class="timeline-item fade-up"><div class="timeline-meta"><div class="timeline-date">Jul 2021 — Apr 2022</div><div class="timeline-company">Resource Computer Solutions</div><div class="timeline-role">Network & System Admin · Dallas, TX</div></div><div class="timeline-content"><ul class="timeline-bullets"><li>Managed IT infrastructure, network security (Sophos), and Office 365 across 50+ client sites via Datto RMM in a multi-tenant MSP environment.</li><li>Led escalation response for site-wide outages — routing failures, DHCP scope exhaustion, and offline SonicWall appliances.</li><li>Ran NOC backup sessions and wrote automation scripts for server health monitoring across the client portfolio.</li><li>Performed onsite low-voltage cabling, UPS racking, and network upgrades; served as primary vendor liaison.</li></ul><span class="timeline-highlight"><i class="fa fa-building"></i> 50+ Client Sites</span></div></div>
-          <div class="timeline-item fade-up"><div class="timeline-meta"><div class="timeline-date">Oct 2016 — May 2021</div><div class="timeline-company">Topgolf</div><div class="timeline-role">Support Operations Specialist · Remote</div></div><div class="timeline-content"><ul class="timeline-bullets"><li>Led digital transformation from manual workflows to a centralized Google Sites knowledge base, standardizing processes for 170–200+ weekend inquiries.</li><li>Designed and deployed Google Workspace architecture and IVR logic across 60+ venues — reduced call processing time by 85%, saving an estimated 16,170 hours annually.</li></ul><span class="timeline-highlight"><i class="fa fa-clock"></i> 16,170 Hours Saved Annually</span></div></div>
-          <div class="timeline-item fade-up"><div class="timeline-meta"><div class="timeline-date">Jan 2016 — Jul 2016</div><div class="timeline-company">New York Life</div><div class="timeline-role">Project Manager Intern · NYC</div></div><div class="timeline-content"><ul class="timeline-bullets"><li>Built digital transformation governance frameworks for 7+ business units; created a Risk Analysis Matrix that cut project delays by 25%.</li><li>Trained 15+ cross-functional teams on Jira and Confluence; led Agile estimation workshops covering story points, T-shirt sizing, and planning poker.</li></ul></div></div>
-        </div>
+<section id="skills">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">Skills</div><h2 class="stitle">Technical Stack</h2></div>
+    <div class="sk-grid fade-up">
+      <div class="sk-cat"><div class="sk-hd"><i class="fa fa-server"></i> Infrastructure</div><span class="tag">Cat5e/Cat6/Fiber</span><span class="tag">BICSI Cabling</span><span class="tag">Patch Panels</span><span class="tag">UPS Management</span><span class="tag">Firestopping</span><span class="tag">J-Hooks / Ladder Racks</span><span class="tag">TBB Grounding</span><span class="tag">LC/SC Fiber</span><span class="tag">OLTS Testing</span></div>
+      <div class="sk-cat"><div class="sk-hd"><i class="fa fa-network-wired"></i> Network Ops</div><span class="tag">Cisco Routing/Switching</span><span class="tag">SonicWall Firewall</span><span class="tag">DHCP / VLANs</span><span class="tag">TCP/IP</span><span class="tag">PoE Solutions</span><span class="tag">Sophos</span><span class="tag">NOC Operations</span><span class="tag">OSPF (CCNA)</span><span class="tag">ACLs (CCNA)</span></div>
+      <div class="sk-cat"><div class="sk-hd"><i class="fa fa-shield-alt"></i> Security &amp; IAM</div><span class="tag">Okta SSO/MFA</span><span class="tag">CyberArk PAM</span><span class="tag">Zero Trust</span><span class="tag">Active Directory</span><span class="tag">Azure AD</span><span class="tag">Citrix</span><span class="tag">IAM Lifecycle Mgmt</span><span class="tag">ANSI/TIA-607</span></div>
+      <div class="sk-cat"><div class="sk-hd"><i class="fa fa-cog"></i> Systems &amp; Tools</div><span class="tag">Windows Server</span><span class="tag">Group Policy (GPO)</span><span class="tag">Datto RMM</span><span class="tag">AWS (SAA-C03)</span><span class="tag">SCCM</span><span class="tag">ServiceNow</span><span class="tag">PowerShell</span><span class="tag">Office 365</span><span class="tag">Google Workspace</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">Experience</div><h2 class="stitle">Work History</h2></div>
+    <div>
+      <div class="xitem fade-up"><div><div class="xdate">Jan 2026 — Feb 2026</div><div class="xco">Brooklyn Networks</div><div class="xrole">BICSI INST1 Trainee · NYC</div></div><div><ul class="xul"><li>Installed BICSI-standard Cat5e/Cat6 and fiber optic cabling — pulling, routing, and terminating at TR patch panels to commercial performance specs.</li><li>Built ANSI/TIA-607 compliant grounding and bonding systems for equipment racks; applied code-compliant firestopping across fire-rated barriers.</li><li>Terminated LC/SC fiber using mechanical cleaving and UV cure; validated dB loss margins via Tier 1 VFL and OLTS testing.</li></ul><span class="hl"><i class="fa fa-certificate"></i> BICSI INST1 Certified</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Nov 2023 — Feb 2024</div><div class="xco">BioLife Plasma Services</div><div class="xrole">Enterprise Escalation Analyst · Remote</div></div><div><ul class="xul"><li>Served as Tier 2 escalation point, resolving 50–100 ServiceNow tickets daily at a 95% first-contact resolution rate.</li><li>Authored Salesforce KB articles and templates that cut three major recurring ticket categories by 30%.</li></ul><span class="hl"><i class="fa fa-chart-line"></i> 95% First-Contact Resolution</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Apr 2022 — Nov 2023</div><div class="xco">Wells Fargo</div><div class="xrole">IAM Administrator · Remote</div></div><div><ul class="xul"><li>Administered an enterprise Okta environment for 2,000+ users — SSO, MFA, lifecycle management, and third-party integrations — at 99.97% uptime.</li><li>Secured access for 10,000+ global users across financial and healthcare compliance environments using Okta, Citrix, CyberArk, and Wells Fargo Password Manager.</li></ul><span class="hl pu"><i class="fa fa-lock"></i> 99.97% SLA Uptime · 10,000+ Users</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Jul 2021 — Apr 2022</div><div class="xco">Resource Computer Solutions</div><div class="xrole">Network &amp; System Admin · Dallas, TX</div></div><div><ul class="xul"><li>Managed IT infrastructure, network security (Sophos), and Office 365 across 50+ client sites via Datto RMM in a multi-tenant MSP environment.</li><li>Led escalation response for site-wide outages — routing failures, DHCP scope exhaustion, and offline SonicWall appliances.</li><li>Ran NOC backup sessions and wrote automation scripts for server health monitoring across the client portfolio.</li><li>Performed onsite low-voltage cabling, UPS racking, and network upgrades; served as primary vendor liaison.</li></ul><span class="hl"><i class="fa fa-building"></i> 50+ Client Sites</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Oct 2016 — May 2021</div><div class="xco">Topgolf</div><div class="xrole">Support Operations Specialist · Remote</div></div><div><ul class="xul"><li>Led digital transformation from manual workflows to a centralized Google Sites knowledge base, standardizing processes for 170–200+ weekend inquiries.</li><li>Designed and deployed Google Workspace architecture and IVR logic across 60+ venues — reduced call processing time by 85%, saving an estimated 16,170 hours annually.</li></ul><span class="hl"><i class="fa fa-clock"></i> 16,170 Hours Saved Annually</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Jan 2016 — Jul 2016</div><div class="xco">New York Life</div><div class="xrole">Project Manager Intern · NYC</div></div><div><ul class="xul"><li>Built digital transformation governance frameworks for 7+ business units; created a Risk Analysis Matrix that cut project delays by 25%.</li><li>Trained 15+ cross-functional teams on Jira and Confluence; led Agile estimation workshops covering story points, T-shirt sizing, and planning poker.</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">Credentials</div><h2 class="stitle">Certifications</h2></div>
+    <div class="cert-grid fade-up">
+      <div class="cert"><div class="cert-is">Cisco</div><div class="cert-nm">Cisco Certified Network Associate (CCNA)</div><div class="cert-st wip">In Active Progress</div></div>
+      <div class="cert"><div class="cert-is">Amazon Web Services</div><div class="cert-nm">AWS Certified Solutions Architect – Associate</div><div class="cert-st ok">Certified</div></div>
+      <div class="cert"><div class="cert-is">BICSI</div><div class="cert-nm">BICSI Installer 1 (INST1)</div><div class="cert-st ok">Certified</div></div>
+      <div class="cert"><div class="cert-is">Essential Safety Communications</div><div class="cert-nm">OSHA 30-Hour Construction</div><div class="cert-st ok">Certified</div></div>
+      <div class="cert"><div class="cert-is">Essential Safety Communications</div><div class="cert-nm">NYC 40-Hour Site Safety Training (SST)</div><div class="cert-st ok">Certified</div></div>
+      <div class="cert"><div class="cert-is">Dallas College</div><div class="cert-nm">Site System Administration + Cisco ICND1 &amp; ICND2</div><div class="cert-st ok">Completed</div></div>
+    </div>
+    <div style="margin-top:48px" class="fade-up">
+      <div class="slbl" style="margin-bottom:16px">Education</div>
+      <div style="max-width:480px"><div class="cards"><div class="card"><div class="card-ic"><i class="fa fa-graduation-cap"></i></div><div><div class="card-l">Dallas College — Dallas, TX</div><div class="card-v">Associate of Arts and Sciences (A.A.S.)</div></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">Projects</div><h2 class="stitle">Selected Work</h2></div>
+    <div class="proj-grid fade-up">
+      <div class="proj"><div class="proj-n">01</div><div class="proj-cat">IAM / Security</div><div class="proj-t">Enterprise Okta SSO Deployment</div><div class="proj-d">SSO, MFA, and lifecycle management for 2,000+ users at 99.97% uptime across strict compliance environments.</div><div><span class="ptag">Okta</span><span class="ptag">CyberArk</span><span class="ptag">Zero Trust</span></div></div>
+      <div class="proj"><div class="proj-n">02</div><div class="proj-cat">Network Infrastructure</div><div class="proj-t">Multi-Site MSP Network Ops</div><div class="proj-d">Network security and infrastructure across 50+ client sites via Datto RMM in a multi-tenant MSP environment.</div><div><span class="ptag">SonicWall</span><span class="ptag">Datto RMM</span><span class="ptag">Sophos</span></div></div>
+      <div class="proj"><div class="proj-n">03</div><div class="proj-cat">Structured Cabling</div><div class="proj-t">BICSI-Standard Fiber Install</div><div class="proj-d">End-to-end Cat5e/Cat6 and fiber installation with TIA-607 compliant grounding and Tier 1 OLTS verification.</div><div><span class="ptag">BICSI</span><span class="ptag">LC/SC Fiber</span><span class="ptag">OLTS</span></div></div>
+    </div>
+    <div class="pcta fade-up"><a href="projects.html" class="btn btn-out-pu">View All Projects</a></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="con-grid fade-up">
+      <div>
+        <div class="slbl" style="margin-bottom:12px">Contact</div>
+        <div class="con-tag">Let's build something <em>solid</em>.</div>
+        <p class="con-sub">Open to infrastructure, network engineering, and IAM roles — New York or remote.</p>
+        <a href="contact.html" class="btn btn-pu">Get In Touch</a>
       </div>
-    </section>
-
-    <section id="certs">
-      <div class="container">
-        <div class="section-header fade-up"><div class="section-label">Credentials</div><h2 class="section-title">Certifications</h2></div>
-        <div class="certs-grid fade-up">
-          <div class="cert-card highlight"><div class="cert-issuer">Cisco</div><div class="cert-name">Cisco Certified Network Associate (CCNA)</div><div class="cert-status progress">In Active Progress</div></div>
-          <div class="cert-card"><div class="cert-issuer">Amazon Web Services</div><div class="cert-name">AWS Certified Solutions Architect – Associate</div><div class="cert-status active">Certified</div></div>
-          <div class="cert-card"><div class="cert-issuer">BICSI</div><div class="cert-name">BICSI Installer 1 (INST1)</div><div class="cert-status active">Certified</div></div>
-          <div class="cert-card"><div class="cert-issuer">Essential Safety Communications</div><div class="cert-name">OSHA 30-Hour Construction</div><div class="cert-status active">Certified</div></div>
-          <div class="cert-card"><div class="cert-issuer">Essential Safety Communications</div><div class="cert-name">NYC 40-Hour Site Safety Training (SST)</div><div class="cert-status active">Certified</div></div>
-          <div class="cert-card"><div class="cert-issuer">Dallas College</div><div class="cert-name">Site System Administration + Cisco ICND1 & ICND2</div><div class="cert-status active">Completed</div></div>
-        </div>
-        <div style="margin-top:48px" class="fade-up"><div class="section-label" style="margin-bottom:16px">Education</div><div style="max-width:480px"><div class="info-cards"><div class="info-card"><div class="info-card-icon"><i class="fa fa-graduation-cap"></i></div><div><div class="info-card-label">Dallas College — Dallas, TX</div><div class="info-card-value">Associate of Arts and Sciences (A.A.S.)</div></div></div></div></div></div>
+      <div class="con-links">
+        <a href="mailto:buildwithissac@gmail.com" class="con-link"><i class="fa fa-envelope"></i>buildwithissac@gmail.com</a>
+        <a href="tel:+13323026211" class="con-link"><i class="fa fa-phone"></i>+1 (332) 302-6211</a>
+        <a href="https://www.linkedin.com/in/issachenderson/" target="_blank" class="con-link"><i class="fab fa-linkedin"></i>linkedin.com/in/issachenderson</a>
+        <a href="https://calendly.com/buildwithissac/30min" target="_blank" class="con-link"><i class="fa fa-calendar-check"></i>Schedule a Call</a>
+        <a href="https://drive.google.com/file/d/10v89OUhL7rq5ZkXk-K5vKbd6VbyPOUw-/view?usp=sharing" target="_blank" class="con-link"><i class="fa fa-file-pdf"></i>Download Resume (PDF)</a>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section id="projects">
-      <div class="container">
-        <div class="section-header fade-up"><div class="section-label">Projects</div><h2 class="section-title">Selected Work</h2></div>
-        <div class="projects-grid fade-up">
-          <div class="project-card"><div class="project-card-num">01</div><div class="project-card-category">IAM / Security</div><div class="project-card-title">Enterprise Okta SSO Deployment</div><div class="project-card-desc">SSO, MFA, and lifecycle management for 2,000+ users at 99.97% uptime across strict compliance environments.</div><div><span class="project-tag">Okta</span><span class="project-tag">CyberArk</span><span class="project-tag">Zero Trust</span></div></div>
-          <div class="project-card"><div class="project-card-num">02</div><div class="project-card-category">Network Infrastructure</div><div class="project-card-title">Multi-Site MSP Network Ops</div><div class="project-card-desc">Network security and infrastructure across 50+ client sites via Datto RMM in a multi-tenant MSP environment.</div><div><span class="project-tag">SonicWall</span><span class="project-tag">Datto RMM</span><span class="project-tag">Sophos</span></div></div>
-          <div class="project-card"><div class="project-card-num">03</div><div class="project-card-category">Structured Cabling</div><div class="project-card-title">BICSI-Standard Fiber Install</div><div class="project-card-desc">End-to-end Cat5e/Cat6 and fiber installation with TIA-607 compliant grounding and Tier 1 OLTS verification.</div><div><span class="project-tag">BICSI</span><span class="project-tag">LC/SC Fiber</span><span class="project-tag">OLTS</span></div></div>
-        </div>
-        <div class="projects-cta fade-up"><a href="projects.html" class="btn btn-outline">View All Projects</a></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div class="ft-logo">Issac Henderson <span>/ Infrastructure</span></div>
+      <div class="ft-copy">&copy; 2026 Issac Henderson — All rights reserved</div>
+      <div class="ft-soc">
+        <a href="https://www.linkedin.com/in/issachenderson/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:buildwithissac@gmail.com"><i class="fa fa-envelope"></i></a>
+        <a href="https://github.com/issachenderson47/" target="_blank"><i class="fab fa-github"></i></a>
       </div>
-    </section>
+    </div>
+  </div>
+</footer>
 
-    <section id="contact">
-      <div class="container">
-        <div class="contact-inner fade-up">
-          <div><div class="section-label" style="margin-bottom:12px">Contact</div><div class="contact-tagline">Let's build something <em>solid</em>.</div><p class="contact-sub">Open to infrastructure, network engineering, and IAM roles — New York or remote.</p><a href="contact.html" class="btn btn-primary">Get In Touch</a></div>
-          <div class="contact-links">
-            <a href="mailto:buildwithissac@gmail.com" class="contact-link"><i class="fa fa-envelope"></i>buildwithissac@gmail.com</a>
-            <a href="tel:+13323026211" class="contact-link"><i class="fa fa-phone"></i>+1 (332) 302-6211</a>
-            <a href="https://www.linkedin.com/in/issachenderson/" target="_blank" class="contact-link"><i class="fab fa-linkedin"></i>linkedin.com/in/issachenderson</a>
-            <a href="https://calendly.com/buildwithissac/30min" target="_blank" class="contact-link"><i class="fa fa-calendar-check"></i>Schedule a Call</a>
-            <a href="https://drive.google.com/file/d/10v89OUhL7rq5ZkXk-K5vKbd6VbyPOUw-/view?usp=sharing" target="_blank" class="contact-link"><i class="fa fa-file-pdf"></i>Download Resume (PDF)</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+<script>
+  document.getElementById('mobBtn').addEventListener('click', () =>
+    document.getElementById('navLinks').classList.toggle('open'));
+  document.querySelectorAll('#navLinks a').forEach(a =>
+    a.addEventListener('click', () =>
+      document.getElementById('navLinks').classList.remove('open')));
 
-  <footer><div class="container"><div class="footer-inner"><div class="footer-logo">Issac Henderson <span>/ Infrastructure</span></div><div class="footer-copy">&copy; 2026 Issac Henderson — All rights reserved</div><div class="footer-social"><a href="https://www.linkedin.com/in/issachenderson/" target="_blank"><i class="fab fa-linkedin"></i></a><a href="mailto:buildwithissac@gmail.com"><i class="fa fa-envelope"></i></a><a href="https://github.com/issachenderson47/" target="_blank"><i class="fab fa-github"></i></a></div></div></div></footer>
+  (function(){
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+  })();
 
-  <script>
-    document.getElementById('mobileToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-    document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
-    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});
-    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-  </script>
+  (function(){
+    const canvas = document.getElementById('hero-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const COLS = ['99,44,166','0,113,227','123,77,191','100,210,255'];
+    const N = 65, DIST = 160;
+    let nodes = [], raf, W, H;
+
+    function init(){
+      const hero = document.getElementById('hero');
+      W = canvas.width  = hero.offsetWidth  || window.innerWidth;
+      H = canvas.height = hero.offsetHeight || window.innerHeight;
+      nodes = [];
+      for(let i=0;i<N;i++) nodes.push({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*.5, vy:(Math.random()-.5)*.5,
+        r:Math.random()*2+1.5,
+        c:COLS[Math.floor(Math.random()*COLS.length)]
+      });
+    }
+
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      for(let i=0;i<nodes.length;i++){
+        const a=nodes[i];
+        for(let j=i+1;j<nodes.length;j++){
+          const b=nodes[j];
+          const dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+          if(d<DIST){
+            ctx.beginPath();
+            ctx.strokeStyle=`rgba(${a.c},${(1-d/DIST)*.2})`;
+            ctx.lineWidth=1;
+            ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for(const n of nodes){
+        n.x+=n.vx; n.y+=n.vy;
+        if(n.x<0||n.x>W) n.vx*=-1;
+        if(n.y<0||n.y>H) n.vy*=-1;
+        ctx.beginPath();
+        ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${n.c},.5)`;
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    init(); frame();
+    window.addEventListener('resize',()=>{ cancelAnimationFrame(raf); init(); frame(); });
+  })();
+</script>
 </body>
 </html>
