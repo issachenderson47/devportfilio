@@ -43,6 +43,7 @@
 
     /* DARK HERO with dot grid */
     .page-hero{min-height:52vh;display:flex;align-items:center;padding:120px 24px 80px;position:relative;overflow:hidden;background:#0f1117}
+    #hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;display:block;pointer-events:none}
     .page-hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
       background-image:radial-gradient(circle,rgba(99,44,166,.22) 1px,transparent 1px),radial-gradient(circle,rgba(0,113,227,.12) 1px,transparent 1px);
       background-size:40px 40px,80px 80px;background-position:0 0,20px 20px}
@@ -158,8 +159,9 @@
   </div>
 </header>
 
-<!-- DARK HERO with dot grid + terminal -->
+<!-- DARK HERO with dot grid + canvas animation -->
 <div class="page-hero">
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div>
       <div class="hero-eyebrow">Portfolio</div>
@@ -333,13 +335,11 @@
       <div class="ft-copy">&copy; 2026 Issac Henderson — All rights reserved</div>
       <div class="ft-soc">
         <a href="https://www.linkedin.com/in/issachenderson/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="mailto:buildwithissac@gmail.com"><i class="fa fa-envelope"></i></a>
+        <a href="/cdn-cgi/l/email-protection#1270677b7e76657b667a7b6161737152757f737b7e3c717d7f"><i class="fa fa-envelope"></i></a>
         <a href="https://github.com/issachenderson47/" target="_blank"><i class="fab fa-github"></i></a>
       </div>
     </div>
   </div>
-</footer>
-
 <script>
   document.getElementById('mobBtn').addEventListener('click', () =>
     document.getElementById('navLinks').classList.toggle('open'));
@@ -367,7 +367,60 @@
       });
     });
   });
-</script>
 
+  // Canvas network animation
+  (function(){
+    const canvas = document.getElementById('hero-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const COLS = ['99,44,166','0,113,227','123,77,191','80,60,180'];
+    const N = 60, DIST = 155;
+    let nodes = [], raf, W, H;
+
+    function init(){
+      const hero = canvas.parentElement;
+      W = canvas.width  = hero.offsetWidth  || window.innerWidth;
+      H = canvas.height = hero.offsetHeight || window.innerHeight;
+      nodes = [];
+      for(let i=0;i<N;i++) nodes.push({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*.5, vy:(Math.random()-.5)*.5,
+        r:Math.random()*2+1.5,
+        c:COLS[Math.floor(Math.random()*COLS.length)]
+      });
+    }
+
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      for(let i=0;i<nodes.length;i++){
+        const a=nodes[i];
+        for(let j=i+1;j<nodes.length;j++){
+          const b=nodes[j];
+          const dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+          if(d<DIST){
+            ctx.beginPath();
+            ctx.strokeStyle=`rgba(${a.c},${(1-d/DIST)*.25})`;
+            ctx.lineWidth=1;
+            ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for(const n of nodes){
+        n.x+=n.vx; n.y+=n.vy;
+        if(n.x<0||n.x>W) n.vx*=-1;
+        if(n.y<0||n.y>H) n.vy*=-1;
+        ctx.beginPath();
+        ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${n.c},.45)`;
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    init(); frame();
+    window.addEventListener('resize',()=>{ cancelAnimationFrame(raf); init(); frame(); });
+  })();
+</script>
 </body>
 </html>
