@@ -4,284 +4,361 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — Issac Henderson</title>
+  <meta name="description" content="Get in touch with Issac Henderson — IT Infrastructure Engineer based in New York, NY.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    :root{--bg:#080c10;--surface:#0d1117;--panel:#111920;--border:#1e2d3d;--accent:#00d4ff;--accent2:#ff6b35;--green:#39d353;--text:#c9d1d9;--muted:#8b949e;--white:#f0f6ff;--font-mono:'Space Mono',monospace;--font-body:'DM Sans',sans-serif;--font-display:'Bebas Neue',sans-serif}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
-    .cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.1s;mix-blend-mode:screen}
-    .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transition:all 0.15s;mix-blend-mode:screen}
-    .grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:60px 60px}
-    header{position:fixed;top:0;left:0;right:0;z-index:900;padding:0 48px;height:70px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,12,16,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-    .logo{font-family:var(--font-mono);font-size:13px;color:var(--accent);letter-spacing:0.05em;text-decoration:none}
-    .logo span{color:var(--muted)}
-    nav{display:flex;align-items:center;gap:36px}
-    nav a{font-family:var(--font-mono);font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;position:relative}
-    nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width 0.3s}
-    nav a:hover{color:var(--accent)}
-    nav a:hover::after{width:100%}
-    .nav-cta{color:var(--accent)!important;border:1px solid var(--accent);padding:8px 20px;border-radius:2px;background:rgba(0,212,255,0.08);transition:background 0.2s,color 0.2s}
-    .nav-cta:hover{background:var(--accent);color:var(--bg)!important}
-    .nav-cta::after{display:none!important}
-    .mobile-nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer}
-    .nav-links{display:flex;align-items:center;gap:36px}
-    .page-hero{padding:160px 48px 80px;position:relative;border-bottom:1px solid var(--border)}
-    .page-hero-glow{position:absolute;top:-100px;left:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,0.06) 0%,transparent 70%);pointer-events:none}
-    .page-hero-glow-2{position:absolute;bottom:-200px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,107,53,0.04) 0%,transparent 70%);pointer-events:none}
-    .page-hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end}
-    .page-tag{font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px}
-    .page-tag::before{content:'';width:40px;height:1px;background:var(--accent)}
-    .page-title{font-family:var(--font-display);font-size:clamp(56px,9vw,120px);line-height:0.9;color:var(--white);letter-spacing:0.02em;margin-bottom:32px}
-    .page-title span{color:var(--accent);display:block}
-    .page-sub{font-family:var(--font-mono);font-size:clamp(13px,2vw,15px);color:var(--muted);line-height:1.7}
-    .status-card{background:var(--surface);border:1px solid var(--border);padding:32px}
-    .status-card-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:20px}
-    .status-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
-    .status-row:last-child{border-bottom:none}
-    .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-    .status-dot.green{background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s ease-in-out infinite}
-    .status-dot.yellow{background:var(--accent2)}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-    .status-text{font-family:var(--font-mono);font-size:12px;color:var(--text)}
-    .status-text strong{color:var(--white)}
-    .contact-main{padding:80px 0 120px;position:relative;z-index:1}
-    .container{max-width:1200px;margin:0 auto;padding:0 48px}
-    .contact-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
-    .contact-info-panel{display:flex;flex-direction:column;gap:4px}
-    .contact-info-header{font-family:var(--font-mono);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.2em;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:4px}
-    .contact-info-link{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;font-size:14px;transition:all 0.2s}
-    .contact-info-link:hover{border-color:var(--accent);color:var(--accent);background:var(--panel)}
-    .contact-info-link i{color:var(--accent);width:20px;text-align:center;font-size:16px}
-    .contact-info-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
-    .contact-info-value{font-size:14px;color:var(--white);margin-top:2px}
-    .availability-block{margin-top:32px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);padding:24px}
-    .availability-title{font-family:var(--font-mono);font-size:12px;color:var(--white);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-    .avail-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s ease-in-out infinite}
-    .availability-text{font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:1.7}
-    .contact-form-panel{background:var(--surface);border:1px solid var(--border);padding:48px}
-    .form-header{margin-bottom:36px}
-    .form-header-label{font-family:var(--font-mono);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:10px}
-    .form-header-title{font-family:var(--font-display);font-size:36px;color:var(--white)}
-    .contact-form{display:flex;flex-direction:column;gap:16px}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .form-group{display:flex;flex-direction:column;gap:8px}
-    .form-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em}
-    .form-control{background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:14px;padding:14px 16px;border-radius:2px;transition:border-color 0.2s;outline:none;width:100%}
-    .form-control:focus{border-color:var(--accent)}
-    .form-control::placeholder{color:var(--muted)}
-    textarea.form-control{resize:vertical;min-height:160px}
-    .form-type-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
-    .form-type-btn{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;padding:10px;border:1px solid var(--border);background:var(--bg);color:var(--muted);border-radius:2px;cursor:pointer;transition:all 0.2s;text-align:center}
-    .form-type-btn:hover,.form-type-btn.selected{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,0.05)}
-    .btn-submit{font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;padding:16px 40px;border-radius:2px;background:var(--accent);color:var(--bg);border:none;cursor:pointer;transition:all 0.25s;display:inline-flex;align-items:center;gap:10px;font-weight:700;margin-top:8px}
-    .btn-submit:hover{background:#00b8db;transform:translateY(-2px)}
-    footer{border-top:1px solid var(--border);padding:40px 0;position:relative;z-index:1}
-    .footer-inner{display:flex;align-items:center;justify-content:space-between}
-    .footer-logo{font-family:var(--font-mono);font-size:13px;color:var(--accent)}
-    .footer-copy{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
-    .footer-social{display:flex;gap:20px}
-    .footer-social a{color:var(--muted);text-decoration:none;font-size:16px;transition:color 0.2s}
-    .footer-social a:hover{color:var(--accent)}
-    @media(max-width:900px){
-      header{padding:0 24px}
-      .nav-links{display:none;position:absolute;top:70px;left:0;right:0;background:var(--surface);flex-direction:column;padding:24px;gap:20px;border-bottom:1px solid var(--border)}
-      .nav-links.open{display:flex}
-      .mobile-nav-toggle{display:block}
-      .page-hero{padding:120px 24px 60px}
-      .page-hero-inner{grid-template-columns:1fr;gap:40px}
-      .container{padding:0 24px}
-      .contact-layout{grid-template-columns:1fr;gap:40px}
-      .contact-form-panel{padding:32px 24px}
-      .form-row{grid-template-columns:1fr}
-      .form-type-row{grid-template-columns:1fr 1fr}
-      .footer-inner{flex-direction:column;gap:20px;text-align:center}
+    :root {
+      --bg:#fff; --bg2:#f5f5f7; --bdr:#d2d2d7; --bdr2:#e8e8ed;
+      --tx:#1d1d1f; --tx2:#6e6e73; --tx3:#86868b;
+      --blue:#0071e3; --blue2:#0077ed;
+      --pu:#632ca6; --pu2:#7b4dbf; --pub:rgba(99,44,166,.07); --pub2:rgba(99,44,166,.22);
+      --gr:#34c759; --grd:#248a3d; --or:#ff9500; --ord:#b25000;
+      --tbg:#1a1f2e; --tbar:#222736; --ttx:#cdd6f4; --tmut:#6c7086;
+      --tcyan:#64d2ff; --tgrn:#30d158; --torg:#ff9f0a;
+      --ff:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;
+      --fm:'JetBrains Mono',monospace;
+      --mw:1080px; --sec:140px 0; --rad:14px;
     }
-    .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
-    .fade-up.visible{opacity:1;transform:translateY(0)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:var(--ff);background:var(--bg);color:var(--tx);line-height:1.5;overflow-x:hidden}
+    ::selection{background:var(--pu);color:#fff}
+
+    .stripe{height:3px;background:linear-gradient(90deg,var(--pu),var(--pu2),var(--blue));position:fixed;top:0;left:0;right:0;z-index:1000}
+
+    header{position:fixed;top:3px;left:0;right:0;z-index:900;height:52px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--bdr2)}
+    .nav-w{max-width:var(--mw);width:100%;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-weight:700;font-size:16px;color:var(--tx);text-decoration:none;letter-spacing:-.02em}
+    .logo span{font-weight:400;color:var(--tx3)}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    nav{display:flex;align-items:center;gap:32px}
+    nav a{font-size:12px;font-weight:500;color:var(--tx2);text-decoration:none;transition:color .2s}
+    nav a:hover{color:var(--tx)}
+    .ncta{color:#fff!important;background:var(--pu);padding:6px 16px;border-radius:980px;transition:background .2s}
+    .ncta:hover{background:var(--pu2)!important}
+    .mob{display:none;background:none;border:none;color:var(--tx);font-size:18px;cursor:pointer}
+
+    /* DARK HERO with dot grid */
+    .page-hero{min-height:56vh;display:flex;align-items:center;padding:120px 24px 80px;position:relative;overflow:hidden;background:#0f1117}
+    .page-hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+      background-image:radial-gradient(circle,rgba(99,44,166,.22) 1px,transparent 1px),radial-gradient(circle,rgba(0,113,227,.12) 1px,transparent 1px);
+      background-size:40px 40px,80px 80px;background-position:0 0,20px 20px}
+    .page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;z-index:2;pointer-events:none;
+      background:linear-gradient(to bottom,transparent,#fff)}
+    .hero-inner{position:relative;z-index:3;max-width:var(--mw);width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .hero-eyebrow{font-family:var(--fm);font-size:11px;font-weight:500;color:#a78bfa;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+    .hero-title{font-weight:800;font-size:clamp(44px,6vw,72px);line-height:1;letter-spacing:-.035em;color:#fff;margin-bottom:16px}
+    .hero-sub{font-size:clamp(14px,1.8vw,17px);color:rgba(255,255,255,.6);line-height:1.65}
+
+    /* STATUS CARD — dark frosted */
+    .status-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--rad);padding:28px;backdrop-filter:blur(8px)}
+    .status-card-lbl{font-family:var(--fm);font-size:10px;color:var(--tmut);text-transform:uppercase;letter-spacing:.15em;margin-bottom:18px}
+    .status-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .status-row:last-child{border-bottom:none}
+    .s-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .s-dot.on{background:var(--tgrn);box-shadow:0 0 8px var(--tgrn);animation:pulse 2s ease-in-out infinite}
+    .s-dot.wa{background:var(--torg)}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .s-tx{font-family:var(--fm);font-size:12px;color:rgba(255,255,255,.6)}
+    .s-tx strong{color:#fff}
+
+    /* TERMINAL */
+    .term-block{background:var(--tbg);border-radius:var(--rad);overflow:hidden;font-family:var(--fm);font-size:13px;box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07);position:relative}
+    .term-block::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+      background-image:radial-gradient(circle,rgba(99,44,166,.15) 1px,transparent 1px);
+      background-size:24px 24px}
+    .tb-bar{background:var(--tbar);padding:13px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);position:relative;z-index:1}
+    .dot{width:13px;height:13px;border-radius:50%}
+    .dr{background:#ff5f57}.dy{background:#febc2e}.dg{background:#28c840}
+    .ttl{color:var(--tmut);font-size:12px;margin-left:auto}
+    .tb-body{padding:20px 22px;line-height:2.1;position:relative;z-index:1}
+    .tl{display:flex;gap:10px}
+    .tp{color:var(--tcyan)}.tc{color:var(--ttx)}
+    .to{color:var(--tmut);padding-left:18px}
+    .to .ok{color:var(--tgrn)}.to .wa{color:var(--torg)}
+    .cur{display:inline-block;width:9px;height:15px;background:var(--tcyan);animation:blink 1.2s step-end infinite;vertical-align:middle}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    /* SHARED */
+    .wrap{max-width:var(--mw);margin:0 auto;padding:0 24px}
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.visible{opacity:1;transform:none}
+    .slbl{font-family:var(--fm);font-size:11px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+    .btn{font-family:var(--ff);font-size:14px;font-weight:500;text-decoration:none;padding:14px 32px;border-radius:980px;transition:all .2s;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;letter-spacing:-.01em}
+    .btn-pu{background:var(--pu);color:#fff}.btn-pu:hover{background:var(--pu2);transform:scale(1.02)}
+
+    /* CONTACT BODY */
+    .contact-main{padding:var(--sec);background:var(--bg)}
+    .contact-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start}
+
+    /* INFO PANEL */
+    .info-lbl{font-family:var(--fm);font-size:10px;color:var(--pu);text-transform:uppercase;letter-spacing:.2em;padding-bottom:14px;border-bottom:1px solid var(--bdr2);margin-bottom:4px}
+    .con-links{display:flex;flex-direction:column;gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:24px}
+    .con-link{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--bg);color:var(--tx);text-decoration:none;transition:background .15s}
+    .con-link:hover{background:var(--bg2)}
+    .con-link i{color:var(--tx3);width:18px;text-align:center;font-size:15px;flex-shrink:0}
+    .con-link-lbl{font-family:var(--fm);font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em}
+    .con-link-val{font-size:14px;color:var(--tx);margin-top:2px;font-weight:500}
+    .avail{background:var(--bg);border:1px solid var(--bdr2);border-left:3px solid var(--gr);border-radius:0 var(--rad) var(--rad) 0;padding:20px 24px}
+    .avail-t{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+    .avail-dot{width:8px;height:8px;border-radius:50%;background:var(--gr);box-shadow:0 0 6px var(--gr);animation:pulse 2s ease-in-out infinite}
+    .avail-s{font-size:13px;color:var(--tx2);line-height:1.6}
+
+    /* FORM */
+    .form-panel{background:var(--bg2);border-radius:var(--rad);padding:40px}
+    .form-hdr-lbl{font-family:var(--fm);font-size:10px;color:var(--pu);text-transform:uppercase;letter-spacing:.2em;margin-bottom:10px}
+    .form-hdr-t{font-size:28px;font-weight:700;color:var(--tx);letter-spacing:-.02em;margin-bottom:28px}
+    .form{display:flex;flex-direction:column;gap:16px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .fg{display:flex;flex-direction:column;gap:8px}
+    .flbl{font-family:var(--fm);font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em}
+    .fc{background:var(--bg);border:1px solid var(--bdr2);color:var(--tx);font-family:var(--ff);font-size:14px;padding:14px 16px;border-radius:10px;transition:border-color .2s;outline:none;width:100%}
+    .fc:focus{border-color:var(--pu);box-shadow:0 0 0 3px var(--pub)}
+    .fc::placeholder{color:var(--tx3)}
+    textarea.fc{resize:vertical;min-height:150px}
+    .type-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .type-btn{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:10px;border:1px solid var(--bdr2);background:var(--bg);color:var(--tx3);border-radius:8px;cursor:pointer;transition:all .2s;text-align:center}
+    .type-btn:hover,.type-btn.sel{border-color:var(--pu);color:var(--pu);background:var(--pub)}
+    .submit-btn{font-family:var(--ff);font-size:14px;font-weight:600;letter-spacing:-.01em;padding:14px 36px;border-radius:980px;background:var(--pu);color:#fff;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:10px;margin-top:4px}
+    .submit-btn:hover{background:var(--pu2);transform:translateY(-2px)}
+    .form-success{display:none;margin-top:16px;font-family:var(--fm);font-size:12px;color:var(--grd);background:rgba(52,199,89,.08);border:1px solid rgba(52,199,89,.25);padding:12px 16px;border-radius:8px}
+    .form-error{display:none;margin-top:16px;font-family:var(--fm);font-size:12px;color:var(--ord);background:rgba(255,149,0,.08);border:1px solid rgba(255,149,0,.25);padding:12px 16px;border-radius:8px}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--bdr2);padding:32px 0}
+    .ft{display:flex;align-items:center;justify-content:space-between}
+    .ft-logo{font-size:14px;font-weight:700;color:var(--tx)}
+    .ft-logo span{font-weight:400;color:var(--tx3)}
+    .ft-copy{font-size:12px;color:var(--tx3)}
+    .ft-soc{display:flex;gap:20px}
+    .ft-soc a{color:var(--tx3);text-decoration:none;font-size:15px;transition:color .2s}
+    .ft-soc a:hover{color:var(--pu)}
+
+    @media(max-width:900px){
+      .nav-links{display:none;position:fixed;top:55px;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);flex-direction:column;padding:24px;gap:20px;border-bottom:1px solid var(--bdr2);z-index:899}
+      .nav-links.open{display:flex}
+      .mob{display:block}
+      .hero-inner{grid-template-columns:1fr;gap:40px}
+      .contact-layout{grid-template-columns:1fr;gap:40px}
+      .form-panel{padding:28px 20px}
+      .form-row{grid-template-columns:1fr}
+      .type-row{grid-template-columns:1fr 1fr}
+      .ft{flex-direction:column;gap:16px;text-align:center}
+    }
+    @media(max-width:600px){:root{--sec:80px 0}}
   </style>
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-  <div class="grid-bg"></div>
-  <header>
-    <a href="index.html" class="logo">IH<span>.dev</span></a>
-    <button class="mobile-nav-toggle" id="mobileToggle"><i class="fa fa-bars"></i></button>
+
+<div class="stripe"></div>
+
+<header>
+  <div class="nav-w">
+    <a href="index.html" class="logo">Issac Henderson <span>/ Infrastructure</span></a>
+    <button class="mob" id="mobBtn"><i class="fa fa-bars"></i></button>
     <div class="nav-links" id="navLinks">
       <nav>
         <a href="index.html#about">About</a>
         <a href="index.html#skills">Skills</a>
         <a href="index.html#experience">Experience</a>
-        <a href="index.html#certs">Certs</a>
+        <a href="index.html#certs">Credentials</a>
         <a href="projects.html">Projects</a>
-        <a href="contact.html" class="nav-cta">Hire Me</a>
+        <a href="contact.html" class="ncta">Hire Me</a>
       </nav>
     </div>
-  </header>
+  </div>
+</header>
 
-  <div class="page-hero">
-    <div class="page-hero-glow"></div><div class="page-hero-glow-2"></div>
-    <div class="page-hero-inner">
-      <div>
-        <div class="page-tag">Get In Touch</div>
-        <h1 class="page-title">Let's<span>Connect</span></h1>
-        <p class="page-sub">Open to infrastructure, network engineering, and IAM opportunities in New York and remote. Drop a message and I'll get back to you fast.</p>
+<!-- DARK HERO with dot grid + status card -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Get In Touch</div>
+      <h1 class="hero-title">Let's<br>Connect</h1>
+      <p class="hero-sub">Open to infrastructure, network engineering, and IAM opportunities in New York and remote. Drop a message and I'll get back to you fast.</p>
+    </div>
+    <!-- Status card — dark frosted, in hero -->
+    <div class="status-card">
+      <div class="status-card-lbl">// Current Status</div>
+      <div class="status-row"><div class="s-dot on"></div><div class="s-tx"><strong>Available for new roles</strong> — actively looking</div></div>
+      <div class="status-row"><div class="s-dot on"></div><div class="s-tx"><strong>Open to</strong> — FT, contract, hybrid &amp; remote</div></div>
+      <div class="status-row"><div class="s-dot wa"></div><div class="s-tx"><strong>CCNA</strong> — in active study, exam scheduled</div></div>
+      <div class="status-row"><div class="s-dot on"></div><div class="s-tx"><strong>Response time</strong> — typically within 24 hours</div></div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="contact-main">
+    <div class="wrap">
+      <div class="contact-layout">
+
+        <!-- LEFT: Info + terminal -->
+        <div class="fade-up">
+          <div class="info-lbl">Direct Contact</div>
+          <div class="con-links">
+            <a href="mailto:buildwithissac@gmail.com" class="con-link">
+              <i class="fa fa-envelope"></i>
+              <div><div class="con-link-lbl">Email</div><div class="con-link-val">buildwithissac@gmail.com</div></div>
+            </a>
+            <a href="tel:+13323026211" class="con-link">
+              <i class="fa fa-phone"></i>
+              <div><div class="con-link-lbl">Phone</div><div class="con-link-val">+1 (332) 302-6211</div></div>
+            </a>
+            <a href="https://www.linkedin.com/in/issachenderson/" target="_blank" class="con-link">
+              <i class="fab fa-linkedin"></i>
+              <div><div class="con-link-lbl">LinkedIn</div><div class="con-link-val">linkedin.com/in/issachenderson</div></div>
+            </a>
+            <a href="https://calendly.com/buildwithissac/30min" target="_blank" class="con-link">
+              <i class="fa fa-calendar-check"></i>
+              <div><div class="con-link-lbl">Schedule a Call</div><div class="con-link-val">calendly.com/buildwithissac</div></div>
+            </a>
+            <a href="https://drive.google.com/file/d/10v89OUhL7rq5ZkXk-K5vKbd6VbyPOUw-/view?usp=sharing" target="_blank" class="con-link">
+              <i class="fa fa-file-pdf"></i>
+              <div><div class="con-link-lbl">Resume</div><div class="con-link-val">Download PDF</div></div>
+            </a>
+            <a href="https://github.com/issachenderson47/" target="_blank" class="con-link">
+              <i class="fab fa-github"></i>
+              <div><div class="con-link-lbl">GitHub</div><div class="con-link-val">github.com/issachenderson47</div></div>
+            </a>
+          </div>
+
+          <div class="avail">
+            <div class="avail-t"><div class="avail-dot"></div> Open to Opportunities</div>
+            <div class="avail-s">Looking for roles in network engineering, IT infrastructure, IAM/security, or MSP environments. Based in New York — open to hybrid and remote.</div>
+          </div>
+
+          <!-- Mini terminal block -->
+          <div class="term-block" style="margin-top:24px">
+            <div class="tb-bar">
+              <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+              <span class="ttl">issac@nyc:~</span>
+            </div>
+            <div class="tb-body" style="font-size:12px;line-height:1.9">
+              <div class="tl"><span class="tp">$</span><span class="tc">cat certifications.txt</span></div>
+              <div class="to"><span class="ok">✓</span> BICSI INST1</div>
+              <div class="to"><span class="ok">✓</span> AWS Solutions Architect</div>
+              <div class="to"><span class="ok">✓</span> OSHA 30 + SST 40</div>
+              <div class="to"><span class="wa">↻</span> CCNA (In Progress)</div>
+              <div class="tl" style="margin-top:6px"><span class="tp">$</span><span class="tc">ping buildwithissac@gmail.com</span></div>
+              <div class="to"><span class="ok">PONG</span> — ready to connect.</div>
+              <div class="tl" style="margin-top:6px"><span class="tp">$</span><span class="cur"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="form-panel fade-up">
+          <div class="form-hdr-lbl">// Send a Message</div>
+          <div class="form-hdr-t">Drop Me a Line</div>
+          <div class="form">
+            <div class="fg">
+              <label class="flbl">What's this about?</label>
+              <div class="type-row">
+                <div class="type-btn sel" data-type="Job Opportunity">Job Opportunity</div>
+                <div class="type-btn" data-type="Contract Work">Contract Work</div>
+                <div class="type-btn" data-type="Collaboration">Collaboration</div>
+                <div class="type-btn" data-type="General Inquiry">General Inquiry</div>
+                <div class="type-btn" data-type="Other">Other</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="fg">
+                <label class="flbl">Name</label>
+                <input type="text" class="fc" id="fname" placeholder="Your full name">
+              </div>
+              <div class="fg">
+                <label class="flbl">Email</label>
+                <input type="email" class="fc" id="femail" placeholder="your@email.com">
+              </div>
+            </div>
+            <div class="fg">
+              <label class="flbl">Company / Organization</label>
+              <input type="text" class="fc" id="fcompany" placeholder="Where are you from? (optional)">
+            </div>
+            <div class="fg">
+              <label class="flbl">Message</label>
+              <textarea class="fc" id="fmessage" placeholder="Tell me about the role, project, or what you have in mind..."></textarea>
+            </div>
+            <div>
+              <button class="submit-btn" id="submitBtn"><i class="fa fa-paper-plane"></i> Send Message</button>
+              <div class="form-success" id="formSuccess">✓ Message sent — I'll get back to you within 24 hours.</div>
+              <div class="form-error" id="formError">Something went wrong. Please email buildwithissac@gmail.com directly.</div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="status-card">
-        <div class="status-card-label">// Current Status</div>
-        <div class="status-row"><div class="status-dot green"></div><div class="status-text"><strong>Available for new roles</strong> — actively looking</div></div>
-        <div class="status-row"><div class="status-dot green"></div><div class="status-text"><strong>Open to</strong> — FT, contract, hybrid and remote</div></div>
-        <div class="status-row"><div class="status-dot yellow"></div><div class="status-text"><strong>CCNA</strong> — in active study, exam scheduled</div></div>
-        <div class="status-row"><div class="status-dot green"></div><div class="status-text"><strong>Response time</strong> — typically within 24 hours</div></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div class="ft-logo">Issac Henderson <span>/ Infrastructure</span></div>
+      <div class="ft-copy">&copy; 2026 Issac Henderson — All rights reserved</div>
+      <div class="ft-soc">
+        <a href="https://www.linkedin.com/in/issachenderson/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:buildwithissac@gmail.com"><i class="fa fa-envelope"></i></a>
+        <a href="https://github.com/issachenderson47/" target="_blank"><i class="fab fa-github"></i></a>
       </div>
     </div>
   </div>
+</footer>
 
-  <main>
-    <section class="contact-main">
-      <div class="container">
-        <div class="contact-layout">
-          <div class="fade-up">
-            <div class="contact-info-panel">
-              <div class="contact-info-header">Direct Contact</div>
-              <a href="mailto:buildwithissac@gmail.com" class="contact-info-link">
-                <i class="fa fa-envelope"></i>
-                <div><div class="contact-info-label">Email</div><div class="contact-info-value">buildwithissac@gmail.com</div></div>
-              </a>
-              <a href="tel:+13323026211" class="contact-info-link">
-                <i class="fa fa-phone"></i>
-                <div><div class="contact-info-label">Phone</div><div class="contact-info-value">+1 (332) 302-6211</div></div>
-              </a>
-              <a href="https://www.linkedin.com/in/issachenderson/" target="_blank" class="contact-info-link">
-                <i class="fab fa-linkedin"></i>
-                <div><div class="contact-info-label">LinkedIn</div><div class="contact-info-value">linkedin.com/in/issachenderson</div></div>
-              </a>
-              <a href="https://calendly.com/buildwithissac/30min" target="_blank" class="contact-info-link">
-                <i class="fa fa-calendar-check"></i>
-                <div><div class="contact-info-label">Schedule a Call</div><div class="contact-info-value">calendly.com/buildwithissac</div></div>
-              </a>
-              <a href="https://drive.google.com/file/d/10v89OUhL7rq5ZkXk-K5vKbd6VbyPOUw-/view?usp=sharing" target="_blank" class="contact-info-link">
-                <i class="fa fa-file-pdf"></i>
-                <div><div class="contact-info-label">Resume</div><div class="contact-info-value">Download PDF</div></div>
-              </a>
-              <a href="https://github.com/issachenderson47/" target="_blank" class="contact-info-link">
-                <i class="fab fa-github"></i>
-                <div><div class="contact-info-label">GitHub</div><div class="contact-info-value">github.com/issachenderson47</div></div>
-              </a>
-            </div>
-            <div class="availability-block">
-              <div class="availability-title"><div class="avail-dot"></div> Open to Opportunities</div>
-              <div class="availability-text">Looking for roles in network engineering, IT infrastructure, IAM/security, or MSP environments. Based in New York — open to hybrid and remote. Let's build something.</div>
-            </div>
-          </div>
+<script>
+  document.getElementById('mobBtn').addEventListener('click', () =>
+    document.getElementById('navLinks').classList.toggle('open'));
+  document.querySelectorAll('#navLinks a').forEach(a =>
+    a.addEventListener('click', () =>
+      document.getElementById('navLinks').classList.remove('open')));
 
-          <div class="contact-form-panel fade-up">
-            <div class="form-header">
-              <div class="form-header-label">// Send a Message</div>
-              <div class="form-header-title">Drop Me a Line</div>
-            </div>
-            <div class="contact-form">
-              <div class="form-group">
-                <label class="form-label">What's this about?</label>
-                <div class="form-type-row">
-                  <div class="form-type-btn selected" data-type="Job Opportunity">Job Opportunity</div>
-                  <div class="form-type-btn" data-type="Contract Work">Contract Work</div>
-                  <div class="form-type-btn" data-type="Collaboration">Collaboration</div>
-                  <div class="form-type-btn" data-type="General Inquiry">General Inquiry</div>
-                  <div class="form-type-btn" data-type="Other">Other</div>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label">Name</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Your full name">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Email</label>
-                  <input type="email" class="form-control" id="femail" placeholder="your@email.com">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Company / Organization</label>
-                <input type="text" class="form-control" id="fcompany" placeholder="Where are you from? (optional)">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Message</label>
-                <textarea class="form-control" id="fmessage" placeholder="Tell me about the role, project, or what you have in mind..."></textarea>
-              </div>
-              <div>
-                <button class="btn-submit" id="submitBtn"><i class="fa fa-paper-plane"></i> Send Message</button>
-                <div id="formSuccess" style="display:none;margin-top:16px;font-family:var(--font-mono);font-size:12px;color:var(--green);background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.2);padding:12px 16px;border-radius:2px;">
-                  ✓ Message sent — I'll get back to you within 24 hours.
-                </div>
-                <div id="formError" style="display:none;margin-top:16px;font-family:var(--font-mono);font-size:12px;color:var(--accent2);background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.2);padding:12px 16px;border-radius:2px;">
-                  Something went wrong. Please email buildwithissac@gmail.com directly.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
 
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">IH<span style="color:var(--muted)">.dev</span></div>
-        <div class="footer-copy">© 2026 Issac Henderson — All rights reserved</div>
-        <div class="footer-social">
-          <a href="https://www.linkedin.com/in/issachenderson/" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="mailto:buildwithissac@gmail.com"><i class="fa fa-envelope"></i></a>
-          <a href="https://github.com/issachenderson47/" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-5+'px';cursor.style.top=my-5+'px'});
-    function animateRing(){rx+=(mx-rx)*0.18;ry+=(my-ry)*0.18;ring.style.left=rx-18+'px';ring.style.top=ry-18+'px';requestAnimationFrame(animateRing)}
-    animateRing();
-    document.querySelectorAll('a,button,.contact-info-link,.form-type-btn').forEach(el=>{
-      el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2.5)';ring.style.transform='scale(1.4)'});
-      el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';ring.style.transform='scale(1)'});
+  // Form type selector
+  let selectedType = 'Job Opportunity';
+  document.querySelectorAll('.type-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      selectedType = btn.dataset.type;
     });
-    document.getElementById('mobileToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-    document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
-    let selectedType='Job Opportunity';
-    document.querySelectorAll('.form-type-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('.form-type-btn').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
-        selectedType=btn.dataset.type;
-      });
+  });
+
+  // Form submit
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    const name    = document.getElementById('fname').value.trim();
+    const email   = document.getElementById('femail').value.trim();
+    const message = document.getElementById('fmessage').value.trim();
+    const company = document.getElementById('fcompany').value.trim();
+    if (!name || !email || !message) { alert('Please fill in your name, email, and message.'); return; }
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.style.opacity = '.6';
+    fetch('https://formspree.io/f/xgoldbbo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, type: selectedType, company, message })
+    }).then(r => {
+      if (r.ok) {
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        document.getElementById('formError').style.display = 'block';
+        btn.disabled = false; btn.style.opacity = '1';
+      }
+    }).catch(() => {
+      document.getElementById('formError').style.display = 'block';
+      btn.disabled = false; btn.style.opacity = '1';
     });
-    document.getElementById('submitBtn').addEventListener('click',()=>{
-      const name=document.getElementById('fname').value;
-      const email=document.getElementById('femail').value;
-      const message=document.getElementById('fmessage').value;
-      const company=document.getElementById('fcompany').value;
-      if(!name||!email||!message){alert('Please fill in your name, email, and message.');return}
-      document.getElementById('submitBtn').disabled=true;
-      document.getElementById('submitBtn').style.opacity='0.6';
-      fetch('https://formspree.io/f/xgoldbbo',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name,email,type:selectedType,company,message})
-      }).then(r=>{
-        if(r.ok){document.getElementById('formSuccess').style.display='block'}
-        else{document.getElementById('formError').style.display='block';document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').style.opacity='1'}
-      }).catch(()=>{document.getElementById('formError').style.display='block';document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').style.opacity='1'});
-    });
-    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});
-    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-  </script>
+  });
+</script>
+
 </body>
 </html>
