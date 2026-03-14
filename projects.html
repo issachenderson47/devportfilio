@@ -54,7 +54,7 @@
     .hero-title{font-weight:800;font-size:clamp(44px,6vw,72px);line-height:1;letter-spacing:-.035em;color:#fff;margin-bottom:16px}
     .hero-sub{font-size:clamp(14px,1.8vw,17px);color:rgba(255,255,255,.6);line-height:1.65;max-width:480px}
 
-    /* terminal mini block — used in hero and inline */
+    /* terminal mini block */
     .term-block{background:var(--tbg);border-radius:var(--rad);overflow:hidden;font-family:var(--fm);font-size:13px;box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07);flex-shrink:0;position:relative}
     .term-block::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
       background-image:radial-gradient(circle,rgba(99,44,166,.15) 1px,transparent 1px);
@@ -107,7 +107,69 @@
     .outcomes{list-style:none;margin-bottom:0}
     .outcomes li{font-family:var(--fm);font-size:11px;color:var(--tx2);padding:7px 0;border-bottom:1px solid var(--bdr2);display:flex;align-items:center;gap:8px}
     .outcomes li:last-child{border-bottom:none}
-    .outcomes li::before{content:'→';color:var(--pu);font-size:10px;flex-shrink:0}
+    .outcomes li::before{content:'\2192';color:var(--pu);font-size:10px;flex-shrink:0}
+    .proj-link{font-family:var(--fm);font-size:11px;color:var(--pu);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:12px;transition:gap .2s}
+    .proj-link:hover{gap:10px}
+
+    /* =============================================
+       PROJECT DETAIL — CASE STUDY SECTION
+       ============================================= */
+    .case-study{padding:0 0 120px;position:relative}
+    .case-study .wrap{max-width:var(--mw)}
+
+    .cs-hero{position:relative;border-radius:var(--rad);overflow:hidden;margin-bottom:64px;background:#0f1117;padding:64px 48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+    .cs-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+      background-image:radial-gradient(circle,rgba(99,44,166,.18) 1px,transparent 1px);
+      background-size:32px 32px;opacity:.5}
+    .cs-hero-text{position:relative;z-index:1}
+    .cs-hero-eyebrow{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--tcyan);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+    .cs-hero-title{font-size:clamp(28px,4vw,40px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px}
+    .cs-hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.7}
+    .cs-hero-img{position:relative;z-index:1;border-radius:10px;overflow:hidden;aspect-ratio:4/3}
+    .cs-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* Case study body sections */
+    .cs-sections{display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:56px}
+    .cs-nav{background:var(--bg2);padding:36px 28px;border-right:1px solid var(--bdr2)}
+    .cs-nav-label{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+    .cs-nav-item{display:block;font-size:13px;font-weight:500;color:var(--tx2);padding:10px 0;border-bottom:1px solid var(--bdr2);cursor:pointer;transition:color .2s;text-decoration:none}
+    .cs-nav-item:last-child{border-bottom:none}
+    .cs-nav-item:hover,.cs-nav-item.active{color:var(--pu)}
+    .cs-nav-item .nav-num{font-family:var(--fm);font-size:10px;color:var(--tx3);margin-right:8px}
+    .cs-body{padding:36px 40px}
+    .cs-block{margin-bottom:40px}
+    .cs-block:last-child{margin-bottom:0}
+    .cs-block-title{font-family:var(--fm);font-size:11px;font-weight:500;color:var(--pu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--pub2)}
+    .cs-block p{font-size:14px;color:var(--tx2);line-height:1.8;margin-bottom:12px}
+    .cs-block p:last-child{margin-bottom:0}
+    .cs-list{list-style:none;padding:0}
+    .cs-list li{font-size:14px;color:var(--tx2);line-height:1.7;padding:6px 0;padding-left:20px;position:relative}
+    .cs-list li::before{content:'\2192';position:absolute;left:0;color:var(--pu);font-size:12px}
+
+    /* Tech specs strip */
+    .cs-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:56px}
+    .cs-spec{background:var(--bg);padding:28px 24px;text-align:center}
+    .cs-spec-label{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+    .cs-spec-value{font-size:14px;font-weight:600;color:var(--tx);line-height:1.4}
+
+    /* Photo gallery */
+    .cs-gallery-label{font-family:var(--fm);font-size:11px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+    .cs-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+    .cs-gallery.top-row{grid-template-columns:repeat(3,1fr);margin-bottom:8px}
+    .cs-gal-item{border-radius:10px;overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;background:#f0f0f0}
+    .cs-gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+    .cs-gal-item:hover img{transform:scale(1.05)}
+    .cs-gal-item .gal-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.06em;text-transform:uppercase}
+
+    /* Lightbox */
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;align-items:center;justify-content:center;cursor:zoom-out}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain}
+    .lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;opacity:.7;transition:opacity .2s}
+    .lightbox-close:hover{opacity:1}
+
+    /* Divider between grid and case study */
+    .section-divider{width:100%;height:1px;background:var(--bdr2);margin:0 0 80px}
 
     /* COMING SOON BLOCK */
     .coming-soon{margin-top:1px;background:var(--bg2);border-radius:0 0 var(--rad) var(--rad);padding:56px;text-align:center}
@@ -133,9 +195,18 @@
       .hero-term{display:none}
       .proj-grid{grid-template-columns:1fr}
       .proj.featured{grid-column:span 1}
+      .cs-hero{grid-template-columns:1fr;padding:40px 28px}
+      .cs-hero-img{max-height:280px}
+      .cs-sections{grid-template-columns:1fr}
+      .cs-nav{border-right:none;border-bottom:1px solid var(--bdr2);padding:24px 28px}
+      .cs-specs{grid-template-columns:1fr}
+      .cs-gallery,.cs-gallery.top-row{grid-template-columns:repeat(2,1fr)}
       .ft{flex-direction:column;gap:16px;text-align:center}
     }
-    @media(max-width:600px){:root{--sec:80px 0}}
+    @media(max-width:600px){
+      :root{--sec:80px 0}
+      .cs-gallery,.cs-gallery.top-row{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -175,12 +246,12 @@
       </div>
       <div class="tb-body">
         <div class="tl"><span class="tp">$</span><span class="tc">ls projects/</span></div>
-        <div class="to"><span class="ok">→</span> 01_okta-iam-platform/</div>
-        <div class="to"><span class="ok">→</span> 02_msp-network-ops/</div>
-        <div class="to"><span class="ok">→</span> 03_bicsi-fiber-install/</div>
-        <div class="to"><span class="ok">→</span> 04_noc-automation/</div>
-        <div class="to"><span class="ok">→</span> 05_topgolf-ivr-deploy/</div>
-        <div class="to"><span class="ok">→</span> 06_biolife-kb-itsm/</div>
+        <div class="to"><span class="ok">&rarr;</span> 01_okta-iam-platform/</div>
+        <div class="to"><span class="ok">&rarr;</span> 02_msp-network-ops/</div>
+        <div class="to"><span class="ok">&rarr;</span> 03_backbone-cabling/</div>
+        <div class="to"><span class="ok">&rarr;</span> 04_noc-automation/</div>
+        <div class="to"><span class="ok">&rarr;</span> 05_topgolf-ivr-deploy/</div>
+        <div class="to"><span class="ok">&rarr;</span> 06_biolife-kb-itsm/</div>
         <div class="tl" style="margin-top:8px"><span class="tp">$</span><span class="cur"></span></div>
       </div>
     </div>
@@ -236,20 +307,17 @@
           </ul>
         </div>
 
-        <!-- 03 -->
+        <!-- 03 — Backbone Cabling (updated card — links to case study below) -->
         <div class="proj fade-up" data-category="cabling">
           <div class="proj-n">03</div>
           <div class="proj-meta">
             <div class="proj-cat">Structured Cabling</div>
             <div class="proj-yr">2026</div>
           </div>
-          <div class="proj-t">BICSI-Standard Fiber and Copper Installation</div>
-          <div class="proj-d">End-to-end structured cabling including Cat5e/Cat6 UTP and optical fiber. ANSI/TIA-607 compliant grounding, firestopping, and Tier 1 OLTS testing for high-bandwidth uplinks.</div>
-          <div class="proj-tags"><span class="ptag">BICSI</span><span class="ptag">LC/SC Fiber</span><span class="ptag">OLTS</span><span class="ptag">TBB Grounding</span></div>
-          <ul class="outcomes">
-            <li>ANSI/TIA-607 compliant grounding and bonding implemented</li>
-            <li>Tier 1 dB loss testing passed on all uplink runs</li>
-          </ul>
+          <div class="proj-t">Backbone Cabling from TRs/TE to SIM ER</div>
+          <div class="proj-d">Deployed backbone copper and fiber infrastructure across a hierarchical star network — running Cat 6 and OM4 fiber from the central Equipment Room to multiple TRs and TEs, all through conduit and terminated at patch panels per ANSI/TIA-568.</div>
+          <div class="proj-tags"><span class="ptag">BICSI</span><span class="ptag">Cat 6</span><span class="ptag">OM4 Fiber</span><span class="ptag">ANSI/TIA-568</span><span class="ptag">Patch Panels</span><span class="ptag">Hierarchical Star</span></div>
+          <a href="#case-backbone" class="proj-link">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
         </div>
 
         <!-- 04 -->
@@ -303,12 +371,157 @@
 
       </div>
 
+      <!-- =============================================
+           03 — BACKBONE CABLING CASE STUDY (ESC format)
+           ============================================= -->
+      <div id="case-backbone" style="scroll-margin-top:72px"></div>
+      <div class="section-divider"></div>
+
+      <section class="case-study fade-up">
+        <div class="wrap" style="padding:0">
+
+          <!-- Case Study Hero -->
+          <div class="cs-hero">
+            <div class="cs-hero-text">
+              <div class="cs-hero-eyebrow">Case Study — 03</div>
+              <h2 class="cs-hero-title">Backbone Cabling from TRs/TE to SIM ER</h2>
+              <p class="cs-hero-sub">Structured copper and fiber backbone deployment across a hierarchical star network, built to ANSI/TIA-568 and BICSI standards.</p>
+            </div>
+            <div class="cs-hero-img">
+              <img src="images/IMG_4553.jpg" alt="Equipment Room — full rack with switches, fiber panels, and backbone terminations">
+            </div>
+          </div>
+
+          <!-- Challenge / Goals / Approach -->
+          <div class="cs-sections">
+            <div class="cs-nav">
+              <div class="cs-nav-label">Sections</div>
+              <a class="cs-nav-item active" href="#case-backbone"><span class="nav-num">01</span> The Challenge</a>
+              <a class="cs-nav-item" href="#case-backbone"><span class="nav-num">02</span> The Goals</a>
+              <a class="cs-nav-item" href="#case-backbone"><span class="nav-num">03</span> Our Approach</a>
+            </div>
+            <div class="cs-body">
+
+              <!-- The Challenge -->
+              <div class="cs-block">
+                <div class="cs-block-title">The Challenge</div>
+                <p>The lab's hierarchical network required a reliable backbone to connect two Telecommunications Rooms (TRs) and a Telecommunications Enclosure (TE) back to the central SIM Equipment Room (SIM ER). All cabling needed to be routed through a conduit cross box for protection, organization, and future serviceability — then installed, terminated, tested, certified, and commissioned to bring the network live.</p>
+              </div>
+
+              <!-- The Goals -->
+              <div class="cs-block">
+                <div class="cs-block-title">The Goals</div>
+                <ul class="cs-list">
+                  <li>Deliver standards-compliant, future-proof cabling infrastructure</li>
+                  <li>Support high-speed data, voice, and video applications</li>
+                  <li>Create a scalable, easily maintainable network backbone</li>
+                  <li>Ensure all work meets ANSI/TIA-568 and BICSI compliance</li>
+                </ul>
+              </div>
+
+              <!-- Our Approach -->
+              <div class="cs-block">
+                <div class="cs-block-title">Our Approach</div>
+                <p>We ran 6 Cat 6 cables and 2 OM4 multimode fiber cables from each TR and the TE back to the SIM ER, all routed through the central conduit cross box. Cat 6 twisted-pair was terminated using both T568A and T568B configurations, and OM4 fiber was pulled to replace the existing OS1 single-mode runs for higher bandwidth capacity.</p>
+                <p>All horizontal and backbone cabling was terminated at patch panels for clean cross-connects and simplified future moves/adds/changes. We built a hierarchical star topology by interconnecting individual star topologies — providing excellent scalability, performance, fault isolation, and simplified troubleshooting compared to flat or bus designs.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Tech Specs Strip -->
+          <div class="cs-specs fade-up">
+            <div class="cs-spec">
+              <div class="cs-spec-label">Cabling Media</div>
+              <div class="cs-spec-value">Cat 6 UTP &bull; Coaxial (F-conn) &bull; OM4 Multimode Fiber</div>
+            </div>
+            <div class="cs-spec">
+              <div class="cs-spec-label">Standards</div>
+              <div class="cs-spec-value">ANSI/TIA-568 &bull; BICSI Installation &amp; Testing</div>
+            </div>
+            <div class="cs-spec">
+              <div class="cs-spec-label">Topology</div>
+              <div class="cs-spec-value">Hierarchical Star &mdash; ER &rarr; TRs/TEs &rarr; Work Areas</div>
+            </div>
+          </div>
+
+          <!-- Photo Gallery -->
+          <div class="fade-up">
+            <div class="cs-gallery-label">Project Photos</div>
+
+            <!-- Row 1: 3 wide -->
+            <div class="cs-gallery top-row">
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4553.jpg" alt="ER North — full rack">
+                <div class="gal-label">ER North — Full Rack</div>
+              </div>
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4513.jpg" alt="ER North — switches and patch panels with labels">
+                <div class="gal-label">ER North — Switches &amp; Panels</div>
+              </div>
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4507.jpg" alt="Central conduit and cable tray">
+                <div class="gal-label">Central Conduit</div>
+              </div>
+            </div>
+
+            <!-- Row 2: 4 across -->
+            <div class="cs-gallery">
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4508.jpg" alt="Cable tray close-up">
+                <div class="gal-label">Cable Tray Detail</div>
+              </div>
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4482.jpg" alt="Patch panel T568B terminations close-up">
+                <div class="gal-label">T568B Terminations</div>
+              </div>
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4483.jpg" alt="Patch panel rack — full view of punch-downs">
+                <div class="gal-label">Patch Panel Rack</div>
+              </div>
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4485.jpg" alt="Patch panel detail with cable bundles">
+                <div class="gal-label">Punch-Down Detail</div>
+              </div>
+            </div>
+
+            <!-- Row 3: 4 across -->
+            <div class="cs-gallery" style="margin-top:8px">
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4555.jpg" alt="TE South — wall-mounted enclosure">
+                <div class="gal-label">TE South</div>
+              </div>
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4401.jpg" alt="TE South — open enclosure with switch">
+                <div class="gal-label">TE South — Open</div>
+              </div>
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4515.jpg" alt="TR East — patch panel and switch">
+                <div class="gal-label">TR East</div>
+              </div>
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4407.jpg" alt="TR West — open rack with colored cables">
+                <div class="gal-label">TR West</div>
+              </div>
+            </div>
+
+            <!-- Remaining photo -->
+            <div class="cs-gallery top-row" style="margin-top:8px;grid-template-columns:1fr 1fr 1fr">
+              <div class="cs-gal-item" onclick="openLightbox(this)">
+                <img src="images/IMG_4408.jpg" alt="TR West — side view of rack with switches">
+                <div class="gal-label">TR West — Side View</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       <!-- Coming soon with embedded terminal -->
       <div class="coming-soon fade-up">
         <div class="cs-label">// More In Progress</div>
         <div class="cs-title">More Projects Coming Soon</div>
         <div class="cs-sub">Currently building CCNA lab environments and network automation projects.</div>
-        <!-- inline mini terminal -->
         <div class="term-block" style="max-width:420px;margin:0 auto 32px;text-align:left">
           <div class="tb-bar">
             <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
@@ -316,9 +529,9 @@
           </div>
           <div class="tb-body" style="font-size:12px;line-height:1.9">
             <div class="tl"><span class="tp">$</span><span class="tc">git status</span></div>
-            <div class="to"><span class="wa">◌</span> ccna-packet-tracer-labs/</div>
-            <div class="to"><span class="wa">◌</span> network-automation-scripts/</div>
-            <div class="to"><span class="wa">◌</span> homelab-zero-trust-setup/</div>
+            <div class="to"><span class="wa">&#9676;</span> ccna-packet-tracer-labs/</div>
+            <div class="to"><span class="wa">&#9676;</span> network-automation-scripts/</div>
+            <div class="to"><span class="wa">&#9676;</span> homelab-zero-trust-setup/</div>
             <div class="tl" style="margin-top:6px"><span class="tp">$</span><span class="cur"></span></div>
           </div>
         </div>
@@ -328,6 +541,12 @@
   </section>
 </main>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <footer>
   <div class="wrap">
     <div class="ft">
@@ -335,11 +554,13 @@
       <div class="ft-copy">&copy; 2026 Issac Henderson — All rights reserved</div>
       <div class="ft-soc">
         <a href="https://www.linkedin.com/in/issachenderson/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="/cdn-cgi/l/email-protection#1270677b7e76657b667a7b6161737152757f737b7e3c717d7f"><i class="fa fa-envelope"></i></a>
+        <a href="mailto:issachenderson47@gmail.com"><i class="fa fa-envelope"></i></a>
         <a href="https://github.com/issachenderson47/" target="_blank"><i class="fab fa-github"></i></a>
       </div>
     </div>
   </div>
+</footer>
+
 <script>
   document.getElementById('mobBtn').addEventListener('click', () =>
     document.getElementById('navLinks').classList.toggle('open'));
@@ -367,6 +588,19 @@
       });
     });
   });
+
+  // Lightbox
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
 
   // Canvas network animation
   (function(){
