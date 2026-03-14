@@ -112,48 +112,120 @@
     .proj-link:hover{gap:10px}
 
     /* =============================================
-       PROJECT DETAIL — CASE STUDY SECTION
+       COLLAPSIBLE CASE STUDY SYSTEM
        ============================================= */
-    .case-study{padding:0 0 120px;position:relative}
-    .case-study .wrap{max-width:var(--mw)}
+    .cs-accordion{margin-bottom:0;scroll-margin-top:72px}
 
-    .cs-hero{position:relative;border-radius:var(--rad);overflow:hidden;margin-bottom:64px;background:#0f1117;padding:64px 48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+    /* Accordion trigger bar */
+    .cs-trigger{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:20px 28px;
+      background:#0f1117;
+      border-radius:var(--rad);
+      cursor:pointer;
+      transition:all .3s ease;
+      margin-bottom:2px;
+      position:relative;
+      overflow:hidden;
+    }
+    .cs-trigger::before{content:'';position:absolute;inset:0;pointer-events:none;
+      background-image:radial-gradient(circle,rgba(99,44,166,.12) 1px,transparent 1px);
+      background-size:28px 28px;opacity:.4}
+    .cs-trigger:hover{background:#141824}
+    .cs-accordion.open .cs-trigger{border-radius:var(--rad) var(--rad) 0 0}
+
+    .cs-trigger-left{display:flex;align-items:center;gap:20px;position:relative;z-index:1}
+    .cs-trigger-num{font-family:var(--fm);font-size:28px;font-weight:800;color:rgba(255,255,255,.1);line-height:1;letter-spacing:-.02em}
+    .cs-trigger-info{display:flex;flex-direction:column;gap:2px}
+    .cs-trigger-cat{font-family:var(--fm);font-size:9px;font-weight:500;color:#a78bfa;letter-spacing:.14em;text-transform:uppercase}
+    .cs-trigger-title{font-size:16px;font-weight:600;color:#fff;letter-spacing:-.01em}
+
+    .cs-trigger-right{display:flex;align-items:center;gap:16px;position:relative;z-index:1}
+    .cs-trigger-tags{display:flex;gap:6px}
+    .cs-trigger-tag{font-family:var(--fm);font-size:9px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);padding:3px 10px;border-radius:4px;letter-spacing:.04em}
+    .cs-trigger-icon{
+      width:32px;height:32px;border-radius:50%;
+      background:rgba(99,44,166,.2);
+      display:flex;align-items:center;justify-content:center;
+      transition:all .3s ease;
+      flex-shrink:0;
+    }
+    .cs-trigger-icon i{color:#a78bfa;font-size:12px;transition:transform .3s ease}
+    .cs-accordion.open .cs-trigger-icon{background:rgba(99,44,166,.35)}
+    .cs-accordion.open .cs-trigger-icon i{transform:rotate(180deg)}
+
+    /* Collapsible body */
+    .cs-collapse{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .5s cubic-bezier(.4,0,.2,1);
+      background:var(--bg);
+      border-radius:0 0 var(--rad) var(--rad);
+      border:1px solid var(--bdr2);
+      border-top:none;
+    }
+    .cs-accordion.open .cs-collapse{
+      max-height:6000px;
+      transition:max-height .7s cubic-bezier(.4,0,.2,1);
+    }
+    .cs-collapse-inner{padding:0;opacity:0;transform:translateY(-8px);transition:opacity .35s ease .1s,transform .35s ease .1s}
+    .cs-accordion.open .cs-collapse-inner{opacity:1;transform:none;transition:opacity .4s ease .15s,transform .4s ease .15s}
+
+    /* Collapse button at bottom of each case study */
+    .cs-collapse-btn{
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      padding:16px;
+      background:var(--bg2);
+      border-top:1px solid var(--bdr2);
+      cursor:pointer;
+      transition:background .2s;
+      font-family:var(--fm);font-size:11px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;
+    }
+    .cs-collapse-btn:hover{background:var(--bdr2);color:var(--pu)}
+    .cs-collapse-btn i{font-size:10px;transition:transform .2s}
+
+    /* =============================================
+       PROJECT DETAIL — CASE STUDY SECTION (inner content)
+       ============================================= */
+    .case-study{padding:40px 28px 0;position:relative}
+
+    .cs-hero{position:relative;border-radius:var(--rad);overflow:hidden;margin-bottom:48px;background:#0f1117;padding:48px 40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
     .cs-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
       background-image:radial-gradient(circle,rgba(99,44,166,.18) 1px,transparent 1px);
       background-size:32px 32px;opacity:.5}
     .cs-hero-text{position:relative;z-index:1}
     .cs-hero-eyebrow{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--tcyan);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
-    .cs-hero-title{font-size:clamp(28px,4vw,40px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px}
-    .cs-hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.7}
+    .cs-hero-title{font-size:clamp(24px,3.5vw,36px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px}
+    .cs-hero-sub{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7}
     .cs-hero-img{position:relative;z-index:1;border-radius:10px;overflow:hidden;aspect-ratio:4/3}
     .cs-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
 
     /* Case study body sections */
-    .cs-sections{display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:56px}
-    .cs-nav{background:var(--bg2);padding:36px 28px;border-right:1px solid var(--bdr2)}
-    .cs-nav-label{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
-    .cs-nav-item{display:block;font-size:13px;font-weight:500;color:var(--tx2);padding:10px 0;border-bottom:1px solid var(--bdr2);cursor:pointer;transition:color .2s;text-decoration:none}
+    .cs-sections{display:grid;grid-template-columns:240px 1fr;gap:0;border:1px solid var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:40px}
+    .cs-nav{background:var(--bg2);padding:28px 24px;border-right:1px solid var(--bdr2)}
+    .cs-nav-label{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+    .cs-nav-item{display:block;font-size:13px;font-weight:500;color:var(--tx2);padding:8px 0;border-bottom:1px solid var(--bdr2);cursor:pointer;transition:color .2s;text-decoration:none}
     .cs-nav-item:last-child{border-bottom:none}
     .cs-nav-item:hover,.cs-nav-item.active{color:var(--pu)}
     .cs-nav-item .nav-num{font-family:var(--fm);font-size:10px;color:var(--tx3);margin-right:8px}
-    .cs-body{padding:36px 40px}
-    .cs-block{margin-bottom:40px}
+    .cs-body{padding:28px 32px}
+    .cs-block{margin-bottom:32px}
     .cs-block:last-child{margin-bottom:0}
-    .cs-block-title{font-family:var(--fm);font-size:11px;font-weight:500;color:var(--pu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--pub2)}
+    .cs-block-title{font-family:var(--fm);font-size:11px;font-weight:500;color:var(--pu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--pub2)}
     .cs-block p{font-size:14px;color:var(--tx2);line-height:1.8;margin-bottom:12px}
     .cs-block p:last-child{margin-bottom:0}
     .cs-list{list-style:none;padding:0}
-    .cs-list li{font-size:14px;color:var(--tx2);line-height:1.7;padding:6px 0;padding-left:20px;position:relative}
+    .cs-list li{font-size:14px;color:var(--tx2);line-height:1.7;padding:5px 0;padding-left:20px;position:relative}
     .cs-list li::before{content:'\2192';position:absolute;left:0;color:var(--pu);font-size:12px}
 
     /* Tech specs strip */
-    .cs-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:56px}
-    .cs-spec{background:var(--bg);padding:28px 24px;text-align:center}
-    .cs-spec-label{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-    .cs-spec-value{font-size:14px;font-weight:600;color:var(--tx);line-height:1.4}
+    .cs-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:40px}
+    .cs-spec{background:var(--bg);padding:24px 20px;text-align:center}
+    .cs-spec-label{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+    .cs-spec-value{font-size:13px;font-weight:600;color:var(--tx);line-height:1.4}
 
     /* Photo gallery */
-    .cs-gallery-label{font-family:var(--fm);font-size:11px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+    .cs-gallery-label{font-family:var(--fm);font-size:11px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
     .cs-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
     .cs-gallery.top-row{grid-template-columns:repeat(3,1fr);margin-bottom:8px}
     .cs-gal-item{border-radius:10px;overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;background:#f0f0f0}
@@ -162,7 +234,7 @@
     .cs-gal-item .gal-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.06em;text-transform:uppercase}
 
     /* Video gallery */
-    .cs-vid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+    .cs-vid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
     .cs-vid-item{border-radius:10px;overflow:hidden;position:relative;background:#000}
     .cs-vid-item video{width:100%;display:block;border-radius:10px}
     .cs-vid-item .gal-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
@@ -174,13 +246,13 @@
     .lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;opacity:.7;transition:opacity .2s}
     .lightbox-close:hover{opacity:1}
 
-    /* Divider between grid and case study */
-    .section-divider{width:100%;height:1px;background:var(--bdr2);margin:0 0 80px}
+    /* Spacer between accordions */
+    .cs-spacer{height:12px}
 
     /* COMING SOON BLOCK */
-    .coming-soon{margin-top:1px;background:var(--bg2);border-radius:0 0 var(--rad) var(--rad);padding:56px;text-align:center}
+    .coming-soon{margin-top:48px;background:var(--bg2);border-radius:var(--rad);padding:56px;text-align:center}
     .cs-label{font-family:var(--fm);font-size:11px;color:var(--pu);letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px}
-    .cs-title{font-size:32px;font-weight:700;color:var(--tx);letter-spacing:-.02em;margin-bottom:12px}
+    .cs-title-cs{font-size:32px;font-weight:700;color:var(--tx);letter-spacing:-.02em;margin-bottom:12px}
     .cs-sub{font-size:15px;color:var(--tx2);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.6}
 
     /* FOOTER */
@@ -201,10 +273,16 @@
       .hero-term{display:none}
       .proj-grid{grid-template-columns:1fr}
       .proj.featured{grid-column:span 1}
-      .cs-hero{grid-template-columns:1fr;padding:40px 28px}
-      .cs-hero-img{max-height:280px}
+      .cs-trigger-tags{display:none}
+      .cs-trigger-left{gap:14px}
+      .cs-trigger{padding:16px 20px}
+      .cs-trigger-num{font-size:22px}
+      .cs-trigger-title{font-size:14px}
+      .case-study{padding:28px 16px 0}
+      .cs-hero{grid-template-columns:1fr;padding:32px 24px}
+      .cs-hero-img{max-height:240px}
       .cs-sections{grid-template-columns:1fr}
-      .cs-nav{border-right:none;border-bottom:1px solid var(--bdr2);padding:24px 28px}
+      .cs-nav{border-right:none;border-bottom:1px solid var(--bdr2);padding:20px 24px}
       .cs-specs{grid-template-columns:1fr}
       .cs-gallery,.cs-gallery.top-row{grid-template-columns:repeat(2,1fr)}
       .cs-vid-grid{grid-template-columns:1fr}
@@ -317,7 +395,7 @@
           </ul>
         </div>
 
-        <!-- 03 — Backbone Cabling (updated card — links to case study below) -->
+        <!-- 03 — Backbone Cabling -->
         <div class="proj fade-up" data-category="cabling">
           <div class="proj-n">03</div>
           <div class="proj-meta">
@@ -327,7 +405,7 @@
           <div class="proj-t">Backbone Cabling from TRs/TE to SIM ER</div>
           <div class="proj-d">Deployed backbone copper and fiber infrastructure across a hierarchical star network — running Cat 6 and OM4 fiber from the central Equipment Room to multiple TRs and TEs, all through conduit and terminated at patch panels per ANSI/TIA-568.</div>
           <div class="proj-tags"><span class="ptag">BICSI</span><span class="ptag">Cat 6</span><span class="ptag">OM4 Fiber</span><span class="ptag">ANSI/TIA-568</span><span class="ptag">Patch Panels</span><span class="ptag">Hierarchical Star</span></div>
-          <a href="#case-backbone" class="proj-link">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+          <a href="#cs-backbone" class="proj-link cs-link" data-target="cs-backbone">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
         </div>
 
         <!-- 04 -->
@@ -389,7 +467,7 @@
           <div class="proj-t">Dell Server No VGA &amp; OS Restoration</div>
           <div class="proj-d">Diagnosed and resolved a no-POST / no-VGA condition on a Dell rack server caused by a faulty RAM module, then repaired Windows Server OS corruption via WinRE — bringing the system from dead screen to full login.</div>
           <div class="proj-tags"><span class="ptag">Dell PowerEdge</span><span class="ptag">IPMI</span><span class="ptag">RAM Diagnostics</span><span class="ptag">WinRE</span><span class="ptag">Windows Server</span></div>
-          <a href="#case-dell-server" class="proj-link">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+          <a href="#cs-dell-server" class="proj-link cs-link" data-target="cs-dell-server">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
         </div>
 
         <!-- 08 — RJ45 Cable Fabrication -->
@@ -402,7 +480,7 @@
           <div class="proj-t">RJ45 Cable Fabrication (T568B)</div>
           <div class="proj-d">Fabricated custom-length Cat 6 Ethernet patch cables using the T568B wiring standard — stripped, aligned, terminated into RJ45 modular plugs, crimped, and verified with a Klein Scout Pro 3 tester. All pins passed continuity and wiremap.</div>
           <div class="proj-tags"><span class="ptag">Cat 6</span><span class="ptag">T568B</span><span class="ptag">RJ45</span><span class="ptag">Klein Tools</span><span class="ptag">Scout Pro 3</span></div>
-          <a href="#case-rj45" class="proj-link">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+          <a href="#cs-rj45" class="proj-link cs-link" data-target="cs-rj45">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
         </div>
 
         <!-- 09 — 110 & 66 Block Terminations -->
@@ -415,530 +493,566 @@
           <div class="proj-t">110 &amp; 66 Patch Panel Terminations</div>
           <div class="proj-d">Terminated Cat 5e/Cat 6 cabling on both 110-style wiring blocks and 66-style punch-down blocks using a standard impact tool — maintaining proper pair mapping and color code compliance for voice and data circuits.</div>
           <div class="proj-tags"><span class="ptag">110 Block</span><span class="ptag">66 Block</span><span class="ptag">Punch-Down</span><span class="ptag">T568B</span><span class="ptag">Voice/Data</span></div>
-          <a href="#case-110-66" class="proj-link">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+          <a href="#cs-110-66" class="proj-link cs-link" data-target="cs-110-66">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
         </div>
 
       </div>
-      <!-- =============================================
-           03 — BACKBONE CABLING CASE STUDY (ESC format)
-           ============================================= -->
-      <div id="case-backbone" style="scroll-margin-top:72px"></div>
-      <div class="section-divider"></div>
-
-      <section class="case-study fade-up">
-        <div class="wrap" style="padding:0">
-
-          <!-- Case Study Hero -->
-          <div class="cs-hero">
-            <div class="cs-hero-text">
-              <div class="cs-hero-eyebrow">Case Study — 03</div>
-              <h2 class="cs-hero-title">Backbone Cabling from TRs/TE to SIM ER</h2>
-              <p class="cs-hero-sub">Structured copper and fiber backbone deployment across a hierarchical star network, built to ANSI/TIA-568 and BICSI standards.</p>
-            </div>
-            <div class="cs-hero-img">
-              <img src="images/IMG_4553.jpg" alt="Equipment Room — full rack with switches, fiber panels, and backbone terminations">
-            </div>
-          </div>
-
-          <!-- Challenge / Goals / Approach -->
-          <div class="cs-sections">
-            <div class="cs-nav">
-              <div class="cs-nav-label">Sections</div>
-              <a class="cs-nav-item active" href="#case-backbone"><span class="nav-num">01</span> The Challenge</a>
-              <a class="cs-nav-item" href="#case-backbone"><span class="nav-num">02</span> The Goals</a>
-              <a class="cs-nav-item" href="#case-backbone"><span class="nav-num">03</span> Our Approach</a>
-            </div>
-            <div class="cs-body">
-
-              <!-- The Challenge -->
-              <div class="cs-block">
-                <div class="cs-block-title">The Challenge</div>
-                <p>The lab's hierarchical network required a reliable backbone to connect two Telecommunications Rooms (TRs) and a Telecommunications Enclosure (TE) back to the central SIM Equipment Room (SIM ER). All cabling needed to be routed through a conduit cross box for protection, organization, and future serviceability — then installed, terminated, tested, certified, and commissioned to bring the network live.</p>
-              </div>
-
-              <!-- The Goals -->
-              <div class="cs-block">
-                <div class="cs-block-title">The Goals</div>
-                <ul class="cs-list">
-                  <li>Deliver standards-compliant, future-proof cabling infrastructure</li>
-                  <li>Support high-speed data, voice, and video applications</li>
-                  <li>Create a scalable, easily maintainable network backbone</li>
-                  <li>Ensure all work meets ANSI/TIA-568 and BICSI compliance</li>
-                </ul>
-              </div>
-
-              <!-- Our Approach -->
-              <div class="cs-block">
-                <div class="cs-block-title">Our Approach</div>
-                <p>We ran 6 Cat 6 cables and 2 OM4 multimode fiber cables from each TR and the TE back to the SIM ER, all routed through the central conduit cross box. Cat 6 twisted-pair was terminated using both T568A and T568B configurations, and OM4 fiber was pulled to replace the existing OS1 single-mode runs for higher bandwidth capacity.</p>
-                <p>All horizontal and backbone cabling was terminated at patch panels for clean cross-connects and simplified future moves/adds/changes. We built a hierarchical star topology by interconnecting individual star topologies — providing excellent scalability, performance, fault isolation, and simplified troubleshooting compared to flat or bus designs.</p>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Tech Specs Strip -->
-          <div class="cs-specs fade-up">
-            <div class="cs-spec">
-              <div class="cs-spec-label">Cabling Media</div>
-              <div class="cs-spec-value">Cat 6 UTP &bull; Coaxial (F-conn) &bull; OM4 Multimode Fiber</div>
-            </div>
-            <div class="cs-spec">
-              <div class="cs-spec-label">Standards</div>
-              <div class="cs-spec-value">ANSI/TIA-568 &bull; BICSI Installation &amp; Testing</div>
-            </div>
-            <div class="cs-spec">
-              <div class="cs-spec-label">Topology</div>
-              <div class="cs-spec-value">Hierarchical Star &mdash; ER &rarr; TRs/TEs &rarr; Work Areas</div>
-            </div>
-          </div>
-
-          <!-- Photo Gallery -->
-          <div class="fade-up">
-            <div class="cs-gallery-label">Project Photos</div>
-
-            <!-- Row 1: 3 wide -->
-            <div class="cs-gallery top-row">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4553.jpg" alt="ER North — full rack">
-                <div class="gal-label">ER North — Full Rack</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4513.jpg" alt="ER North — switches and patch panels with labels">
-                <div class="gal-label">ER North — Switches &amp; Panels</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4507.jpg" alt="Central conduit and cable tray">
-                <div class="gal-label">Central Conduit</div>
-              </div>
-            </div>
-
-            <!-- Row 2: 4 across -->
-            <div class="cs-gallery">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4508.jpg" alt="Cable tray close-up">
-                <div class="gal-label">Cable Tray Detail</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4482.jpg" alt="Patch panel T568B terminations close-up">
-                <div class="gal-label">T568B Terminations</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4483.jpg" alt="Patch panel rack — full view of punch-downs">
-                <div class="gal-label">Patch Panel Rack</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4485.jpg" alt="Patch panel detail with cable bundles">
-                <div class="gal-label">Punch-Down Detail</div>
-              </div>
-            </div>
-
-            <!-- Row 3: 4 across -->
-            <div class="cs-gallery" style="margin-top:8px">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4555.jpg" alt="TE South — wall-mounted enclosure">
-                <div class="gal-label">TE South</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4401.jpg" alt="TE South — open enclosure with switch">
-                <div class="gal-label">TE South — Open</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4515.jpg" alt="TR East — patch panel and switch">
-                <div class="gal-label">TR East</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4407.jpg" alt="TR West — open rack with colored cables">
-                <div class="gal-label">TR West</div>
-              </div>
-            </div>
-
-            <!-- Remaining photo -->
-            <div class="cs-gallery top-row" style="margin-top:8px;grid-template-columns:1fr 1fr 1fr">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4408.jpg" alt="TR West — side view of rack with switches">
-                <div class="gal-label">TR West — Side View</div>
-              </div>
-            </div>
-
-            <!-- Videos -->
-            <div class="cs-gallery-label" style="margin-top:28px">Project Videos</div>
-            <div class="cs-vid-grid">
-              <div class="cs-vid-item">
-                <video controls preload="metadata" playsinline>
-                  <source src="images/IMG_4557.mp4" type="video/mp4">
-                </video>
-                <div class="gal-label">Camera Feed Verification</div>
-              </div>
-              <div class="cs-vid-item">
-                <video controls preload="metadata" playsinline>
-                  <source src="images/IMG_4559.mp4" type="video/mp4">
-                </video>
-                <div class="gal-label">Phone Confirmation</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       <!-- =============================================
-           07 — DELL SERVER CASE STUDY (ESC format)
+           COLLAPSIBLE CASE STUDIES
            ============================================= -->
-      <div id="case-dell-server" style="scroll-margin-top:72px"></div>
-      <div class="section-divider"></div>
 
-      <section class="case-study fade-up">
-        <div class="wrap" style="padding:0">
-
-          <!-- Case Study Hero -->
-          <div class="cs-hero">
-            <div class="cs-hero-text">
-              <div class="cs-hero-eyebrow">Case Study — 07</div>
-              <h2 class="cs-hero-title">Dell Server No VGA &amp; OS Restoration</h2>
-              <p class="cs-hero-sub">No POST, no video output, corrupted OS — diagnosed faulty RAM via systematic isolation, then restored Windows Server through WinRE recovery.</p>
-            </div>
-            <div class="cs-hero-img">
-              <img src="images/IMG_4542.jpg" alt="Dell server open on workbench with POST screen showing successful boot">
+      <!-- 03 — BACKBONE CABLING -->
+      <div class="cs-accordion fade-up" id="cs-backbone">
+        <div class="cs-trigger" onclick="toggleAccordion('cs-backbone')">
+          <div class="cs-trigger-left">
+            <div class="cs-trigger-num">03</div>
+            <div class="cs-trigger-info">
+              <div class="cs-trigger-cat">Case Study</div>
+              <div class="cs-trigger-title">Backbone Cabling from TRs/TE to SIM ER</div>
             </div>
           </div>
-
-          <!-- Challenge / Goals / Approach -->
-          <div class="cs-sections">
-            <div class="cs-nav">
-              <div class="cs-nav-label">Sections</div>
-              <a class="cs-nav-item active" href="#case-dell-server"><span class="nav-num">01</span> The Challenge</a>
-              <a class="cs-nav-item" href="#case-dell-server"><span class="nav-num">02</span> The Diagnosis</a>
-              <a class="cs-nav-item" href="#case-dell-server"><span class="nav-num">03</span> The Fix</a>
-              <a class="cs-nav-item" href="#case-dell-server"><span class="nav-num">04</span> The Result</a>
+          <div class="cs-trigger-right">
+            <div class="cs-trigger-tags">
+              <span class="cs-trigger-tag">Cat 6</span>
+              <span class="cs-trigger-tag">OM4 Fiber</span>
+              <span class="cs-trigger-tag">BICSI</span>
             </div>
-            <div class="cs-body">
-
-              <!-- The Challenge -->
-              <div class="cs-block">
-                <div class="cs-block-title">The Challenge</div>
-                <p>A Dell rack server in the lab failed to display any video output (VGA) on boot. The system was stuck in a boot loop/hang state — no BIOS, no OS, just a black screen. Initial remote checks via IPMI confirmed the server was receiving power but failing to initialize video.</p>
-              </div>
-
-              <!-- The Diagnosis -->
-              <div class="cs-block">
-                <div class="cs-block-title">The Diagnosis</div>
-                <p>Started with a CMOS battery test to rule out BIOS configuration resets or low-voltage issues — battery was nominal, issue persisted. Next, performed a full reseat of all memory modules. Video output returned intermittently but failed again on subsequent re-seats, pointing to a hardware fault rather than a loose connection.</p>
-                <p>Systematically removed individual RAM sticks to isolate the defective component. Identified and removed one faulty module — the server immediately POSTed with constant, stable video output, now reporting 2 GB instead of the original 6 GB (lab machine, so the reduced capacity was acceptable).</p>
-              </div>
-
-              <!-- The Fix -->
-              <div class="cs-block">
-                <div class="cs-block-title">The Fix</div>
-                <p>With hardware resolved, a second problem surfaced: the repeated failed boot attempts from the bad RAM had corrupted the Windows Server OS files, preventing a successful boot even after the hardware fix.</p>
-                <p>Accessed the Windows Recovery Environment (WinRE) via the pre-boot menu, executed Startup Repair and recovery tools to scan and rebuild the boot configuration data, then restored OS integrity. After restarting, booted into Safe Mode (Network Enabled) first to verify stability, then did a standard restart — server booted straight to the login screen.</p>
-              </div>
-
-              <!-- The Result -->
-              <div class="cs-block">
-                <div class="cs-block-title">The Result</div>
-                <ul class="cs-list">
-                  <li>Hardware: Server powers on with stable video output and passes POST</li>
-                  <li>OS: System boots consistently to the Windows Server login screen</li>
-                  <li>Network: Server fully operational — login was halted only by the AD lab network configuration (isolated test environment, no Domain Controller reachable), confirming the repair was a complete success</li>
-                </ul>
-              </div>
-
-            </div>
+            <div class="cs-trigger-icon"><i class="fa fa-chevron-down"></i></div>
           </div>
-
-          <!-- Tech Specs Strip -->
-          <div class="cs-specs fade-up">
-            <div class="cs-spec">
-              <div class="cs-spec-label">Root Cause</div>
-              <div class="cs-spec-value">Faulty RAM Module &bull; OS Boot Corruption</div>
-            </div>
-            <div class="cs-spec">
-              <div class="cs-spec-label">Tools Used</div>
-              <div class="cs-spec-value">IPMI &bull; CMOS Tester &bull; WinRE &bull; Startup Repair</div>
-            </div>
-            <div class="cs-spec">
-              <div class="cs-spec-label">Outcome</div>
-              <div class="cs-spec-value">Full POST &bull; OS Restored &bull; Server Operational</div>
-            </div>
-          </div>
-
-          <!-- Photo Gallery -->
-          <div class="fade-up">
-            <div class="cs-gallery-label">Project Photos</div>
-
-            <!-- Row 1: 3 wide — the problem -->
-            <div class="cs-gallery top-row">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4536.jpg" alt="Server internals exposed — RAM and motherboard visible">
-                <div class="gal-label">Server Internals</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4537.jpg" alt="Server open with RAM removed for testing">
-                <div class="gal-label">RAM Isolation</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4538.jpg" alt="No VGA output — black screen on Dell monitor">
-                <div class="gal-label">No VGA — Black Screen</div>
-              </div>
-            </div>
-
-            <!-- Row 2: 4 across — diagnosis and POST -->
-            <div class="cs-gallery">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4539.jpg" alt="Blue screen — first sign of video signal returning">
-                <div class="gal-label">Signal Returns</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4541.jpg" alt="POST screen — 2.0 GB RAM, quad-core processor detected">
-                <div class="gal-label">Successful POST — 2 GB</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4542.jpg" alt="Full POST screen with BIOS boot options">
-                <div class="gal-label">BIOS Boot Options</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4543.jpg" alt="POST screen wider view with system info">
-                <div class="gal-label">System Init Complete</div>
-              </div>
-            </div>
-
-            <!-- Row 3: 4 across — OS recovery and final -->
-            <div class="cs-gallery" style="margin-top:8px">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4532.jpg" alt="BIOS screen showing drive and iDRAC configuration">
-                <div class="gal-label">BIOS — Drive Config</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4533.jpg" alt="BIOS screen with IPv4 settings and firmware version">
-                <div class="gal-label">BIOS — Network Config</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4540.jpg" alt="WinRE Choose an option screen — Troubleshoot selected">
-                <div class="gal-label">WinRE Recovery</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4544.jpg" alt="Windows boot logo — OS loading successfully">
-                <div class="gal-label">Windows Booting</div>
-              </div>
-            </div>
-
-            <!-- Row 4: final result -->
-            <div class="cs-gallery top-row" style="margin-top:8px">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4534.jpg" alt="Server workbench setup with BIOS on screen">
-                <div class="gal-label">Workbench Setup</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4572.jpg" alt="Windows Server login screen — fully restored and operational">
-                <div class="gal-label">Restored — Login Screen</div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </section>
+        <div class="cs-collapse">
+          <div class="cs-collapse-inner">
+            <section class="case-study">
 
-      <!-- =============================================
-           08 — RJ45 CABLE FABRICATION CASE STUDY
-           ============================================= -->
-      <div id="case-rj45" style="scroll-margin-top:72px"></div>
-      <div class="section-divider"></div>
+              <div class="cs-hero">
+                <div class="cs-hero-text">
+                  <div class="cs-hero-eyebrow">Case Study — 03</div>
+                  <h2 class="cs-hero-title">Backbone Cabling from TRs/TE to SIM ER</h2>
+                  <p class="cs-hero-sub">Structured copper and fiber backbone deployment across a hierarchical star network, built to ANSI/TIA-568 and BICSI standards.</p>
+                </div>
+                <div class="cs-hero-img">
+                  <img src="images/IMG_4553.jpg" alt="Equipment Room — full rack with switches, fiber panels, and backbone terminations">
+                </div>
+              </div>
 
-      <section class="case-study fade-up">
-        <div class="wrap" style="padding:0">
+              <div class="cs-sections">
+                <div class="cs-nav">
+                  <div class="cs-nav-label">Sections</div>
+                  <span class="cs-nav-item active"><span class="nav-num">01</span> The Challenge</span>
+                  <span class="cs-nav-item"><span class="nav-num">02</span> The Goals</span>
+                  <span class="cs-nav-item"><span class="nav-num">03</span> Our Approach</span>
+                </div>
+                <div class="cs-body">
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Challenge</div>
+                    <p>The lab's hierarchical network required a reliable backbone to connect two Telecommunications Rooms (TRs) and a Telecommunications Enclosure (TE) back to the central SIM Equipment Room (SIM ER). All cabling needed to be routed through a conduit cross box for protection, organization, and future serviceability — then installed, terminated, tested, certified, and commissioned to bring the network live.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Goals</div>
+                    <ul class="cs-list">
+                      <li>Deliver standards-compliant, future-proof cabling infrastructure</li>
+                      <li>Support high-speed data, voice, and video applications</li>
+                      <li>Create a scalable, easily maintainable network backbone</li>
+                      <li>Ensure all work meets ANSI/TIA-568 and BICSI compliance</li>
+                    </ul>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">Our Approach</div>
+                    <p>We ran 6 Cat 6 cables and 2 OM4 multimode fiber cables from each TR and the TE back to the SIM ER, all routed through the central conduit cross box. Cat 6 twisted-pair was terminated using both T568A and T568B configurations, and OM4 fiber was pulled to replace the existing OS1 single-mode runs for higher bandwidth capacity.</p>
+                    <p>All horizontal and backbone cabling was terminated at patch panels for clean cross-connects and simplified future moves/adds/changes. We built a hierarchical star topology by interconnecting individual star topologies — providing excellent scalability, performance, fault isolation, and simplified troubleshooting compared to flat or bus designs.</p>
+                  </div>
+                </div>
+              </div>
 
-          <div class="cs-hero">
-            <div class="cs-hero-text">
-              <div class="cs-hero-eyebrow">Case Study — 08</div>
-              <h2 class="cs-hero-title">RJ45 Cable Fabrication</h2>
-              <p class="cs-hero-sub">Custom Cat 6 Ethernet patch cable — stripped, aligned to T568B, terminated, crimped, and verified pass on all 8 pins.</p>
-            </div>
-            <div class="cs-hero-img">
-              <img src="images/IMG_4561.jpg" alt="Completed yellow Cat 6 patch cable on workbench">
+              <div class="cs-specs">
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Cabling Media</div>
+                  <div class="cs-spec-value">Cat 6 UTP &bull; Coaxial (F-conn) &bull; OM4 Multimode Fiber</div>
+                </div>
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Standards</div>
+                  <div class="cs-spec-value">ANSI/TIA-568 &bull; BICSI Installation &amp; Testing</div>
+                </div>
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Topology</div>
+                  <div class="cs-spec-value">Hierarchical Star &mdash; ER &rarr; TRs/TEs &rarr; Work Areas</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="cs-gallery-label">Project Photos</div>
+                <div class="cs-gallery top-row">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4553.jpg" alt="ER North — full rack">
+                    <div class="gal-label">ER North — Full Rack</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4513.jpg" alt="ER North — switches and patch panels with labels">
+                    <div class="gal-label">ER North — Switches &amp; Panels</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4507.jpg" alt="Central conduit and cable tray">
+                    <div class="gal-label">Central Conduit</div>
+                  </div>
+                </div>
+                <div class="cs-gallery">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4508.jpg" alt="Cable tray close-up">
+                    <div class="gal-label">Cable Tray Detail</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4482.jpg" alt="Patch panel T568B terminations close-up">
+                    <div class="gal-label">T568B Terminations</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4483.jpg" alt="Patch panel rack — full view of punch-downs">
+                    <div class="gal-label">Patch Panel Rack</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4485.jpg" alt="Patch panel detail with cable bundles">
+                    <div class="gal-label">Punch-Down Detail</div>
+                  </div>
+                </div>
+                <div class="cs-gallery" style="margin-top:8px">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4555.jpg" alt="TE South — wall-mounted enclosure">
+                    <div class="gal-label">TE South</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4401.jpg" alt="TE South — open enclosure with switch">
+                    <div class="gal-label">TE South — Open</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4515.jpg" alt="TR East — patch panel and switch">
+                    <div class="gal-label">TR East</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4407.jpg" alt="TR West — open rack with colored cables">
+                    <div class="gal-label">TR West</div>
+                  </div>
+                </div>
+                <div class="cs-gallery top-row" style="margin-top:8px;grid-template-columns:1fr 1fr 1fr">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4408.jpg" alt="TR West — side view of rack with switches">
+                    <div class="gal-label">TR West — Side View</div>
+                  </div>
+                </div>
+
+                <div class="cs-gallery-label" style="margin-top:28px">Project Videos</div>
+                <div class="cs-vid-grid">
+                  <div class="cs-vid-item">
+                    <video controls preload="metadata" playsinline>
+                      <source src="images/IMG_4557.mp4" type="video/mp4">
+                    </video>
+                    <div class="gal-label">Camera Feed Verification</div>
+                  </div>
+                  <div class="cs-vid-item">
+                    <video controls preload="metadata" playsinline>
+                      <source src="images/IMG_4559.mp4" type="video/mp4">
+                    </video>
+                    <div class="gal-label">Phone Confirmation</div>
+                  </div>
+                </div>
+              </div>
+
+            </section>
+            <div class="cs-collapse-btn" onclick="toggleAccordion('cs-backbone')">
+              <i class="fa fa-chevron-up"></i> Collapse Case Study
             </div>
           </div>
-
-          <div class="cs-sections">
-            <div class="cs-nav">
-              <div class="cs-nav-label">Sections</div>
-              <a class="cs-nav-item active" href="#case-rj45"><span class="nav-num">01</span> The Challenge</a>
-              <a class="cs-nav-item" href="#case-rj45"><span class="nav-num">02</span> The Goals</a>
-              <a class="cs-nav-item" href="#case-rj45"><span class="nav-num">03</span> Our Approach</a>
-            </div>
-            <div class="cs-body">
-
-              <div class="cs-block">
-                <div class="cs-block-title">The Challenge</div>
-                <p>Fabricate a custom-length Cat 6 Ethernet patch cable from bulk cable stock, ensuring full data continuity and proper pin mapping to the T568B wiring standard — the industry standard for commercial structured cabling.</p>
-              </div>
-
-              <div class="cs-block">
-                <div class="cs-block-title">The Goals</div>
-                <ul class="cs-list">
-                  <li>Produce a working straight-through Cat 6 patch cable</li>
-                  <li>Follow T568B color code on both ends</li>
-                  <li>Pass continuity and wiremap testing on all 8 pins with no shorts, opens, or split pairs</li>
-                </ul>
-              </div>
-
-              <div class="cs-block">
-                <div class="cs-block-title">Our Approach</div>
-                <p>Stripped approximately 1.5 inches of outer PVC jacket using a cable jacket stripper, taking care not to nick internal conductors. Untwisted the four pairs (Green, Orange, Blue, Brown), removed the internal spline separator, and arranged all 8 wires in T568B order: White/Orange, Orange, White/Green, Blue, White/Blue, Green, White/Brown, Brown.</p>
-                <p>Straightened and trimmed conductors flush with electrician's scissors for even insertion depth, then inserted into the RJ45 (8P8C) modular plug — verifying the cable jacket extended past the strain relief tab. Crimped with a Klein Tools ratcheting crimper to drive gold-plated contact pins into conductors and lock the strain relief.</p>
-                <p>Tested with a Klein Tools Scout Pro 3: connected both ends between the main tester and remote receiver. LCD confirmed "Pass" with mapped indicators 1 through 8 — no shorts, opens, or split pairs detected.</p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="cs-specs fade-up">
-            <div class="cs-spec">
-              <div class="cs-spec-label">Standard</div>
-              <div class="cs-spec-value">T568B &bull; Cat 6 UTP</div>
-            </div>
-            <div class="cs-spec">
-              <div class="cs-spec-label">Tools</div>
-              <div class="cs-spec-value">Klein Ratcheting Crimper &bull; V-Notch Scissors &bull; Jacket Stripper</div>
-            </div>
-            <div class="cs-spec">
-              <div class="cs-spec-label">Verification</div>
-              <div class="cs-spec-value">Klein Scout Pro 3 &bull; Pass — All 8 Pins</div>
-            </div>
-          </div>
-
-          <div class="fade-up">
-            <div class="cs-gallery-label">Project Photos</div>
-            <div class="cs-gallery top-row">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4240.jpg" alt="DeWalt toolbox with cabling tools">
-                <div class="gal-label">Toolkit</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4561.jpg" alt="Completed yellow Cat 6 patch cable">
-                <div class="gal-label">Finished Cable</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4554.jpg" alt="Equipment rack with patch panel connections">
-                <div class="gal-label">Rack Connection</div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </section>
+      </div>
 
-      <!-- =============================================
-           09 — 110 & 66 PATCH PANEL TERMINATIONS CASE STUDY
-           ============================================= -->
-      <div id="case-110-66" style="scroll-margin-top:72px"></div>
-      <div class="section-divider"></div>
+      <div class="cs-spacer"></div>
 
-      <section class="case-study fade-up">
-        <div class="wrap" style="padding:0">
-
-          <div class="cs-hero">
-            <div class="cs-hero-text">
-              <div class="cs-hero-eyebrow">Case Study — 09</div>
-              <h2 class="cs-hero-title">110 &amp; 66 Patch Panel Terminations</h2>
-              <p class="cs-hero-sub">Hands-on termination of Cat 5e/Cat 6 cabling on both 110-style wiring blocks and legacy 66-style punch-down blocks for voice and data circuits.</p>
-            </div>
-            <div class="cs-hero-img">
-              <img src="images/IMG_4575.jpg" alt="110 block with color-coded pair terminations">
+      <!-- 07 — DELL SERVER -->
+      <div class="cs-accordion fade-up" id="cs-dell-server">
+        <div class="cs-trigger" onclick="toggleAccordion('cs-dell-server')">
+          <div class="cs-trigger-left">
+            <div class="cs-trigger-num">07</div>
+            <div class="cs-trigger-info">
+              <div class="cs-trigger-cat">Case Study</div>
+              <div class="cs-trigger-title">Dell Server No VGA &amp; OS Restoration</div>
             </div>
           </div>
-
-          <div class="cs-sections">
-            <div class="cs-nav">
-              <div class="cs-nav-label">Sections</div>
-              <a class="cs-nav-item active" href="#case-110-66"><span class="nav-num">01</span> The Challenge</a>
-              <a class="cs-nav-item" href="#case-110-66"><span class="nav-num">02</span> The Goals</a>
-              <a class="cs-nav-item" href="#case-110-66"><span class="nav-num">03</span> Our Approach</a>
+          <div class="cs-trigger-right">
+            <div class="cs-trigger-tags">
+              <span class="cs-trigger-tag">Dell PowerEdge</span>
+              <span class="cs-trigger-tag">WinRE</span>
             </div>
-            <div class="cs-body">
-
-              <div class="cs-block">
-                <div class="cs-block-title">The Challenge</div>
-                <p>Terminate multi-pair cabling on both modern 110-style wiring blocks (used for structured data cabling) and legacy 66-style punch-down blocks (traditionally used for telephony/voice circuits). Both block types require precise pair mapping, correct color code adherence, and clean terminations using a standard impact punch-down tool.</p>
-              </div>
-
-              <div class="cs-block">
-                <div class="cs-block-title">The Goals</div>
-                <ul class="cs-list">
-                  <li>Terminate cabling on 110 blocks following the T568B color code</li>
-                  <li>Terminate cabling on 66 blocks following standard 25-pair color code</li>
-                  <li>Maintain proper pair mapping with no split pairs or crossed conductors</li>
-                  <li>Build familiarity with both modern and legacy termination methods</li>
-                </ul>
-              </div>
-
-              <div class="cs-block">
-                <div class="cs-block-title">Our Approach</div>
-                <p>For the 110 block terminations, stripped back the cable jacket, fanned out individual pairs, and seated each conductor into the correct slot on the 110 wiring block following T568B color code. Used a standard impact tool to punch down and trim conductors in a single motion, ensuring solid contact with the IDC (insulation displacement connector) blades.</p>
-                <p>For the 66 block terminations, followed the same preparation process but terminated onto the legacy 66-style block — seating conductors into the clip-style rows and punching down with the impact tool. This block type is commonly found in older telephony and voice installations. Both block types were mounted on a training wall alongside cable management brackets for organized, real-world practice.</p>
-              </div>
-
-            </div>
+            <div class="cs-trigger-icon"><i class="fa fa-chevron-down"></i></div>
           </div>
-
-          <div class="cs-specs fade-up">
-            <div class="cs-spec">
-              <div class="cs-spec-label">Block Types</div>
-              <div class="cs-spec-value">110 Wiring Block &bull; 66 Punch-Down Block</div>
-            </div>
-            <div class="cs-spec">
-              <div class="cs-spec-label">Tools</div>
-              <div class="cs-spec-value">Impact Punch-Down Tool &bull; Cable Stripper &bull; Electrician's Scissors</div>
-            </div>
-            <div class="cs-spec">
-              <div class="cs-spec-label">Standards</div>
-              <div class="cs-spec-value">T568B &bull; 25-Pair Color Code &bull; ANSI/TIA-568</div>
-            </div>
-          </div>
-
-          <div class="fade-up">
-            <div class="cs-gallery-label">Project Photos</div>
-            <div class="cs-gallery top-row">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4575.jpg" alt="110 block — completed terminations with color-coded pairs">
-                <div class="gal-label">110 Block — Completed</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4327.jpg" alt="110 block close-up with pairs being punched down">
-                <div class="gal-label">110 Block — Close-Up</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4328.jpg" alt="110 block with multi-pair cable terminated">
-                <div class="gal-label">110 Block — Pairs</div>
-              </div>
-            </div>
-            <div class="cs-gallery" style="margin-top:8px">
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4329.jpg" alt="66 block mounted on training wall with punch-down tool">
-                <div class="gal-label">66 Block</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4330.jpg" alt="66 block close-up of termination rows">
-                <div class="gal-label">66 Block — Close-Up</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4325.jpg" alt="Full training wall with 66 and 110 blocks mounted">
-                <div class="gal-label">Training Wall — Full View</div>
-              </div>
-              <div class="cs-gal-item" onclick="openLightbox(this)">
-                <img src="images/IMG_4326.jpg" alt="Training wall wide shot showing all block types">
-                <div class="gal-label">Training Wall — Wide</div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </section>
+        <div class="cs-collapse">
+          <div class="cs-collapse-inner">
+            <section class="case-study">
 
-      <!-- Coming soon with embedded terminal -->
+              <div class="cs-hero">
+                <div class="cs-hero-text">
+                  <div class="cs-hero-eyebrow">Case Study — 07</div>
+                  <h2 class="cs-hero-title">Dell Server No VGA &amp; OS Restoration</h2>
+                  <p class="cs-hero-sub">No POST, no video output, corrupted OS — diagnosed faulty RAM via systematic isolation, then restored Windows Server through WinRE recovery.</p>
+                </div>
+                <div class="cs-hero-img">
+                  <img src="images/IMG_4542.jpg" alt="Dell server open on workbench with POST screen showing successful boot">
+                </div>
+              </div>
+
+              <div class="cs-sections">
+                <div class="cs-nav">
+                  <div class="cs-nav-label">Sections</div>
+                  <span class="cs-nav-item active"><span class="nav-num">01</span> The Challenge</span>
+                  <span class="cs-nav-item"><span class="nav-num">02</span> The Diagnosis</span>
+                  <span class="cs-nav-item"><span class="nav-num">03</span> The Fix</span>
+                  <span class="cs-nav-item"><span class="nav-num">04</span> The Result</span>
+                </div>
+                <div class="cs-body">
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Challenge</div>
+                    <p>A Dell rack server in the lab failed to display any video output (VGA) on boot. The system was stuck in a boot loop/hang state — no BIOS, no OS, just a black screen. Initial remote checks via IPMI confirmed the server was receiving power but failing to initialize video.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Diagnosis</div>
+                    <p>Started with a CMOS battery test to rule out BIOS configuration resets or low-voltage issues — battery was nominal, issue persisted. Next, performed a full reseat of all memory modules. Video output returned intermittently but failed again on subsequent re-seats, pointing to a hardware fault rather than a loose connection.</p>
+                    <p>Systematically removed individual RAM sticks to isolate the defective component. Identified and removed one faulty module — the server immediately POSTed with constant, stable video output, now reporting 2 GB instead of the original 6 GB (lab machine, so the reduced capacity was acceptable).</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Fix</div>
+                    <p>With hardware resolved, a second problem surfaced: the repeated failed boot attempts from the bad RAM had corrupted the Windows Server OS files, preventing a successful boot even after the hardware fix.</p>
+                    <p>Accessed the Windows Recovery Environment (WinRE) via the pre-boot menu, executed Startup Repair and recovery tools to scan and rebuild the boot configuration data, then restored OS integrity. After restarting, booted into Safe Mode (Network Enabled) first to verify stability, then did a standard restart — server booted straight to the login screen.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Result</div>
+                    <ul class="cs-list">
+                      <li>Hardware: Server powers on with stable video output and passes POST</li>
+                      <li>OS: System boots consistently to the Windows Server login screen</li>
+                      <li>Network: Server fully operational — login was halted only by the AD lab network configuration (isolated test environment, no Domain Controller reachable), confirming the repair was a complete success</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cs-specs">
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Root Cause</div>
+                  <div class="cs-spec-value">Faulty RAM Module &bull; OS Boot Corruption</div>
+                </div>
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Tools Used</div>
+                  <div class="cs-spec-value">IPMI &bull; CMOS Tester &bull; WinRE &bull; Startup Repair</div>
+                </div>
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Outcome</div>
+                  <div class="cs-spec-value">Full POST &bull; OS Restored &bull; Server Operational</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="cs-gallery-label">Project Photos</div>
+                <div class="cs-gallery top-row">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4536.jpg" alt="Server internals exposed — RAM and motherboard visible">
+                    <div class="gal-label">Server Internals</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4537.jpg" alt="Server open with RAM removed for testing">
+                    <div class="gal-label">RAM Isolation</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4538.jpg" alt="No VGA output — black screen on Dell monitor">
+                    <div class="gal-label">No VGA — Black Screen</div>
+                  </div>
+                </div>
+                <div class="cs-gallery">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4539.jpg" alt="Blue screen — first sign of video signal returning">
+                    <div class="gal-label">Signal Returns</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4541.jpg" alt="POST screen — 2.0 GB RAM, quad-core processor detected">
+                    <div class="gal-label">Successful POST — 2 GB</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4542.jpg" alt="Full POST screen with BIOS boot options">
+                    <div class="gal-label">BIOS Boot Options</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4543.jpg" alt="POST screen wider view with system info">
+                    <div class="gal-label">System Init Complete</div>
+                  </div>
+                </div>
+                <div class="cs-gallery" style="margin-top:8px">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4532.jpg" alt="BIOS screen showing drive and iDRAC configuration">
+                    <div class="gal-label">BIOS — Drive Config</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4533.jpg" alt="BIOS screen with IPv4 settings and firmware version">
+                    <div class="gal-label">BIOS — Network Config</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4540.jpg" alt="WinRE Choose an option screen — Troubleshoot selected">
+                    <div class="gal-label">WinRE Recovery</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4544.jpg" alt="Windows boot logo — OS loading successfully">
+                    <div class="gal-label">Windows Booting</div>
+                  </div>
+                </div>
+                <div class="cs-gallery top-row" style="margin-top:8px">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4534.jpg" alt="Server workbench setup with BIOS on screen">
+                    <div class="gal-label">Workbench Setup</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4572.jpg" alt="Windows Server login screen — fully restored and operational">
+                    <div class="gal-label">Restored — Login Screen</div>
+                  </div>
+                </div>
+              </div>
+
+            </section>
+            <div class="cs-collapse-btn" onclick="toggleAccordion('cs-dell-server')">
+              <i class="fa fa-chevron-up"></i> Collapse Case Study
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-spacer"></div>
+
+      <!-- 08 — RJ45 CABLE FABRICATION -->
+      <div class="cs-accordion fade-up" id="cs-rj45">
+        <div class="cs-trigger" onclick="toggleAccordion('cs-rj45')">
+          <div class="cs-trigger-left">
+            <div class="cs-trigger-num">08</div>
+            <div class="cs-trigger-info">
+              <div class="cs-trigger-cat">Case Study</div>
+              <div class="cs-trigger-title">RJ45 Cable Fabrication (T568B)</div>
+            </div>
+          </div>
+          <div class="cs-trigger-right">
+            <div class="cs-trigger-tags">
+              <span class="cs-trigger-tag">Cat 6</span>
+              <span class="cs-trigger-tag">T568B</span>
+              <span class="cs-trigger-tag">RJ45</span>
+            </div>
+            <div class="cs-trigger-icon"><i class="fa fa-chevron-down"></i></div>
+          </div>
+        </div>
+        <div class="cs-collapse">
+          <div class="cs-collapse-inner">
+            <section class="case-study">
+
+              <div class="cs-hero">
+                <div class="cs-hero-text">
+                  <div class="cs-hero-eyebrow">Case Study — 08</div>
+                  <h2 class="cs-hero-title">RJ45 Cable Fabrication</h2>
+                  <p class="cs-hero-sub">Custom Cat 6 Ethernet patch cable — stripped, aligned to T568B, terminated, crimped, and verified pass on all 8 pins.</p>
+                </div>
+                <div class="cs-hero-img">
+                  <img src="images/IMG_4561.jpg" alt="Completed yellow Cat 6 patch cable on workbench">
+                </div>
+              </div>
+
+              <div class="cs-sections">
+                <div class="cs-nav">
+                  <div class="cs-nav-label">Sections</div>
+                  <span class="cs-nav-item active"><span class="nav-num">01</span> The Challenge</span>
+                  <span class="cs-nav-item"><span class="nav-num">02</span> The Goals</span>
+                  <span class="cs-nav-item"><span class="nav-num">03</span> Our Approach</span>
+                </div>
+                <div class="cs-body">
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Challenge</div>
+                    <p>Fabricate a custom-length Cat 6 Ethernet patch cable from bulk cable stock, ensuring full data continuity and proper pin mapping to the T568B wiring standard — the industry standard for commercial structured cabling.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Goals</div>
+                    <ul class="cs-list">
+                      <li>Produce a working straight-through Cat 6 patch cable</li>
+                      <li>Follow T568B color code on both ends</li>
+                      <li>Pass continuity and wiremap testing on all 8 pins with no shorts, opens, or split pairs</li>
+                    </ul>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">Our Approach</div>
+                    <p>Stripped approximately 1.5 inches of outer PVC jacket using a cable jacket stripper, taking care not to nick internal conductors. Untwisted the four pairs (Green, Orange, Blue, Brown), removed the internal spline separator, and arranged all 8 wires in T568B order: White/Orange, Orange, White/Green, Blue, White/Blue, Green, White/Brown, Brown.</p>
+                    <p>Straightened and trimmed conductors flush with electrician's scissors for even insertion depth, then inserted into the RJ45 (8P8C) modular plug — verifying the cable jacket extended past the strain relief tab. Crimped with a Klein Tools ratcheting crimper to drive gold-plated contact pins into conductors and lock the strain relief.</p>
+                    <p>Tested with a Klein Tools Scout Pro 3: connected both ends between the main tester and remote receiver. LCD confirmed "Pass" with mapped indicators 1 through 8 — no shorts, opens, or split pairs detected.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cs-specs">
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Standard</div>
+                  <div class="cs-spec-value">T568B &bull; Cat 6 UTP</div>
+                </div>
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Tools</div>
+                  <div class="cs-spec-value">Klein Ratcheting Crimper &bull; V-Notch Scissors &bull; Jacket Stripper</div>
+                </div>
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Verification</div>
+                  <div class="cs-spec-value">Klein Scout Pro 3 &bull; Pass — All 8 Pins</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="cs-gallery-label">Project Photos</div>
+                <div class="cs-gallery top-row">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4240.jpg" alt="DeWalt toolbox with cabling tools">
+                    <div class="gal-label">Toolkit</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4561.jpg" alt="Completed yellow Cat 6 patch cable">
+                    <div class="gal-label">Finished Cable</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4554.jpg" alt="Equipment rack with patch panel connections">
+                    <div class="gal-label">Rack Connection</div>
+                  </div>
+                </div>
+              </div>
+
+            </section>
+            <div class="cs-collapse-btn" onclick="toggleAccordion('cs-rj45')">
+              <i class="fa fa-chevron-up"></i> Collapse Case Study
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-spacer"></div>
+
+      <!-- 09 — 110 & 66 TERMINATIONS -->
+      <div class="cs-accordion fade-up" id="cs-110-66">
+        <div class="cs-trigger" onclick="toggleAccordion('cs-110-66')">
+          <div class="cs-trigger-left">
+            <div class="cs-trigger-num">09</div>
+            <div class="cs-trigger-info">
+              <div class="cs-trigger-cat">Case Study</div>
+              <div class="cs-trigger-title">110 &amp; 66 Patch Panel Terminations</div>
+            </div>
+          </div>
+          <div class="cs-trigger-right">
+            <div class="cs-trigger-tags">
+              <span class="cs-trigger-tag">110 Block</span>
+              <span class="cs-trigger-tag">66 Block</span>
+            </div>
+            <div class="cs-trigger-icon"><i class="fa fa-chevron-down"></i></div>
+          </div>
+        </div>
+        <div class="cs-collapse">
+          <div class="cs-collapse-inner">
+            <section class="case-study">
+
+              <div class="cs-hero">
+                <div class="cs-hero-text">
+                  <div class="cs-hero-eyebrow">Case Study — 09</div>
+                  <h2 class="cs-hero-title">110 &amp; 66 Patch Panel Terminations</h2>
+                  <p class="cs-hero-sub">Hands-on termination of Cat 5e/Cat 6 cabling on both 110-style wiring blocks and legacy 66-style punch-down blocks for voice and data circuits.</p>
+                </div>
+                <div class="cs-hero-img">
+                  <img src="images/IMG_4575.jpg" alt="110 block with color-coded pair terminations">
+                </div>
+              </div>
+
+              <div class="cs-sections">
+                <div class="cs-nav">
+                  <div class="cs-nav-label">Sections</div>
+                  <span class="cs-nav-item active"><span class="nav-num">01</span> The Challenge</span>
+                  <span class="cs-nav-item"><span class="nav-num">02</span> The Goals</span>
+                  <span class="cs-nav-item"><span class="nav-num">03</span> Our Approach</span>
+                </div>
+                <div class="cs-body">
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Challenge</div>
+                    <p>Terminate multi-pair cabling on both modern 110-style wiring blocks (used for structured data cabling) and legacy 66-style punch-down blocks (traditionally used for telephony/voice circuits). Both block types require precise pair mapping, correct color code adherence, and clean terminations using a standard impact punch-down tool.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Goals</div>
+                    <ul class="cs-list">
+                      <li>Terminate cabling on 110 blocks following the T568B color code</li>
+                      <li>Terminate cabling on 66 blocks following standard 25-pair color code</li>
+                      <li>Maintain proper pair mapping with no split pairs or crossed conductors</li>
+                      <li>Build familiarity with both modern and legacy termination methods</li>
+                    </ul>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">Our Approach</div>
+                    <p>For the 110 block terminations, stripped back the cable jacket, fanned out individual pairs, and seated each conductor into the correct slot on the 110 wiring block following T568B color code. Used a standard impact tool to punch down and trim conductors in a single motion, ensuring solid contact with the IDC (insulation displacement connector) blades.</p>
+                    <p>For the 66 block terminations, followed the same preparation process but terminated onto the legacy 66-style block — seating conductors into the clip-style rows and punching down with the impact tool. This block type is commonly found in older telephony and voice installations. Both block types were mounted on a training wall alongside cable management brackets for organized, real-world practice.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cs-specs">
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Block Types</div>
+                  <div class="cs-spec-value">110 Wiring Block &bull; 66 Punch-Down Block</div>
+                </div>
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Tools</div>
+                  <div class="cs-spec-value">Impact Punch-Down Tool &bull; Cable Stripper &bull; Electrician's Scissors</div>
+                </div>
+                <div class="cs-spec">
+                  <div class="cs-spec-label">Standards</div>
+                  <div class="cs-spec-value">T568B &bull; 25-Pair Color Code &bull; ANSI/TIA-568</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="cs-gallery-label">Project Photos</div>
+                <div class="cs-gallery top-row">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4575.jpg" alt="110 block — completed terminations with color-coded pairs">
+                    <div class="gal-label">110 Block — Completed</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4327.jpg" alt="110 block close-up with pairs being punched down">
+                    <div class="gal-label">110 Block — Close-Up</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4328.jpg" alt="110 block with multi-pair cable terminated">
+                    <div class="gal-label">110 Block — Pairs</div>
+                  </div>
+                </div>
+                <div class="cs-gallery" style="margin-top:8px">
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4329.jpg" alt="66 block mounted on training wall with punch-down tool">
+                    <div class="gal-label">66 Block</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4330.jpg" alt="66 block close-up of termination rows">
+                    <div class="gal-label">66 Block — Close-Up</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4325.jpg" alt="Full training wall with 66 and 110 blocks mounted">
+                    <div class="gal-label">Training Wall — Full View</div>
+                  </div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)">
+                    <img src="images/IMG_4326.jpg" alt="Training wall wide shot showing all block types">
+                    <div class="gal-label">Training Wall — Wide</div>
+                  </div>
+                </div>
+              </div>
+
+            </section>
+            <div class="cs-collapse-btn" onclick="toggleAccordion('cs-110-66')">
+              <i class="fa fa-chevron-up"></i> Collapse Case Study
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coming soon -->
       <div class="coming-soon fade-up">
         <div class="cs-label">// More In Progress</div>
-        <div class="cs-title">More Projects Coming Soon</div>
+        <div class="cs-title-cs">More Projects Coming Soon</div>
         <div class="cs-sub">Currently building CCNA lab environments and network automation projects.</div>
         <div class="term-block" style="max-width:420px;margin:0 auto 32px;text-align:left">
           <div class="tb-bar">
@@ -979,7 +1093,9 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+  // Mobile nav
   document.getElementById('mobBtn').addEventListener('click', () =>
     document.getElementById('navLinks').classList.toggle('open'));
   document.querySelectorAll('#navLinks a').forEach(a =>
@@ -1004,6 +1120,51 @@
       cards.forEach(c => {
         c.style.display = (f === 'all' || c.dataset.category === f) ? 'flex' : 'none';
       });
+    });
+  });
+
+  // =============================================
+  // ACCORDION SYSTEM
+  // =============================================
+  function toggleAccordion(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const isOpen = el.classList.contains('open');
+
+    if (isOpen) {
+      // Collapse
+      el.classList.remove('open');
+      // Scroll to the trigger bar so user sees the collapsed state
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    } else {
+      // Expand
+      el.classList.add('open');
+      // Smooth scroll to the accordion
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  }
+
+  // "View full case study" links in project cards → open accordion + scroll
+  document.querySelectorAll('.cs-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.dataset.target;
+      const accordion = document.getElementById(targetId);
+      if (!accordion) return;
+
+      // Open it if not already open
+      if (!accordion.classList.contains('open')) {
+        accordion.classList.add('open');
+      }
+
+      // Scroll to it
+      setTimeout(() => {
+        accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     });
   });
 
