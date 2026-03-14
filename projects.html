@@ -161,6 +161,12 @@
     .cs-gal-item:hover img{transform:scale(1.05)}
     .cs-gal-item .gal-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.06em;text-transform:uppercase}
 
+    /* Video gallery */
+    .cs-vid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+    .cs-vid-item{border-radius:10px;overflow:hidden;position:relative;background:#000}
+    .cs-vid-item video{width:100%;display:block;border-radius:10px}
+    .cs-vid-item .gal-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
+
     /* Lightbox */
     .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;align-items:center;justify-content:center;cursor:zoom-out}
     .lightbox.open{display:flex}
@@ -201,6 +207,7 @@
       .cs-nav{border-right:none;border-bottom:1px solid var(--bdr2);padding:24px 28px}
       .cs-specs{grid-template-columns:1fr}
       .cs-gallery,.cs-gallery.top-row{grid-template-columns:repeat(2,1fr)}
+      .cs-vid-grid{grid-template-columns:1fr}
       .ft{flex-direction:column;gap:16px;text-align:center}
     }
     @media(max-width:600px){
@@ -551,6 +558,23 @@
               <div class="cs-gal-item" onclick="openLightbox(this)">
                 <img src="images/IMG_4408.jpg" alt="TR West — side view of rack with switches">
                 <div class="gal-label">TR West — Side View</div>
+              </div>
+            </div>
+
+            <!-- Videos -->
+            <div class="cs-gallery-label" style="margin-top:28px">Project Videos</div>
+            <div class="cs-vid-grid">
+              <div class="cs-vid-item">
+                <video controls preload="metadata" playsinline>
+                  <source src="images/IMG_4557.mp4" type="video/mp4">
+                </video>
+                <div class="gal-label">Camera Feed Verification</div>
+              </div>
+              <div class="cs-vid-item">
+                <video controls preload="metadata" playsinline>
+                  <source src="images/IMG_4559.mp4" type="video/mp4">
+                </video>
+                <div class="gal-label">Phone Confirmation</div>
               </div>
             </div>
           </div>
