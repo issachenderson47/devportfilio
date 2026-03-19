@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issac Henderson — IT Infrastructure Engineer</title>
+  <meta name="description" content="IT Infrastructure Engineer specializing in Network, Systems, and Security. Based in New York, NY.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg:#fff; --bg2:#f5f5f7; --bdr:#d2d2d7; --bdr2:#e8e8ed;
+      --tx:#1d1d1f; --tx2:#424245; --tx3:#86868b;
+      --blue:#0071e3; --blue2:#0077ed;
+      --pu:#632ca6; --pu2:#7b4dbf; --pub:rgba(99,44,166,.07); --pub2:rgba(99,44,166,.22);
+      --gr:#34c759; --grd:#248a3d; --or:#ff9500; --ord:#b25000;
+      --tbg:#1a1f2e; --tbar:#222736; --ttx:#cdd6f4; --tmut:#6c7086;
+      --tcyan:#64d2ff; --tgrn:#30d158; --torg:#ff9f0a;
+      --ff:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;
+      --fm:'JetBrains Mono',monospace;
+      --mw:1080px; --sec:140px 0; --rad:14px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:var(--ff);background:var(--bg);color:var(--tx);line-height:1.6;overflow-x:hidden;font-size:16px}
+    ::selection{background:var(--pu);color:#fff}
+
+    .stripe{height:4px;background:linear-gradient(90deg,var(--pu),var(--pu2),var(--blue));position:fixed;top:0;left:0;right:0;z-index:1000}
+
+    header{position:fixed;top:4px;left:0;right:0;z-index:900;height:60px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--bdr2)}
+    .nav-w{max-width:var(--mw);width:100%;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-weight:700;font-size:18px;color:var(--tx);text-decoration:none;letter-spacing:-.02em}
+    .logo span{font-weight:400;color:var(--tx3)}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    nav{display:flex;align-items:center;gap:32px}
+    nav a{font-size:14px;font-weight:600;color:var(--tx2);text-decoration:none;transition:color .2s}
+    nav a:hover{color:var(--tx)}
+    .ncta{color:#fff!important;background:var(--pu);padding:8px 20px;border-radius:980px;transition:background .2s}
+    .ncta:hover{background:var(--pu2)!important}
+    .mob{display:none;background:none;border:none;color:var(--tx);font-size:22px;cursor:pointer}
+
+    /* HERO */
+    #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;position:relative;overflow:hidden;background:#fff}
+    #hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+      background-image:radial-gradient(circle,rgba(99,44,166,.12) 1px,transparent 1px),radial-gradient(circle,rgba(0,113,227,.07) 1px,transparent 1px);
+      background-size:40px 40px,80px 80px;background-position:0 0,20px 20px}
+    #hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:180px;z-index:3;pointer-events:none;
+      background:linear-gradient(to bottom,transparent,#f5f5f7)}
+    #hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;display:block}
+    .hero-grid{position:relative;z-index:4;max-width:var(--mw);width:100%;display:grid;grid-template-columns:1fr;gap:0;align-items:center;text-align:center}
+    .hero-eyebrow{font-family:var(--fm);font-size:13px;font-weight:600;color:var(--pu);letter-spacing:.14em;text-transform:uppercase;margin-bottom:24px}
+    .hero-name{font-weight:800;font-size:clamp(60px,8vw,90px);line-height:1;letter-spacing:-.035em;color:var(--tx);margin-bottom:28px}
+    .hero-sub{font-size:clamp(18px,2.5vw,22px);color:var(--tx2);line-height:1.65;max-width:680px;margin:0 auto 40px}
+    .hero-sub strong{color:var(--tx);font-weight:700}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:48px;justify-content:center}
+    .badge{font-family:var(--fm);font-size:13px;padding:6px 14px;border-radius:980px;background:var(--bg2);color:var(--tx2);border:1px solid var(--bdr2);transition:all .2s;font-weight:500}
+    .badge:hover{border-color:var(--bdr);color:var(--tx);background:#fff}
+    .badge.on{background:rgba(52,199,89,.08);border-color:rgba(52,199,89,.3);color:#248a3d}
+    .badge.on::before{content:'● ';font-size:9px;vertical-align:1px}
+    .actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+    .btn{font-family:var(--ff);font-size:16px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:980px;transition:all .2s;display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;letter-spacing:-.01em}
+    .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue2);transform:scale(1.02)}
+    .btn-ghost{background:transparent;color:var(--tx);border:1px solid var(--bdr)}.btn-ghost:hover{background:var(--bg2)}
+    .btn-pu{background:var(--pu);color:#fff}.btn-pu:hover{background:var(--pu2);transform:scale(1.02)}
+    .btn-out-pu{background:transparent;color:var(--pu);border:1px solid var(--pu)}.btn-out-pu:hover{background:var(--pub)}
+
+    /* SHARED */
+    .wrap{max-width:var(--mw);margin:0 auto;padding:0 24px;position:relative;z-index:2}
+    .slbl{font-family:var(--fm);font-size:13px;font-weight:600;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+    .stitle{font-weight:800;font-size:clamp(40px,5vw,64px);letter-spacing:-.03em;color:var(--tx);line-height:1.08;margin-bottom:20px}
+    .shd{margin-bottom:72px}
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.visible{opacity:1;transform:none}
+
+    /* ABOUT */
+    #about{padding:var(--sec);background:var(--bg2)}
+    .ag{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .at p{font-size:18px;line-height:1.8;color:var(--tx2);margin-bottom:24px}
+    .at p strong{color:var(--tx);font-weight:700}
+    
+    /* TERMINAL */
+    .term-block{background:var(--tbg);border-radius:var(--rad);overflow:hidden;font-family:var(--fm);font-size:14px;box-shadow:0 12px 40px rgba(0,0,0,.18),0 0 0 1px rgba(255,255,255,.06);margin-top:40px;position:relative}
+    .term-block::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(99,44,166,.14) 1px,transparent 1px);background-size:24px 24px}
+    .tb-bar{background:var(--tbar);padding:14px 20px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.05);position:relative;z-index:1}
+    .tb-body{padding:24px;line-height:2.2;position:relative;z-index:1}
+    .tl{display:flex;gap:10px}.tp{color:var(--tcyan);font-weight:600}.tc{color:var(--ttx)}
+    .to{color:var(--tmut);padding-left:20px}.to .ok{color:var(--tgrn)}.to .wa{color:var(--torg)}
+    .cur{display:inline-block;width:10px;height:16px;background:var(--tcyan);animation:blink 1.2s step-end infinite;vertical-align:middle}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    .dot{width:12px;height:12px;border-radius:50%}
+    .dr{background:#ff5f56}.dy{background:#ffbd2e}.dg{background:#27c93f}
+
+    /* CONTACT CARDS */
+    .cards{display:flex;flex-direction:column;gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden}
+    .card{background:var(--bg);padding:20px 24px;display:flex;align-items:center;gap:16px;transition:background .15s}
+    .card:hover{background:var(--bg2)}
+    .card-ic{color:var(--tx3);font-size:18px;width:24px;text-align:center;flex-shrink:0}
+    .card-l{font-family:var(--fm);font-size:12px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em}
+    .card-v{font-size:16px;color:var(--tx);margin-top:2px;font-weight:600}
+    .card-v a{color:var(--tx);text-decoration:none}
+    .card-v a:hover{color:var(--blue)}
+
+    /* STATS */
+    .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr2);margin-top:48px;border-radius:var(--rad);overflow:hidden}
+    .stat-box{background:var(--bg);padding:32px;text-align:center}
+    .stat-n{font-size:52px;font-weight:800;color:var(--tx);letter-spacing:-.03em;line-height:1}
+    .stat-n.pu{color:var(--pu)}
+    .stat-l{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
+
+    /* CCNA PROGRESS */
+    .ccna{background:var(--bg);border:1px solid var(--bdr2);border-radius:var(--rad);padding:24px;margin-top:40px;display:flex;align-items:center;gap:20px}
+    .ccna-ic{font-size:28px;color:var(--or)}
+    .ccna-t{font-size:16px;color:var(--tx);font-weight:700}
+    .ccna-s{font-family:var(--fm);font-size:13px;color:var(--tx2);margin-top:4px}
+    .ccna-r{margin-left:auto;text-align:right}
+    .prg-l{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--or);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+    .prg-tr{width:140px;height:6px;background:var(--bdr2);border-radius:3px}
+    .prg-fi{height:100%;background:var(--or);width:45%;border-radius:3px}
+
+    /* AMBIENT ANIMATION KEYFRAMES */
+    @keyframes ambientPan {
+      0% { transform: scale(1.05) translate(0, 0); }
+      100% { transform: scale(1.15) translate(-1.5%, -1.5%); }
+    }
+
+    /* SKILLS (With Moving Background at 35% opacity) */
+    #skills{padding:var(--sec);background:var(--bg);position:relative;overflow:hidden;}
+    #skills::before {
+      content:''; position:absolute; inset:-10%; z-index:0; pointer-events:none;
+      background:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=3840&q=90') center/cover no-repeat;
+      opacity: 0.35; 
+      animation: ambientPan 30s ease-in-out infinite alternate;
+    }
+    .sk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;position:relative;z-index:2;box-shadow:0 20px 40px rgba(0,0,0,0.05)}
+    .sk-cat{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);padding:40px 32px}
+    .sk-hd{font-size:16px;font-weight:700;color:var(--tx);margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--bdr2);display:flex;align-items:center;gap:10px}
+    .sk-hd i{color:var(--tx3);font-size:16px}
+    .tag{display:inline-block;font-family:var(--fm);font-size:13px;font-weight:500;color:var(--tx2);background:var(--bg2);padding:6px 14px;margin:4px 4px 0 0;border-radius:6px;transition:all .15s;border:1px solid transparent}
+    .tag:hover{border-color:var(--pu);color:var(--pu);background:var(--pub)}
+
+    /* EXPERIENCE */
+    #experience{padding:var(--sec);background:var(--bg2)}
+    .xitem{padding:0 0 64px;display:grid;grid-template-columns:220px 1fr;gap:48px}
+    .xitem:last-child{padding-bottom:0}
+    .xitem+.xitem{border-top:1px solid var(--bdr2);padding-top:64px}
+    .xdate{font-family:var(--fm);font-size:14px;font-weight:500;color:var(--tx3);margin-bottom:8px}
+    .xco{font-size:24px;font-weight:800;color:var(--tx);letter-spacing:-.02em;line-height:1.2}
+    .xrole{font-size:15px;font-weight:600;color:var(--tx2);margin:6px 0 0}
+    .xul{list-style:none}
+    .xul li{font-size:17px;color:var(--tx2);line-height:1.75;margin-bottom:14px;padding-left:22px;position:relative}
+    .xul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--pu)}
+    .hl{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:13px;font-weight:600;color:var(--grd);background:rgba(52,199,89,.08);padding:6px 16px;border-radius:980px;margin-top:12px}
+    .hl.pu{color:var(--pu);background:var(--pub)}
+
+    /* CERTS (With Moving Background at 35% opacity) */
+    #certs{padding:var(--sec);background:var(--bg);position:relative;overflow:hidden;}
+    #certs::before {
+      content:''; position:absolute; inset:-10%; z-index:0; pointer-events:none;
+      background:url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=3840&q=90') center/cover no-repeat;
+      opacity: 0.35; 
+      animation: ambientPan 35s ease-in-out infinite alternate-reverse;
+    }
+    .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;position:relative;z-index:2;box-shadow:0 20px 40px rgba(0,0,0,0.05)}
+    .cert{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);padding:32px;transition:background .15s}
+    .cert:hover{background:#fff}
+    .cert-is{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+    .cert-nm{font-size:17px;font-weight:700;color:var(--tx);line-height:1.4;margin-bottom:10px}
+    .cert-st{font-family:var(--fm);font-size:13px;font-weight:600;margin-top:16px}
+    .cert-st.ok{color:var(--grd)}.cert-st.ok::before{content:'✓ '}
+    .cert-st.wip{color:var(--ord)}.cert-st.wip::before{content:'◌ '}
+
+    /* PROJECTS */
+    #projects{padding:var(--sec);background:var(--bg2)}
+    .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:56px}
+    .proj{background:var(--bg);padding:40px 32px;transition:background .15s}
+    .proj:hover{background:#fff}
+    .proj-n{font-size:56px;font-weight:900;color:var(--bdr2);line-height:1;margin-bottom:20px;letter-spacing:-.03em;transition:color .2s}
+    .proj:hover .proj-n{color:var(--pu)}
+    .proj-cat{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--pu);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+    .proj-t{font-size:20px;font-weight:800;color:var(--tx);line-height:1.3;margin-bottom:12px}
+    .proj-d{font-size:15px;color:var(--tx2);line-height:1.6}
+    .ptag{display:inline-block;font-family:var(--fm);font-size:12px;font-weight:500;color:var(--tx3);background:var(--bg2);padding:4px 10px;margin:12px 4px 0 0;border-radius:4px}
+    .pcta{display:flex;justify-content:center}
+
+    /* CONTACT */
+    #contact{padding:var(--sec);background:var(--bg)}
+    .con-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .con-tag{font-size:clamp(40px,5vw,64px);font-weight:800;color:var(--tx);line-height:1.08;letter-spacing:-.03em;margin-bottom:20px}
+    .con-tag em{color:var(--pu);font-style:normal}
+    .con-sub{font-size:18px;color:var(--tx2);line-height:1.6;margin-bottom:40px}
+    .con-links{display:flex;flex-direction:column;gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden}
+    .con-link{display:flex;align-items:center;gap:16px;padding:20px 24px;background:var(--bg);color:var(--tx);text-decoration:none;font-size:16px;font-weight:600;transition:background .15s}
+    .con-link:hover{background:var(--bg2);color:var(--blue)}
+    .con-link i{color:var(--tx3);width:20px;text-align:center;font-size:16px}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--bdr2);padding:40px 0}
+    .ft{display:flex;align-items:center;justify-content:space-between}
+    .ft-logo{font-size:16px;font-weight:700;color:var(--tx)}
+    .ft-logo span{font-weight:400;color:var(--tx3)}
+    .ft-copy{font-size:14px;color:var(--tx3)}
+    .ft-soc{display:flex;gap:24px}
+    .ft-soc a{color:var(--tx3);text-decoration:none;font-size:18px;transition:color .2s}
+    .ft-soc a:hover{color:var(--pu)}
+
+    @media(max-width:900px){
+      .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);flex-direction:column;padding:32px;gap:24px;border-bottom:1px solid var(--bdr2);z-index:899}
+      .nav-links.open{display:flex}
+      .mob{display:block}
+      .hero-grid{grid-template-columns:1fr;text-align:center}
+      .badges,.actions{justify-content:center}
+      .ag,.con-grid{grid-template-columns:1fr;gap:48px}
+      .sk-grid,.proj-grid{grid-template-columns:1fr 1fr}
+      .cert-grid{grid-template-columns:1fr 1fr}
+      .xitem{grid-template-columns:1fr;gap:16px}
+      .ft{flex-direction:column;gap:20px;text-align:center}
+      .ccna{flex-direction:column;text-align:center}
+      .ccna-r{margin-left:0}.prg-tr{margin:0 auto}
+    }
+    @media(max-width:600px){
+      .sk-grid,.cert-grid,.proj-grid{grid-template-columns:1fr}
+      :root{--sec:100px 0}
+      #hero{padding-top:140px}
+    }
+  </style>
+</head>
+<body>
+
+<div class="stripe"></div>
+
+<header>
+  <div class="nav-w">
+    <a href="index.html" class="logo">Issac Henderson <span>/ Infrastructure</span></a>
+    <button class="mob" id="mobBtn"><i class="fa fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#certs">Credentials</a>
+        <a href="projects.html">Projects</a>
+        <a href="#contact" class="ncta">Hire Me</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">IT Infrastructure Engineer</div>
+      <h1 class="hero-name">Issac<br>Henderson</h1>
+      <p class="hero-sub">7+ years building <strong>networks</strong>, managing <strong>systems</strong>, and securing <strong>infrastructure</strong> across finance, healthcare, and enterprise — grounded in Zero Trust principles.</p>
+      <div class="badges">
+        <span class="badge on">Available for Hire</span>
+        <span class="badge">New York, NY</span>
+        <span class="badge">BICSI INST1</span>
+        <span class="badge">AWS Solutions Architect</span>
+        <span class="badge">CCNA → In Progress</span>
+        <span class="badge">OSHA 30</span>
+      </div>
+      <div class="actions">
+        <a href="#experience" class="btn btn-blue">View Experience</a>
+        <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">About</div><h2 class="stitle">Building Networks.<br>Securing Systems.</h2></div>
+    <div class="ag">
+      <div class="fade-up">
+        <div class="at">
+          <p><strong>New York-based IT Infrastructure Engineer</strong> with 7+ years across network operations, systems administration, and physical infrastructure. I've built and secured environments for Fortune 500 firms, healthcare systems, and enterprise hospitality.</p>
+          <p>I operate where technical execution meets security — terminating fiber in a telecom room, managing IAM for 10,000+ users, or scripting automation. Everything is Zero Trust-aligned.</p>
+          <p>Currently focused on the <strong>CCNA</strong>, sharpening the network engineering fundamentals that anchor my work.</p>
+        </div>
+        <div class="ccna">
+          <div class="ccna-ic"><i class="fa fa-network-wired"></i></div>
+          <div><div class="ccna-t">Cisco CCNA — Active Study</div><div class="ccna-s">Routing &amp; Switching · OSPF · VLANs · ACLs</div></div>
+          <div class="ccna-r"><div class="prg-l">Progress</div><div class="prg-tr"><div class="prg-fi"></div></div></div>
+        </div>
+        <div class="term-block">
+          <div class="tb-bar">
+            <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+            <span style="color:var(--tmut);font-size:12px;margin-left:auto;font-weight:600">status.sh</span>
+          </div>
+          <div class="tb-body">
+            <div class="tl"><span class="tp">$</span><span class="tc">whoami</span></div>
+            <div class="to"><span class="ok">→</span> Issac Henderson, IT Infrastructure Engineer</div>
+            <div class="tl" style="margin-top:8px"><span class="tp">$</span><span class="tc">uptime</span></div>
+            <div class="to"><span class="ok">↑</span> 7+ yrs · 99.97% SLA · zero-trust aligned</div>
+            <div class="tl" style="margin-top:8px"><span class="tp">$</span><span class="tc">cat certifications.txt</span></div>
+            <div class="to"><span class="ok">✓</span> BICSI INST1 &nbsp;·&nbsp; <span class="ok">✓</span> AWS Solutions Architect</div>
+            <div class="to"><span class="ok">✓</span> OSHA 30 + SST 40 &nbsp;·&nbsp; <span class="wa">↻</span> CCNA in progress</div>
+            <div class="tl" style="margin-top:8px"><span class="tp">$</span><span class="tc">ping buildwithissac@gmail.com</span></div>
+            <div class="to"><span class="ok">PONG</span> — ready to connect. &nbsp;<span class="cur"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="cards" style="margin-bottom:24px">
+          <div class="card"><div class="card-ic"><i class="fa fa-user"></i></div><div><div class="card-l">Name</div><div class="card-v">Issac Henderson</div></div></div>
+          <div class="card"><div class="card-ic"><i class="fa fa-map-marker-alt"></i></div><div><div class="card-l">Location</div><div class="card-v">New York, NY</div></div></div>
+          <div class="card"><div class="card-ic"><i class="fa fa-envelope"></i></div><div><div class="card-l">Email</div><div class="card-v"><a href="mailto:buildwithissac@gmail.com">buildwithissac@gmail.com</a></div></div></div>
+          <div class="card"><div class="card-ic"><i class="fa fa-phone"></i></div><div><div class="card-l">Phone</div><div class="card-v"><a href="tel:+13323026211">+1 (332) 302-6211</a></div></div></div>
+          <div class="card"><div class="card-ic"><i class="fab fa-linkedin"></i></div><div><div class="card-l">LinkedIn</div><div class="card-v"><a href="https://linkedin.com/in/issachenderson" target="_blank">linkedin.com/in/issachenderson</a></div></div></div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="stat-n">7+</div><div class="stat-l">Years Experience</div></div>
+          <div class="stat-box"><div class="stat-n pu">99.97%</div><div class="stat-l">SLA Uptime</div></div>
+          <div class="stat-box"><div class="stat-n">10K+</div><div class="stat-l">Users Managed</div></div>
+          <div class="stat-box"><div class="stat-n pu">50+</div><div class="stat-l">Client Sites</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">Skills</div><h2 class="stitle">Technical Stack</h2></div>
+    <div class="sk-grid fade-up">
+      <div class="sk-cat"><div class="sk-hd"><i class="fa fa-server"></i> Infrastructure</div><span class="tag">Cat5e/Cat6/Fiber</span><span class="tag">BICSI Cabling</span><span class="tag">Patch Panels</span><span class="tag">UPS Management</span><span class="tag">Firestopping</span><span class="tag">J-Hooks / Ladder Racks</span><span class="tag">TBB Grounding</span><span class="tag">LC/SC Fiber</span><span class="tag">OLTS Testing</span></div>
+      <div class="sk-cat"><div class="sk-hd"><i class="fa fa-network-wired"></i> Network Ops</div><span class="tag">Cisco Routing/Switching</span><span class="tag">SonicWall Firewall</span><span class="tag">DHCP / VLANs</span><span class="tag">TCP/IP</span><span class="tag">PoE Solutions</span><span class="tag">Sophos</span><span class="tag">NOC Operations</span><span class="tag">OSPF (CCNA)</span><span class="tag">ACLs (CCNA)</span></div>
+      <div class="sk-cat"><div class="sk-hd"><i class="fa fa-shield-alt"></i> Security &amp; IAM</div><span class="tag">Okta SSO/MFA</span><span class="tag">CyberArk PAM</span><span class="tag">Zero Trust</span><span class="tag">Active Directory</span><span class="tag">Azure AD</span><span class="tag">Citrix</span><span class="tag">IAM Lifecycle Mgmt</span><span class="tag">ANSI/TIA-607</span></div>
+      <div class="sk-cat"><div class="sk-hd"><i class="fa fa-cog"></i> Systems &amp; Tools</div><span class="tag">Windows Server</span><span class="tag">Group Policy (GPO)</span><span class="tag">Datto RMM</span><span class="tag">AWS (SAA-C03)</span><span class="tag">SCCM</span><span class="tag">ServiceNow</span><span class="tag">PowerShell</span><span class="tag">Office 365</span><span class="tag">Google Workspace</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">Experience</div><h2 class="stitle">Work History</h2></div>
+    <div>
+      <div class="xitem fade-up"><div><div class="xdate">Jan 2026 — Feb 2026</div><div class="xco">Brooklyn Networks</div><div class="xrole">BICSI INST1 Trainee · NYC</div></div><div><ul class="xul"><li>Installed BICSI-standard Cat5e/Cat6 and fiber optic cabling — pulling, routing, and terminating at TR patch panels to commercial performance specs.</li><li>Built ANSI/TIA-607 compliant grounding and bonding systems for equipment racks; applied code-compliant firestopping across fire-rated barriers.</li><li>Terminated LC/SC fiber using mechanical cleaving and UV cure; validated dB loss margins via Tier 1 VFL and OLTS testing.</li></ul><span class="hl"><i class="fa fa-certificate"></i> BICSI INST1 Certified</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Nov 2023 — Feb 2024</div><div class="xco">BioLife Plasma Services</div><div class="xrole">Enterprise Escalation Analyst · Remote</div></div><div><ul class="xul"><li>Served as Tier 2 escalation point, resolving 50–100 ServiceNow tickets daily at a 95% first-contact resolution rate.</li><li>Authored Salesforce KB articles and templates that cut three major recurring ticket categories by 30%.</li></ul><span class="hl"><i class="fa fa-chart-line"></i> 95% First-Contact Resolution</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Apr 2022 — Nov 2023</div><div class="xco">Wells Fargo</div><div class="xrole">IAM Administrator · Remote</div></div><div><ul class="xul"><li>Administered an enterprise Okta environment for 2,000+ users — SSO, MFA, lifecycle management, and third-party integrations — at 99.97% uptime.</li><li>Secured access for 10,000+ global users across financial and healthcare compliance environments using Okta, Citrix, CyberArk, and Wells Fargo Password Manager.</li></ul><span class="hl pu"><i class="fa fa-lock"></i> 99.97% SLA Uptime · 10,000+ Users</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Jul 2021 — Apr 2022</div><div class="xco">Resource Computer Solutions</div><div class="xrole">Network &amp; System Admin · Dallas, TX</div></div><div><ul class="xul"><li>Managed IT infrastructure, network security (Sophos), and Office 365 across 50+ client sites via Datto RMM in a multi-tenant MSP environment.</li><li>Led escalation response for site-wide outages — routing failures, DHCP scope exhaustion, and offline SonicWall appliances.</li><li>Ran NOC backup sessions and wrote automation scripts for server health monitoring across the client portfolio.</li><li>Performed onsite low-voltage cabling, UPS racking, and network upgrades; served as primary vendor liaison.</li></ul><span class="hl"><i class="fa fa-building"></i> 50+ Client Sites</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Oct 2016 — May 2021</div><div class="xco">Topgolf</div><div class="xrole">Support Operations Specialist · Remote</div></div><div><ul class="xul"><li>Led digital transformation from manual workflows to a centralized Google Sites knowledge base, standardizing processes for 170–200+ weekend inquiries.</li><li>Designed and deployed Google Workspace architecture and IVR logic across 60+ venues — reduced call processing time by 85%, saving an estimated 16,170 hours annually.</li></ul><span class="hl"><i class="fa fa-clock"></i> 16,170 Hours Saved Annually</span></div></div>
+      <div class="xitem fade-up"><div><div class="xdate">Jan 2016 — Jul 2016</div><div class="xco">New York Life</div><div class="xrole">Project Manager Intern · NYC</div></div><div><ul class="xul"><li>Built digital transformation governance frameworks for 7+ business units; created a Risk Analysis Matrix that cut project delays by 25%.</li><li>Trained 15+ cross-functional teams on Jira and Confluence; led Agile estimation workshops covering story points, T-shirt sizing, and planning poker.</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">Credentials</div><h2 class="stitle">Certifications</h2></div>
+    <div class="cert-grid fade-up">
+      <div class="cert"><div class="cert-is">Cisco</div><div class="cert-nm">Cisco Certified Network Associate (CCNA)</div><div class="cert-st wip">In Active Progress</div></div>
+      <div class="cert"><div class="cert-is">Amazon Web Services</div><div class="cert-nm">AWS Certified Solutions Architect – Associate</div><div class="cert-st ok">Certified</div></div>
+      <div class="cert"><div class="cert-is">BICSI</div><div class="cert-nm">BICSI Installer 1 (INST1)</div><div class="cert-st ok">Certified</div></div>
+      <div class="cert"><div class="cert-is">Essential Safety Communications</div><div class="cert-nm">OSHA 30-Hour Construction</div><div class="cert-st ok">Certified</div></div>
+      <div class="cert"><div class="cert-is">Essential Safety Communications</div><div class="cert-nm">NYC 40-Hour Site Safety Training (SST)</div><div class="cert-st ok">Certified</div></div>
+      <div class="cert"><div class="cert-is">Dallas College</div><div class="cert-nm">Site System Administration + Cisco ICND1 &amp; ICND2</div><div class="cert-st ok">Completed</div></div>
+    </div>
+    <div style="margin-top:64px" class="fade-up">
+      <div class="slbl" style="margin-bottom:16px">Education</div>
+      <div style="max-width:480px"><div class="cards"><div class="card"><div class="card-ic"><i class="fa fa-graduation-cap"></i></div><div><div class="card-l">Dallas College — Dallas, TX</div><div class="card-v">Associate of Arts and Sciences (A.A.S.)</div></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="shd fade-up"><div class="slbl">Projects</div><h2 class="stitle">Selected Work</h2></div>
+    <div class="proj-grid fade-up">
+      <div class="proj"><div class="proj-n">01</div><div class="proj-cat">IAM / Security</div><div class="proj-t">Enterprise Okta SSO Deployment</div><div class="proj-d">SSO, MFA, and lifecycle management for 2,000+ users at 99.97% uptime across strict compliance environments.</div><div><span class="ptag">Okta</span><span class="ptag">CyberArk</span><span class="ptag">Zero Trust</span></div></div>
+      <div class="proj"><div class="proj-n">02</div><div class="proj-cat">Network Infrastructure</div><div class="proj-t">Multi-Site MSP Network Ops</div><div class="proj-d">Network security and infrastructure across 50+ client sites via Datto RMM in a multi-tenant MSP environment.</div><div><span class="ptag">SonicWall</span><span class="ptag">Datto RMM</span><span class="ptag">Sophos</span></div></div>
+      <div class="proj"><div class="proj-n">03</div><div class="proj-cat">Structured Cabling</div><div class="proj-t">BICSI-Standard Fiber Install</div><div class="proj-d">End-to-end Cat5e/Cat6 and fiber installation with TIA-607 compliant grounding and Tier 1 OLTS verification.</div><div><span class="ptag">BICSI</span><span class="ptag">LC/SC Fiber</span><span class="ptag">OLTS</span></div></div>
+    </div>
+    <div class="pcta fade-up"><a href="projects.html" class="btn btn-out-pu">View All Projects</a></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="con-grid fade-up">
+      <div>
+        <div class="slbl" style="margin-bottom:16px">Contact</div>
+        <div class="con-tag">Let's build something <em>solid</em>.</div>
+        <p class="con-sub">Open to infrastructure, network engineering, and IAM roles — New York or remote.</p>
+        <a href="mailto:buildwithissac@gmail.com" class="btn btn-pu">Get In Touch</a>
+      </div>
+      <div class="con-links">
+        <a href="mailto:buildwithissac@gmail.com" class="con-link"><i class="fa fa-envelope"></i>buildwithissac@gmail.com</a>
+        <a href="tel:+13323026211" class="con-link"><i class="fa fa-phone"></i>+1 (332) 302-6211</a>
+        <a href="https://www.linkedin.com/in/issachenderson/" target="_blank" class="con-link"><i class="fab fa-linkedin"></i>linkedin.com/in/issachenderson</a>
+        <a href="https://calendly.com/buildwithissac/30min" target="_blank" class="con-link"><i class="fa fa-calendar-check"></i>Schedule a Call</a>
+        <a href="https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view?usp=sharing" target="_blank" class="con-link"><i class="fa fa-file-pdf"></i>Download Resume (PDF)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div class="ft-logo">Issac Henderson <span>/ Infrastructure</span></div>
+      <div class="ft-copy">&copy; 2026 Issac Henderson — All rights reserved</div>
+      <div class="ft-soc">
+        <a href="https://www.linkedin.com/in/issachenderson/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:buildwithissac@gmail.com"><i class="fa fa-envelope"></i></a>
+        <a href="https://github.com/issachenderson47/" target="_blank"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('mobBtn').addEventListener('click', () =>
+    document.getElementById('navLinks').classList.toggle('open'));
+  document.querySelectorAll('#navLinks a').forEach(a =>
+    a.addEventListener('click', () =>
+      document.getElementById('navLinks').classList.remove('open')));
+
+  (function(){
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+  })();
+
+  (function(){
+    const canvas = document.getElementById('hero-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const COLS = ['99,44,166','0,113,227','123,77,191','80,60,180'];
+    const N = 65, DIST = 160;
+    let nodes = [], raf, W, H;
+
+    function init(){
+      const hero = document.getElementById('hero');
+      W = canvas.width  = hero.offsetWidth  || window.innerWidth;
+      H = canvas.height = hero.offsetHeight || window.innerHeight;
+      nodes = [];
+      for(let i=0;i<N;i++) nodes.push({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*.5, vy:(Math.random()-.5)*.5,
+        r:Math.random()*2+1.5,
+        c:COLS[Math.floor(Math.random()*COLS.length)]
+      });
+    }
+
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      for(let i=0;i<nodes.length;i++){
+        const a=nodes[i];
+        for(let j=i+1;j<nodes.length;j++){
+          const b=nodes[j];
+          const dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+          if(d<DIST){
+            ctx.beginPath();
+            ctx.strokeStyle=`rgba(${a.c},${(1-d/DIST)*.15})`;
+            ctx.lineWidth=1;
+            ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for(const n of nodes){
+        n.x+=n.vx; n.y+=n.vy;
+        if(n.x<0||n.x>W) n.vx*=-1;
+        if(n.y<0||n.y>H) n.vy*=-1;
+        ctx.beginPath();
+        ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${n.c},.22)`;
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    init(); frame();
+    window.addEventListener('resize',()=>{ cancelAnimationFrame(raf); init(); frame(); });
+  })();
+</script>
+</body>
+</html>
