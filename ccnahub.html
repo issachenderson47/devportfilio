@@ -80,6 +80,10 @@ header p{color:var(--mut);margin-top:3px;font-size:.78rem}
 .tab.active{background:var(--card2);color:var(--ac);border-color:var(--ac)}
 .tab-content{display:none}
 .tab-content.active{display:block}
+
+.pdf-frame{width:100%;height:75vh;border:1px solid var(--bor);border-radius:6px;background:var(--card)}
+.ch-btn{display:inline-block;padding:5px 10px;margin:2px;border-radius:4px;font-size:.72rem;font-family:'JetBrains Mono',monospace;cursor:pointer;border:1px solid var(--bor);background:var(--card);color:var(--ac);transition:.1s}
+.ch-btn:hover,.ch-btn.active{background:var(--ac2);color:#fff;border-color:var(--ac2)}
 </style>
 </head>
 <body>
@@ -94,6 +98,44 @@ const ODOM_PAGES={
 
 // Lab guide page mapping
 const LAB_PAGES={4:6,11:19,12:26,13:31,14:38,15:47,16:61,17:80,18:104,19:108,20:115,22:138,23:153,24:161,25:171,26:191,27:209,28:216,29:230,30:247,33:266,34:277,37:281};
+
+const CHAP_FILES={
+  3:["v1_ch01_tcp_ip.pdf","v1_ch02_ethernet.pdf"],
+  4:["v1_ch04_cli.pdf"],
+  5:["v2_ch05_transport.pdf"],
+  6:["v1_ch01_tcp_ip.pdf","v1_ch03_wans.pdf","v1_ch16_routers.pdf"],
+  7:["v1_ch11_subnetting.pdf","v1_ch12_classful.pdf"],
+  8:["v1_ch11_subnetting.pdf","v1_ch13_masks.pdf","v1_ch14_subnets.pdf","v1_ch15_design.pdf"],
+  9:["v1_ch02_ethernet.pdf","v1_ch05_switching.pdf"],
+  10:["v1_ch02_ethernet.pdf"],
+  11:["v1_ch02_ethernet.pdf","v1_ch05_switching.pdf","v1_ch06_switch_mgmt.pdf"],
+  12:["v1_ch01_tcp_ip.pdf","v1_ch03_wans.pdf"],
+  13:["v1_ch20_troubleshoot.pdf"],
+  14:["v1_ch04_cli.pdf","v1_ch05_switching.pdf","v1_ch06_switch_mgmt.pdf","v1_ch07_switch_intf.pdf"],
+  15:["v2_ch13_mgmt_proto.pdf","v2_ch14_mgmt_config.pdf"],
+  16:["v1_ch16_routers.pdf","v1_ch17_static_routes.pdf"],
+  17:["v1_ch21_ospf_concepts.pdf"],
+  18:["v1_ch20_troubleshoot.pdf"],
+  19:["v1_ch21_ospf_concepts.pdf"],
+  20:["v1_ch21_ospf_concepts.pdf","v1_ch22_ospf_basic.pdf","v1_ch23_ospf_optional.pdf","v1_ch24_ospf_neighbors.pdf"],
+  22:["v1_ch08_vlans.pdf","v1_ch18_routing_lan.pdf"],
+  23:["v1_ch19_ip_hosts.pdf","v2_ch08_dhcp_nat.pdf"],
+  24:["v2_ch16_fhrp.pdf"],
+  25:["v1_ch09_stp.pdf","v1_ch10_rstp_echan.pdf"],
+  26:["v1_ch10_rstp_echan.pdf"],
+  27:["v2_ch11_port_sec.pdf","v2_ch12_dhcp_snoop.pdf"],
+  28:["v2_ch06_std_acls.pdf","v2_ch07_ext_acls.pdf"],
+  29:["v2_ch08_dhcp_nat.pdf"],
+  30:["v1_ch25_ipv6_fund.pdf","v1_ch26_ipv6_addr.pdf","v1_ch27_ipv6_routers.pdf","v1_ch28_ipv6_hosts.pdf","v1_ch29_ipv6_routing.pdf"],
+  31:["v1_ch03_wans.pdf","v2_ch19_wan_arch.pdf"],
+  32:["v2_ch09_security.pdf"],
+  33:["v2_ch10_device_sec.pdf"],
+  34:["v2_ch13_mgmt_proto.pdf","v2_ch14_mgmt_config.pdf"],
+  35:["v2_ch15_qos.pdf"],
+  37:["v2_ch01_wireless.pdf","v2_ch02_wireless_arch.pdf","v2_ch03_wireless_sec.pdf","v2_ch04_building_wlan.pdf"],
+};
+
+
 
 // Odom chapter mapping to study sections
 const ODOM_CHAPS={
@@ -1400,7 +1442,7 @@ const G=[
 // ================================================================
 // APP STATE
 // ================================================================
-let view='menu',cur=null,gSrch='',secTab='study',qAns={},qSub=false;
+let view='menu',cur=null,gSrch='',secTab='study',qAns={},qSub=false,curChap=null;
 const SO=[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37];
 
 function render(){const a=document.getElementById('app');
@@ -1461,6 +1503,8 @@ h+=`<div class="tab-bar">
 <div class="tab ${secTab==='quiz'?'active':''}" onclick="setTab('quiz')">📝 Quiz (${qc})</div>
 <div class="tab ${secTab==='vocab'?'active':''}" onclick="setTab('vocab')">📚 Vocab (${vocab.length})</div>`;
 if(hasLab) h+=`<div class="tab ${secTab==='lab'?'active':''}" onclick="setTab('lab')">🔬 Lab (${sec.lab.length})</div>`;
+const chapFiles=CHAP_FILES[id]||[];
+if(chapFiles.length>0) h+=`<div class="tab ${secTab==='read'?'active':''}" onclick="setTab('read')">📕 Read (${chapFiles.length} ch)</div>`;
 h+=`</div>`;
 
 // ---- STUDY TAB ----
@@ -1518,6 +1562,20 @@ if(labPg)h+=`<div class="lm2">📄 <a href="lab_guide.pdf#page=${labPg}" target=
 sec.lab.forEach((l,i)=>h+=`<div class="ls"><div class="sn2">Step ${i+1}: ${l.s}</div><div class="sc">${l.c}</div></div>`);
 h+=`</div></div>`;}
 
+// ---- READ TAB ----
+if(chapFiles.length>0){
+h+=`<div class="tab-content ${secTab==='read'?'active':''}">`;
+h+=`<p style="font-size:.72rem;color:var(--mut);margin-bottom:8px">Select a chapter to read inline. PDFs must be in <span class="cm">chapters/</span> folder.</p>`;
+h+=`<div style="margin-bottom:8px">`;
+chapFiles.forEach((f,i)=>{
+const label=f.replace('.pdf','').replace(/v[12]_/,'').replace(/_/g,' ');
+h+=`<span class="ch-btn ${curChap===f?'active':''}" onclick="loadChap('${f}')">${label}</span> `;
+});
+h+=`</div>`;
+if(curChap){h+=`<iframe src="chapters/${curChap}" class="pdf-frame"></iframe>`;}
+else{h+=`<p style="color:var(--mut);text-align:center;padding:30px;font-size:.8rem">Click a chapter above to load it</p>`;}
+h+=`</div>`;}
+
 // Bottom nav
 h+=`<div style="text-align:center;padding:12px 0"><button class="bb" onclick="goMenu()">← All Sections</button></div>`;
 a.innerHTML=h;
@@ -1540,7 +1598,7 @@ const el=document.getElementById('gsi');if(el&&gSrch){el.focus();el.setSelection
 }
 
 // ============ NAVIGATION ============
-function goSection(id){cur=id;view='section';secTab='study';qAns={};qSub=false;render();window.scrollTo(0,0);}
+function goSection(id){cur=id;view='section';secTab='study';qAns={};qSub=false;curChap=null;render();window.scrollTo(0,0);}
 function goGlossary(){view='glossary';gSrch='';render();window.scrollTo(0,0);}
 function goMenu(){view='menu';cur=null;render();window.scrollTo(0,0);}
 function setTab(t){secTab=t;render();}
@@ -1548,6 +1606,7 @@ function filterG(v){gSrch=v;render();}
 function selA(qi,oi){if(!qSub){qAns[qi]=oi;render();}}
 function submitQuiz(){qSub=true;render();window.scrollTo(0,0);}
 function resetQuiz(){qAns={};qSub=false;render();window.scrollTo(0,0);}
+function loadChap(f){curChap=f;render();}
 
 render();
 </script>
