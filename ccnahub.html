@@ -1966,6 +1966,7 @@ const EXAM_BP=[
 const OTJ=[
 {rank:1,title:"DHCP Failures (+ DNS)",icon:"🔴",freq:"Daily tickets",
 desc:"Clients get APIPA (169.254.x.x), no IP, or wrong DNS. #1 cause of 'internet is down' calls.",
+secs:[23,12],chaps:["v1_ch19_ip_hosts.pdf","v2_ch08_dhcp_nat.pdf"],labSec:"lab_s23_dhcp.pdf",
 causes:["Pool exhausted — no IPs left in scope","Missing ip helper-address after VLAN/switch change","Wrong DHCP options (Option 6 for DNS servers)","no service dhcp accidentally configured","Lease time too short + renewal failure","DHCP snooping blocking legitimate requests"],
 cmds:["show ip dhcp binding","show ip dhcp pool","show ip dhcp conflict","show run | section dhcp","show run | include helper","ipconfig /all (on client — check DNS!)"],
 fix:"Check pool availability → verify helper-address on client VLAN SVI → confirm DHCP options (especially DNS) → check snooping trust ports → test with ipconfig /release + /renew",
@@ -1973,6 +1974,7 @@ story:"Monday morning, half the floor had IPs but couldn't browse. ipconfig show
 
 {rank:2,title:"VLAN & Trunking Problems",icon:"🟠",freq:"Weekly",
 desc:"Hosts in one VLAN can't reach another, or VLAN not propagating across switches.",
+secs:[14,22,21],chaps:["v1_ch08_vlans.pdf","v1_ch18_routing_lan.pdf"],labSec:"lab_s22_vlan_intervlan.pdf",
 causes:["Trunk not allowing VLAN (switchport trunk allowed vlan)","Native VLAN mismatch between switches","Missing subinterface or encapsulation dot1q","Inter-VLAN routing not configured (no SVI, no ROAS)","VLAN not created on all switches in path","DTP negotiation failure"],
 cmds:["show vlan brief","show interfaces trunk","show interfaces switchport","show ip interface brief","show run interface <trunk>"],
 fix:"Verify VLAN exists on all switches → check trunk allowed list → confirm native VLAN matches → verify inter-VLAN routing (SVI or subinterface) → test with ping between VLANs",
@@ -1980,6 +1982,7 @@ story:"New security camera VLAN added on one switch but not the other. Trunk was
 
 {rank:3,title:"Routing Issues (No Route / Wrong Route)",icon:"🟡",freq:"Weekly",
 desc:"No connectivity between subnets. Missing default gateway, missing routes, or asymmetric routing.",
+secs:[6,16,18],chaps:["v1_ch16_routers.pdf","v1_ch17_static_routes.pdf","v1_ch20_troubleshoot.pdf"],labSec:"lab_s16_routing.pdf",
 causes:["Missing static or default route","OSPF network statement wrong or missing","Wrong subnet mask on interface","Default gateway not set on hosts","Asymmetric routing (forward works, return doesn't)","Route not in table despite config (next-hop unreachable)"],
 cmds:["show ip route","show ip route <dest>","show ip protocols","ping","traceroute","show ip interface brief"],
 fix:"Check routing table for destination → verify interface IPs/masks → confirm default gateway on hosts → check OSPF/EIGRP neighbors → traceroute to find failing hop → check return path",
@@ -1987,6 +1990,7 @@ story:"PC1 could ping the gateway but not a remote server. Router had no route t
 
 {rank:4,title:"OSPF Neighbor/Adjacency Failures",icon:"🟡",freq:"During changes",
 desc:"OSPF neighbors not forming (stuck in INIT/2WAY) or no routes despite FULL state.",
+secs:[17,19,20],chaps:["v1_ch21_ospf_concepts.pdf","v1_ch22_ospf_basic.pdf","v1_ch24_ospf_neighbors.pdf"],labSec:"lab_s20_ospf.pdf",
 causes:["Hello/Dead timer mismatch","Area ID mismatch","Subnet mask mismatch on shared link","passive-interface on connecting interface","MTU mismatch","Authentication mismatch","Network statement/wildcard mask wrong"],
 cmds:["show ip ospf neighbor","show ip ospf interface","show ip ospf database","show run | section ospf","debug ip ospf adj"],
 fix:"Check hello/dead timers → verify area IDs match → confirm subnet masks → remove passive-interface from inter-router links → check MTU → verify network statements cover the link",
@@ -1994,6 +1998,7 @@ story:"After a router replacement, OSPF was stuck in INIT. Old router had hello 
 
 {rank:5,title:"ACL Blocking Traffic",icon:"🟢",freq:"After security changes",
 desc:"Specific traffic blocked (or everything blocked from implicit deny). Often caused by 'small ACL change.'",
+secs:[28],chaps:["v2_ch06_std_acls.pdf","v2_ch07_ext_acls.pdf"],labSec:"lab_s28_acl.pdf",
 causes:["ACL applied wrong direction (in vs out)","ACL on wrong interface","Implicit deny any at end blocking desired traffic","Overly broad deny statement","Missing permit for return/established traffic","Forgot to add new rule before implicit deny"],
 cmds:["show access-lists","show ip interface (check ACL applied)","show run | section access-list","show logging (for ACL log hits)"],
 fix:"Check which ACL is applied where (show ip interface) → review rules top-down → check for implicit deny → verify direction → test with specific traffic → use 'log' keyword for debugging",
@@ -2001,6 +2006,7 @@ story:"Applied a standard ACL to block a guest subnet but put it inbound on the 
 
 {rank:6,title:"EtherChannel / Bundling Failures",icon:"🟢",freq:"During upgrades",
 desc:"Links not bundling (Port-channel not SU), STP blocking, or one side mismatched.",
+secs:[26],chaps:["v1_ch10_rstp_echan.pdf"],labSec:"lab_s26_etherchannel.pdf",
 causes:["LACP mode mismatch (passive-passive won't form)","Speed/duplex mismatch between members","Different VLAN configs on member ports","Different trunk settings on member ports","Port security conflict on member ports"],
 cmds:["show etherchannel summary","show etherchannel port-channel","show interfaces port-channel","show spanning-tree"],
 fix:"Verify all member ports match (speed, duplex, VLAN, trunk) → check LACP mode (need at least one active) → verify port-channel interface config matches members",
@@ -2008,6 +2014,7 @@ story:"EtherChannel showed 'SD' (suspended) on one side. Member ports had differ
 
 {rank:7,title:"NAT / PAT Not Translating",icon:"🟢",freq:"After WAN changes",
 desc:"Inside hosts can't reach internet. No entries in show ip nat translations.",
+secs:[29],chaps:["v2_ch08_dhcp_nat.pdf"],labSec:"lab_s29_nat.pdf",
 causes:["ip nat inside/outside on wrong interfaces","ACL not matching inside source addresses","Missing 'overload' keyword for PAT","NAT pool exhausted (dynamic NAT)","Route issue to NAT outside interface"],
 cmds:["show ip nat translations","show ip nat statistics","show run | section nat","debug ip nat"],
 fix:"Verify inside/outside interface labels → check ACL matches internal subnets → confirm overload for PAT → test with debug ip nat → check routing to outside",
@@ -2015,6 +2022,7 @@ story:"After a router swap, NAT stopped working. The new config had 'ip nat insi
 
 {rank:8,title:"STP / Port Security Issues",icon:"🔵",freq:"Intermittent",
 desc:"Ports err-disabled, unexpected STP blocking, or broadcast storms from loops.",
+secs:[25,27],chaps:["v1_ch09_stp.pdf","v2_ch11_port_sec.pdf"],labSec:"lab_s25_stp.pdf",
 causes:["BPDU Guard triggering on non-PortFast ports","Port security violation (too many MACs)","STP root bridge election changed unexpectedly","Unidirectional link causing STP issues","User plugged in a rogue switch/hub"],
 cmds:["show spanning-tree","show port-security","show interfaces status err-disabled","show spanning-tree summary","show errdisable recovery"],
 fix:"Check err-disabled ports → verify PortFast only on access ports → review root bridge → check port-security violations → enable errdisable recovery",
@@ -2022,6 +2030,7 @@ story:"A user plugged a personal switch into an access port. BPDU Guard caught i
 
 {rank:9,title:"IP Addressing / Subnetting Errors",icon:"🔵",freq:"During deployments",
 desc:"Wrong mask, overlapping subnets, missing gateway, duplicate IPs.",
+secs:[7,8],chaps:["v1_ch11_subnetting.pdf","v1_ch12_classful.pdf","v1_ch14_subnets.pdf"],labSec:null,
 causes:["Typo in subnet mask","Overlapping subnet ranges","Duplicate IP addresses","Wrong default gateway on host","DHCP handing out wrong mask"],
 cmds:["show ip interface brief","show arp","show ip dhcp conflict","ping (duplicate IP detection)"],
 fix:"Verify IP plan → check for overlaps → confirm DHCP pool settings → verify gateway → check for duplicates with ARP",
@@ -2029,6 +2038,7 @@ story:"Two different DHCP pools had overlapping ranges. Some hosts got IPs from 
 
 {rank:10,title:"DNS Resolution Failures",icon:"🔵",freq:"Tied to DHCP changes",
 desc:"Can ping IPs but not hostnames. Users say 'internet is down' but it's just DNS.",
+secs:[12,23],chaps:["v1_ch19_ip_hosts.pdf"],labSec:null,
 causes:["Wrong DNS servers in DHCP scope","DNS server unreachable (routing/firewall)","ACL blocking UDP port 53","DNS server overloaded or down","Client has static DNS that's stale"],
 cmds:["nslookup <hostname>","show run | section dhcp","ping <DNS-server-IP>","show access-lists (check for port 53 blocks)"],
 fix:"Test DNS server reachability → check DHCP Option 6 → verify no ACL blocking port 53 → check client DNS config → try alternate DNS",
@@ -2374,6 +2384,8 @@ const JOB_REGIONS=[
 {name:"New Jersey",loc:"New Jersey",locId:"nj",notes:"Strong fair chance laws. Individualized assessments. Good IT market.",indeed:"New+Jersey",linkedin:"101165590",zip:"New-Jersey",dice:"New+Jersey"},
 {name:"Massachusetts",loc:"Massachusetts",locId:"ma",notes:"Very strong protections. Ban-the-Box for all private employers. Strong tech scene (Boston).",indeed:"Massachusetts",linkedin:"103644278",zip:"Massachusetts",dice:"Massachusetts"},
 {name:"Pennsylvania",loc:"Pennsylvania",locId:"pa",notes:"Fair chance laws. Philly has additional local protections. Growing tech market.",indeed:"Pennsylvania",linkedin:"105090020",zip:"Pennsylvania",dice:"Pennsylvania"},
+{name:"New York State",loc:"New York",locId:"nys",notes:"Article 23-A statewide. Strong protections outside NYC too. Albany, Rochester, Buffalo have growing IT markets.",indeed:"New+York",linkedin:"105080838",zip:"New-York",dice:"New+York"},
+{name:"Connecticut",loc:"Connecticut",locId:"ct",notes:"Clean Slate Act (2023) — automatic erasure of certain records. Ban-the-Box. Proximity to NYC with lower cost of living. Stamford/Hartford IT hubs.",indeed:"Connecticut",linkedin:"103799385",zip:"Connecticut",dice:"Connecticut"},
 {name:"Remote",loc:"Remote",locId:"remote",notes:"Increasingly available for NOC, support, and admin roles.",indeed:"Remote",linkedin:"",zip:"Remote",dice:"Remote"},
 ];
 
@@ -2397,6 +2409,71 @@ const JOB_EXTRA=[
 {name:"r/ITCareerQuestions",url:"https://www.reddit.com/r/ITCareerQuestions/",note:"Career advice, resume reviews, interview tips"},
 {name:"r/ccna",url:"https://www.reddit.com/r/ccna/",note:"CCNA community — study tips + job hunting advice"},
 ];
+
+// ============================================================
+// COMMON JOB TASKS - mapped to hub sections
+// ============================================================
+const JOB_TASKS=[
+{cat:"Network Operations & Monitoring",tasks:[
+{t:"Maintain and monitor WAN, LAN, WLAN, VPN, and firewall systems",secs:[3,10,11,31,37,33],daily:true},
+{t:"Use network monitoring tools (SolarWinds, PRTG, Nagios) to respond to alerts and connectivity issues in real time",secs:[15,34,13],daily:true},
+{t:"Provide Tier 2 support for escalated service desk issues",secs:[13,18],daily:true},
+{t:"Monitor interface utilization, error rates, and bandwidth consumption",secs:[10,13,35],daily:true},
+]},
+{cat:"Switching & VLANs",tasks:[
+{t:"Administer core and edge switching platforms (Cisco Catalyst, Nexus)",secs:[9,11,14],daily:true},
+{t:"Configure and troubleshoot VLANs spanning multiple switches",secs:[14,22],daily:true},
+{t:"Manage 802.1Q trunking between switches and routers",secs:[14,22],weekly:true},
+{t:"Troubleshoot STP issues — root bridge placement, err-disabled ports, PortFast/BPDU Guard",secs:[25],weekly:true},
+{t:"Configure and verify EtherChannel bundles (LACP)",secs:[26],monthly:true},
+{t:"Perform port-level changes — VLAN assignment, speed/duplex, descriptions",secs:[14,10],daily:true},
+]},
+{cat:"Routing & WAN",tasks:[
+{t:"Configure and troubleshoot inter-VLAN routing (ROAS or L3 switch SVIs)",secs:[22],weekly:true},
+{t:"Manage static and dynamic routing (OSPF single/multi-area)",secs:[16,17,19,20],weekly:true},
+{t:"Configure and verify default routes and floating static routes for failover",secs:[16],monthly:true},
+{t:"Troubleshoot routing issues — missing routes, wrong next-hop, OSPF neighbor failures",secs:[18,20,13],weekly:true},
+{t:"Support WAN connectivity — MPLS, VPN tunnels, SD-WAN",secs:[31],monthly:true},
+]},
+{cat:"Security & Firewalls",tasks:[
+{t:"Manage ASA/firewall rule sets — ACLs, NAT, access control policies",secs:[28,29,33],weekly:true},
+{t:"Configure and verify ACLs — standard, extended, named",secs:[28],weekly:true},
+{t:"Investigate network security incidents — firewall logs, intrusion detection",secs:[32,33],weekly:true},
+{t:"Implement port security, DHCP snooping, DAI on access switches",secs:[27],monthly:true},
+{t:"Configure and maintain VPN access — site-to-site IPsec, remote access SSL",secs:[31,33],monthly:true},
+{t:"Implement cybersecurity best practices — SSH, AAA, password policies, disable unused ports",secs:[33,4],ongoing:true},
+{t:"Manage 802.1X / NAC for wired and wireless access control",secs:[27,33,37],monthly:true},
+]},
+{cat:"IP Services — DHCP, DNS, NAT, NTP",tasks:[
+{t:"Maintain DNS and DHCP services with high availability and accurate IP address management",secs:[23,12],daily:true},
+{t:"Configure DHCP pools, excluded addresses, relay agents (ip helper-address)",secs:[23],weekly:true},
+{t:"Troubleshoot DHCP failures — pool exhaustion, missing helpers, wrong DNS options",secs:[23],weekly:true},
+{t:"Configure and verify NAT/PAT for internet access",secs:[29],monthly:true},
+{t:"Maintain NTP synchronization across all devices",secs:[15,34],monthly:true},
+{t:"Configure and verify SNMP monitoring and syslog",secs:[15,34],weekly:true},
+]},
+{cat:"Wireless",tasks:[
+{t:"Support and troubleshoot enterprise wireless infrastructure (autonomous + WLC)",secs:[37],daily:true},
+{t:"Manage AP deployments, channel planning, power levels (RRM)",secs:[37],monthly:true},
+{t:"Configure guest wireless access with isolation",secs:[37,28],monthly:true},
+{t:"Troubleshoot wireless connectivity — signal strength, channel interference, client roaming",secs:[37],weekly:true},
+]},
+{cat:"Documentation & Change Management",tasks:[
+{t:"Create and maintain network documentation and topology diagrams",secs:[13,34],ongoing:true},
+{t:"Execute configuration changes following change management protocols (ITIL)",secs:[15,34],weekly:true},
+{t:"Write change requests with test plans, back-out plans, and impact assessments",secs:[],weekly:true},
+{t:"Perform firmware/IOS upgrades and patching on network devices",secs:[15,34,4],monthly:true},
+{t:"Maintain IP address management (IPAM) documentation",secs:[7,8],ongoing:true},
+{t:"Coordinate with technology vendors, service providers, contractors, and tenants",secs:[],weekly:true},
+]},
+{cat:"QoS & Performance",tasks:[
+{t:"Configure and verify QoS policies for voice/video traffic prioritization",secs:[35],monthly:true},
+{t:"Monitor and optimize network performance — latency, jitter, packet loss",secs:[35,18],weekly:true},
+{t:"Implement traffic shaping and policing on WAN interfaces",secs:[35],monthly:true},
+]},
+];
+
+
 
 
 let view='menu',cur=null,gSrch='',secTab='study',qAns={},qSub=false,curChap=null,jobRegion=0;
@@ -2601,7 +2678,18 @@ h+=`<div class="cs"><h3 style="cursor:pointer" onclick="this.nextElementSibling.
 <div style="display:none;font-size:.7rem;color:#94a3b8;line-height:1.4;padding:8px;background:#0f172a;border-radius:5px;margin-top:6px;white-space:pre-wrap">${CHG_TEMPLATE}</div></div>`;
 OTJ.forEach(issue=>{
 h+=`<div class="otj-card"><h3>${issue.icon} <span style="color:var(--ac)">#${issue.rank} ${issue.title}</span></h3>`;
-h+=`<div class="otj-rank">${issue.freq} · Click sections: ${issue.desc}</div>`;
+h+=`<div class="otj-rank">${issue.freq} · ${issue.desc}</div>`;
+
+// Review links bar
+h+=`<div style="display:flex;flex-wrap:wrap;gap:4px;margin:6px 0;padding:6px;background:#0a1628;border-radius:5px;border:1px solid var(--bor)">`;
+h+=`<span style="font-size:.6rem;color:var(--mut);margin-right:2px;font-weight:600">📖 Review:</span>`;
+issue.secs.forEach(s=>h+=`<a href="#" onclick="event.preventDefault();goSection(${s})" style="font-size:.62rem;color:var(--ac);background:var(--card);padding:2px 6px;border-radius:3px;border:1px solid var(--bor);text-decoration:none;font-family:'JetBrains Mono',monospace">§${s} ${SEC[s]?SEC[s].title.substring(0,18):''}</a>`);
+if(issue.chaps&&issue.chaps.length>0){
+h+=`<span style="font-size:.6rem;color:var(--mut);margin:0 2px">|</span>`;
+issue.chaps.forEach(ch=>{const label=ch.replace('.pdf','').replace(/v[12]_/,'').replace(/_/g,' ');
+h+=`<a href="chapters/${ch}" target="_blank" style="font-size:.62rem;color:var(--gold);background:#1a1500;padding:2px 6px;border-radius:3px;border:1px solid #3d3500;text-decoration:none">📕 ${label}</a>`;});}
+if(issue.labSec){h+=`<a href="lab_sections/${issue.labSec}" target="_blank" style="font-size:.62rem;color:var(--warn);background:#1a0f00;padding:2px 6px;border-radius:3px;border:1px solid #3d2500;text-decoration:none">📘 Lab Guide</a>`;}
+h+=`</div>`;
 h+=`<div style="margin:6px 0"><span style="font-size:.68rem;font-weight:700;color:var(--no)">Common Causes:</span><ul class="cs" style="padding:0;margin:3px 0;background:none;border:none">`;
 issue.causes.forEach(c=>h+=`<li style="font-size:.66rem">${c}</li>`);h+=`</ul></div>`;
 h+=`<div style="margin:4px 0"><span style="font-size:.68rem;font-weight:700;color:var(--ac)">Key Commands:</span><div style="margin-top:2px">`;
@@ -2691,6 +2779,26 @@ JOB_EXTRA.forEach(ex=>{
 h+=`<a href="${ex.url}" target="_blank" class="extra-link"><strong>${ex.name}</strong> <span style="color:var(--mut);font-size:.62rem">— ${ex.note}</span></a>`;
 });
 h+=`</div></div>`;
+
+// Common Tasks
+h+=`<div class="cs" style="margin-top:12px;border-color:#1e3a5f"><h3 style="color:#93c5fd">📋 Common CCNA-Level Job Tasks</h3>`;
+h+=`<p style="font-size:.66rem;color:var(--mut);margin-bottom:8px">Real tasks from actual job postings. Click section links to study that topic. <span style="color:var(--ok)">●</span> Daily <span style="color:var(--gold)">●</span> Weekly <span style="color:var(--ac2)">●</span> Monthly</p>`;
+JOB_TASKS.forEach(cat=>{
+h+=`<div style="margin-bottom:10px"><h4 style="font-size:.76rem;font-weight:700;color:var(--ac);margin-bottom:4px;padding-bottom:3px;border-bottom:1px solid var(--bor)">${cat.cat}</h4>`;
+cat.tasks.forEach(task=>{
+const freq=task.daily?'●':task.weekly?'●':task.monthly?'●':'○';
+const freqColor=task.daily?'var(--ok)':task.weekly?'var(--gold)':task.monthly?'var(--ac2)':'var(--mut)';
+const freqLabel=task.daily?'Daily':task.weekly?'Weekly':task.monthly?'Monthly':'Ongoing';
+h+=`<div style="padding:3px 0 3px 0;font-size:.7rem;color:#cbd5e1;display:flex;align-items:flex-start;gap:6px;line-height:1.35">
+<span style="color:${freqColor};flex-shrink:0;font-size:.5rem;margin-top:3px" title="${freqLabel}">${freq}</span>
+<span style="flex:1">${task.t}`;
+if(task.secs.length>0){
+h+=` <span style="font-size:.58rem;font-family:'JetBrains Mono',monospace">`;
+task.secs.forEach((s,i)=>h+=`${i>0?'·':''}<a href="#" onclick="event.preventDefault();goSection(${s})" style="color:var(--ac);text-decoration:underline">§${s}</a>`);
+h+=`</span>`;}
+h+=`</span></div>`;});
+h+=`</div>`;});
+h+=`</div>`;
 
 // Tips
 h+=`<div class="cs" style="margin-top:8px"><h3>💡 Job Search Tips</h3><ul>`;
