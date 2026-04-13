@@ -264,7 +264,7 @@
         <span class="badge">New York, NY</span>
         <span class="badge">BICSI INST1</span>
         <span class="badge">AWS Solutions Architect</span>
-        <span class="badge">CCNA → In Progress</span>
+        <a href="ccnahub.html" class="badge" style="text-decoration:none;">CCNA → In Progress</a>
         <span class="badge">OSHA 30</span>
       </div>
       <div class="actions">
@@ -488,6 +488,31 @@
 
     init(); frame();
     window.addEventListener('resize',()=>{ cancelAnimationFrame(raf); init(); frame(); });
+  })();
+
+  // — Secret back door —
+  // Trigger 1: Konami code  ↑↑↓↓←→←→BA
+  (function(){
+    const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let pos = 0;
+    document.addEventListener('keydown', e => {
+      if(e.key === seq[pos]) { pos++; } else { pos = (e.key === seq[0]) ? 1 : 0; }
+      if(pos === seq.length) { pos = 0; window.location.href = 'ccnahub.html'; }
+    });
+  })();
+
+  // Trigger 2: click the footer logo 5 times within 3 seconds
+  (function(){
+    const logo = document.querySelector('.ft-logo');
+    if(!logo) return;
+    logo.style.cursor = 'default';
+    let clicks = 0, timer;
+    logo.addEventListener('click', () => {
+      clicks++;
+      clearTimeout(timer);
+      if(clicks >= 5) { window.location.href = 'ccnahub.html'; return; }
+      timer = setTimeout(() => { clicks = 0; }, 3000);
+    });
   })();
 </script>
 </body>
