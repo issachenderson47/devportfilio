@@ -81,9 +81,22 @@ header p{color:var(--mut);margin-top:3px;font-size:.78rem}
 .tab-content{display:none}
 .tab-content.active{display:block}
 
-.pdf-frame{width:100%;height:75vh;border:1px solid var(--bor);border-radius:6px;background:var(--card)}
+.pdf-frame{width:100%;height:80vh;border:1px solid var(--bor);border-radius:6px;background:#1a1a2e}
+.pdf-controls{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.pdf-ctrl-btn{background:var(--card);border:1px solid var(--bor);color:var(--ac);padding:5px 12px;border-radius:5px;cursor:pointer;font-family:inherit;font-size:.74rem;transition:.1s}
+.pdf-ctrl-btn:hover{background:var(--ac2);color:#fff;border-color:var(--ac2)}
+.pdf-wrapper{position:relative;width:100%;height:80vh;border:1px solid var(--bor);border-radius:6px;overflow:hidden;background:#1a1a2e}
+.pdf-wrapper iframe,.pdf-wrapper object,.pdf-wrapper embed{width:100%;height:100%;border:none}
 .ch-btn{display:inline-block;padding:5px 10px;margin:2px;border-radius:4px;font-size:.72rem;font-family:'JetBrains Mono',monospace;cursor:pointer;border:1px solid var(--bor);background:var(--card);color:var(--ac);transition:.1s}
 .ch-btn:hover,.ch-btn.active{background:var(--ac2);color:#fff;border-color:var(--ac2)}
+
+.pkt-dl{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#065f46,#10b981);color:#fff;padding:6px 13px;border-radius:5px;text-decoration:none;font-size:.74rem;font-weight:600;margin:2px;transition:.1s}
+.pkt-dl:hover{filter:brightness(1.15)}
+.topo-img{max-width:100%;border:1px solid var(--bor);border-radius:6px;margin:6px 0;cursor:pointer;transition:.2s}
+.topo-img:hover{border-color:var(--ac);transform:scale(1.01)}
+.topo-img.expanded{max-height:none;cursor:zoom-out}
+.cfg-box{background:#0f172a;border:1px solid var(--bor);border-radius:6px;padding:10px;margin:6px 0;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ac);white-space:pre-wrap;max-height:200px;overflow-y:auto;line-height:1.4}
+.cfg-box::-webkit-scrollbar{width:4px}.cfg-box::-webkit-scrollbar-thumb{background:var(--ac2);border-radius:2px}
 </style>
 </head>
 <body>
@@ -134,6 +147,60 @@ const CHAP_FILES={
   35:["v2_ch15_qos.pdf"],
   37:["v2_ch01_wireless.pdf","v2_ch02_wireless_arch.pdf","v2_ch03_wireless_sec.pdf","v2_ch04_building_wlan.pdf"],
 };
+
+const PKT_FILES={
+4:{pkt:["s04_ios.pkt"],img:[],txt:[]},
+11:{pkt:["s11_device_functions.pkt"],img:["s11_device_functions.jpg"],txt:[]},
+12:{pkt:["s12_life_of_packet.pkt"],img:["s12_life_of_packet.jpg"],txt:[]},
+13:{pkt:["s13_troubleshooting.pkt"],img:["s13_troubleshooting.jpg"],txt:[]},
+14:{pkt:["s14_router_switch.pkt"],img:["s14_router_switch.jpg"],txt:[]},
+15:{pkt:["s15_device_mgmt.pkt"],img:["s15_device_mgmt.jpg"],txt:[]},
+16:{pkt:["s16_routing.pkt"],img:[],txt:[]},
+17:{pkt:["s17_dynamic_routing.pkt"],img:[],txt:[]},
+18:{pkt:["s18_connectivity.pkt"],img:[],txt:[]},
+19:{pkt:["s19_igp.pkt"],img:[],txt:[]},
+20:{pkt:["s20_ospf.pkt"],img:[],txt:["s20_ospf_configs.txt"]},
+22:{pkt:["s22_vlan_intervlan.pkt"],img:["s22_vlan_intervlan.jpg"],txt:["s22_vlan_configs.txt"]},
+23:{pkt:["s23_dhcp.pkt"],img:["s23_dhcp.png"],txt:[]},
+24:{pkt:["s24_hsrp.pkt"],img:[],txt:[]},
+25:{pkt:["s25_stp_troubleshoot.pkt","s25_stp_config.pkt"],img:[],txt:[]},
+26:{pkt:["s26_etherchannel.pkt"],img:[],txt:[]},
+27:{pkt:["s27_port_security.pkt"],img:[],txt:[]},
+28:{pkt:["s28_acl.pkt"],img:[],txt:[]},
+29:{pkt:["s29_nat.pkt"],img:[],txt:[]},
+30:{pkt:["s30_ipv6.pkt"],img:[],txt:[]},
+33:{pkt:["s33_device_security.pkt"],img:["s33_device_security.jpg"],txt:[]},
+34:{pkt:["s34_net_mgmt.pkt"],img:[],txt:[]},
+37:{pkt:["s37_wireless.pkt"],img:["s37_wireless.png"],txt:[]},
+};
+
+const LAB_SEC={
+4:"lab_s04_ios.pdf",
+11:"lab_s11_device_functions.pdf",
+12:"lab_s12_life_of_packet.pdf",
+13:"lab_s13_troubleshooting.pdf",
+14:"lab_s14_router_switch.pdf",
+15:"lab_s15_device_mgmt.pdf",
+16:"lab_s16_routing.pdf",
+17:"lab_s17_dynamic_routing.pdf",
+18:"lab_s18_connectivity.pdf",
+19:"lab_s19_igp.pdf",
+20:"lab_s20_ospf.pdf",
+22:"lab_s22_vlan_intervlan.pdf",
+23:"lab_s23_dhcp.pdf",
+24:"lab_s24_hsrp.pdf",
+25:"lab_s25_stp.pdf",
+26:"lab_s26_etherchannel.pdf",
+27:"lab_s27_port_security.pdf",
+28:"lab_s28_acl.pdf",
+29:"lab_s29_nat.pdf",
+30:"lab_s30_ipv6.pdf",
+33:"lab_s33_device_security.pdf",
+34:"lab_s34_net_mgmt.pdf",
+37:"lab_s37_wireless.pdf",
+};
+
+
 
 
 
@@ -1465,7 +1532,7 @@ const sec=SEC[id];if(!sec)return;
 const vc=G.filter(g=>g.s.includes(id)).length;
 const quiz=S.find(s=>s.id===id);
 const qc=quiz?quiz.q.length:0;
-const hasLab=sec.lab&&sec.lab.length>0;
+const hasLab=sec.lab&&sec.lab.length>0;const hasPT=!!PKT_FILES[id];const hasLabSec=!!LAB_SEC[id];const hasAnyLab=hasLab||hasPT||hasLabSec;
 h+=`<button class="sb" onclick="goSection(${id})"><span class="n">${id}</span>
 <span style="flex:1">${sec.title} <span class="lt ${sec.lc}">${sec.layer}</span></span>
 <span class="qc">${qc}Q·${vc}V${hasLab?'·'+sec.lab.length+'L':''}</span></button>`;
@@ -1480,7 +1547,7 @@ function renderSection(a){
 const id=cur,sec=SEC[id];
 if(!sec){a.innerHTML=`<button class="bb" onclick="goMenu()">← Back</button><p>Section not found</p>`;return;}
 const vocab=G.filter(g=>g.s.includes(id)).sort((a,b)=>a.t.localeCompare(b.t));
-const hasLab=sec.lab&&sec.lab.length>0;
+const hasLab=sec.lab&&sec.lab.length>0;const hasPT=!!PKT_FILES[id];const hasLabSec=!!LAB_SEC[id];const hasAnyLab=hasLab||hasPT||hasLabSec;
 const quiz=S.find(s=>s.id===id);
 const qc=quiz?quiz.q.length:0;
 
@@ -1502,7 +1569,8 @@ h+=`<div class="tab-bar">
 <div class="tab ${secTab==='study'?'active':''}" onclick="setTab('study')">📋 Study</div>
 <div class="tab ${secTab==='quiz'?'active':''}" onclick="setTab('quiz')">📝 Quiz (${qc})</div>
 <div class="tab ${secTab==='vocab'?'active':''}" onclick="setTab('vocab')">📚 Vocab (${vocab.length})</div>`;
-if(hasLab) h+=`<div class="tab ${secTab==='lab'?'active':''}" onclick="setTab('lab')">🔬 Lab (${sec.lab.length})</div>`;
+if(hasAnyLab){const lCount=hasLab?sec.lab.length:0;const pCount=hasPT?PKT_FILES[id].pkt.length:0;
+h+=`<div class="tab ${secTab==='lab'?'active':''}" onclick="setTab('lab')">🔬 Lab${pCount?' · '+pCount+'pkt':''}${lCount?' · '+lCount+'drills':''}</div>`;}
 const chapFiles=CHAP_FILES[id]||[];
 if(chapFiles.length>0) h+=`<div class="tab ${secTab==='read'?'active':''}" onclick="setTab('read')">📕 Read (${chapFiles.length} ch)</div>`;
 h+=`</div>`;
@@ -1555,12 +1623,58 @@ else{h+=`<p style="color:var(--mut);padding:20px;text-align:center">No vocab ter
 h+=`</div>`;
 
 // ---- LAB TAB ----
-if(hasLab){
+if(hasLab || PKT_FILES[id] || LAB_SEC[id]){
 h+=`<div class="tab-content ${secTab==='lab'?'active':''}">`;
-h+=`<div class="lc"><h3>🔬 Command Drill (${sec.lab.length} steps)</h3>`;
-if(labPg)h+=`<div class="lm2">📄 <a href="lab_guide.pdf#page=${labPg}" target="_blank" style="color:var(--warn)">Open Lab Guide p.${labPg}</a> · ${sec.layer}</div>`;
+const pf=PKT_FILES[id];
+const lsf=LAB_SEC[id];
+
+// Packet Tracer downloads
+if(pf){
+h+=`<div class="cs"><h3>🖥️ Packet Tracer Lab Files</h3>`;
+h+=`<p style="font-size:.68rem;color:var(--mut);margin-bottom:6px">Open in Cisco Packet Tracer (free download from <a href="https://www.netacad.com" target="_blank" style="color:var(--ac)">netacad.com</a>)</p>`;
+h+=`<div style="margin-bottom:8px">`;
+pf.pkt.forEach(f=>{
+const label=f.replace('s'+id+'_','').replace('.pkt','').replace(/_/g,' ');
+h+=`<a href="labs/${f}" download class="pkt-dl">⬇ ${label}.pkt</a> `;
+});
+h+=`</div>`;
+
+// Topology images
+if(pf.img.length>0){
+h+=`<h3 style="font-size:.78rem;color:var(--gold);margin:8px 0 4px">🗺️ Lab Topology</h3>`;
+pf.img.forEach(f=>h+=`<img src="labs/${f}" class="topo-img" onclick="this.classList.toggle('expanded')" alt="Lab topology">`);
+}
+
+// Config text files
+if(pf.txt.length>0){
+h+=`<h3 style="font-size:.78rem;color:var(--ac);margin:8px 0 4px">📄 Configuration Files</h3>`;
+pf.txt.forEach(f=>{
+const label=f.replace('s'+id+'_','').replace('.txt','').replace(/_/g,' ');
+h+=`<div style="margin-bottom:4px"><a href="labs/${f}" download style="color:var(--ac);font-size:.7rem;text-decoration:underline">⬇ ${label}.txt</a>
+<div class="cfg-box" id="cfg_${f}">Loading...</div></div>`;
+});
+}
+h+=`</div>`;}
+
+// Lab guide section PDF
+if(lsf){
+h+=`<div class="cs"><h3 style="cursor:default">📘 Lab Guide (Exercise + Answer Key)</h3>`;
+h+=`<div style="margin-bottom:6px">
+<button class="pdf-ctrl-btn" onclick="window.open('lab_sections/${lsf}','_blank')">⬛ Open Fullscreen</button>
+<a href="lab_sections/${lsf}" download class="pdf-ctrl-btn" style="text-decoration:none">⬇ Download</a>
+</div>`;
+h+=`<div class="pdf-wrapper"><object data="lab_sections/${lsf}" type="application/pdf" width="100%" height="100%">
+<embed src="lab_sections/${lsf}" type="application/pdf" width="100%" height="100%">
+<p style="color:var(--mut);padding:30px;text-align:center"><a href="lab_sections/${lsf}" target="_blank" style="color:var(--ac)">Open Lab Guide Section →</a></p>
+</embed></object></div></div>`;}
+
+// Command drill steps (existing)
+if(hasLab){
+h+=`<div class="lc"><h3>⌨️ Command Drill (${sec.lab.length} steps)</h3>`;
 sec.lab.forEach((l,i)=>h+=`<div class="ls"><div class="sn2">Step ${i+1}: ${l.s}</div><div class="sc">${l.c}</div></div>`);
-h+=`</div></div>`;}
+h+=`</div>`;}
+
+h+=`</div>`;}
 
 // ---- READ TAB ----
 if(chapFiles.length>0){
@@ -1572,8 +1686,26 @@ const label=f.replace('.pdf','').replace(/v[12]_/,'').replace(/_/g,' ');
 h+=`<span class="ch-btn ${curChap===f?'active':''}" onclick="loadChap('${f}')">${label}</span> `;
 });
 h+=`</div>`;
-if(curChap){h+=`<iframe src="chapters/${curChap}" class="pdf-frame"></iframe>`;}
-else{h+=`<p style="color:var(--mut);text-align:center;padding:30px;font-size:.8rem">Click a chapter above to load it</p>`;}
+if(curChap){
+const pdfUrl='chapters/'+curChap;
+h+=`<div class="pdf-controls">
+<button class="pdf-ctrl-btn" onclick="window.open('${pdfUrl}','_blank')">⬛ Open Fullscreen</button>
+<button class="pdf-ctrl-btn" onclick="document.getElementById('pdfZoom').style.transform='scale(1)';document.getElementById('pdfZoom').style.transformOrigin='top left'">🔄 Reset Zoom</button>
+<a href="${pdfUrl}" download class="pdf-ctrl-btn" style="text-decoration:none">⬇ Download</a>
+<span style="color:var(--mut);font-size:.66rem;margin-left:auto">Pinch/scroll to zoom · Ctrl+scroll on desktop</span>
+</div>
+<div class="pdf-wrapper" id="pdfZoom">
+<object data="${pdfUrl}" type="application/pdf" width="100%" height="100%">
+<embed src="${pdfUrl}" type="application/pdf" width="100%" height="100%">
+<p style="color:var(--mut);padding:40px;text-align:center">
+PDF cannot be displayed inline.<br>
+<a href="${pdfUrl}" target="_blank" style="color:var(--ac)">Click here to open the chapter →</a><br>
+<a href="${pdfUrl}" download style="color:var(--gold)">Or download it →</a>
+</p>
+</embed>
+</object>
+</div>`;
+}else{h+=`<p style="color:var(--mut);text-align:center;padding:30px;font-size:.8rem">Click a chapter above to load it</p>`;}
 h+=`</div>`;}
 
 // Bottom nav
@@ -1609,6 +1741,14 @@ function resetQuiz(){qAns={};qSub=false;render();window.scrollTo(0,0);}
 function loadChap(f){curChap=f;render();}
 
 render();
+
+// Load config text files when lab tab is shown
+const observer=new MutationObserver(()=>{
+document.querySelectorAll('.cfg-box').forEach(el=>{
+const fid=el.id.replace('cfg_','');
+if(el.textContent==='Loading...'){
+fetch('labs/'+fid).then(r=>r.text()).then(t=>el.textContent=t).catch(()=>el.textContent='(Config file not found — place in labs/ folder)');}});});
+observer.observe(document.getElementById('app'),{childList:true,subtree:true});
 </script>
 </body>
 </html>
