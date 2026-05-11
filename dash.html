@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HUNTER // Job Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --bg:#07080d;--panel:#0d1117;--panel2:#111827;--panel3:#161c2a;
+  --ac:#00ff88;--ac2:#0088ff;--ac3:#ff4466;--ac4:#ffaa00;--ac5:#aa44ff;
+  --txt:#c8d6e8;--mut:#4a5568;--bor:#1a2234;--bor2:#1e2d40;
+  --red:#ff3355;--green:#00ff88;--orange:#ff8800;--blue:#0088ff;
+  --glow:0 0 20px rgba(0,255,136,.12);
+  --font:'Space Grotesk',sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;font-size:14px}
+
+/* LOCK SCREEN */
+#lockScreen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+#lockScreen::before{content:'';position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,rgba(0,255,136,.4) 0%,transparent 100%),radial-gradient(1px 1px at 80% 60%,rgba(0,136,255,.3) 0%,transparent 100%),radial-gradient(1px 1px at 50% 80%,rgba(170,68,255,.3) 0%,transparent 100%);background-size:300px 300px,400px 400px,250px 250px;animation:starfield 20s linear infinite;pointer-events:none}
+@keyframes starfield{0%{background-position:0 0,0 0,0 0}100%{background-position:300px 300px,400px 400px,250px 250px}}
+.lock-logo{font-family:var(--mono);font-size:2.2rem;font-weight:600;letter-spacing:.1em;color:var(--ac);text-shadow:0 0 30px rgba(0,255,136,.5)}
+.lock-sub{font-family:var(--mono);font-size:.7rem;color:var(--mut);letter-spacing:.15em;text-transform:uppercase;margin-top:-16px}
+.lock-form{display:flex;flex-direction:column;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--bor2);border-radius:16px;padding:32px 40px;position:relative;z-index:1;min-width:320px}
+.lock-form::before{content:'🔐';font-size:2rem;margin-bottom:4px}
+.lock-label{font-size:.72rem;color:var(--mut);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;align-self:flex-start}
+.lock-input{width:100%;background:var(--panel2);border:1px solid var(--bor2);color:var(--txt);padding:12px 16px;border-radius:8px;font-family:var(--mono);font-size:.9rem;letter-spacing:.15em;text-align:center;transition:.2s;outline:none}
+.lock-input:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(0,255,136,.1)}
+.lock-btn{width:100%;background:var(--ac);color:#000;border:none;padding:12px;border-radius:8px;font-family:var(--font);font-weight:700;font-size:.9rem;cursor:pointer;letter-spacing:.05em;transition:.15s}
+.lock-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.lock-error{color:var(--red);font-size:.72rem;font-family:var(--mono);display:none}
+.lock-hint{color:var(--mut);font-size:.62rem;font-family:var(--mono);text-align:center;line-height:1.6}
+
+/* MAIN LAYOUT */
+#app{display:none;min-height:100vh;display:grid;grid-template-rows:auto 1fr;grid-template-columns:220px 1fr}
+#app.visible{display:grid}
+
+/* TOP BAR */
+.topbar{grid-column:1/-1;background:var(--panel);border-bottom:1px solid var(--bor);padding:0 20px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.topbar-logo{font-family:var(--mono);font-size:.95rem;font-weight:600;color:var(--ac);letter-spacing:.05em;white-space:nowrap}
+.topbar-logo span{color:var(--mut)}
+.topbar-badge{font-family:var(--mono);font-size:.58rem;padding:2px 7px;border-radius:20px;background:rgba(0,255,136,.1);color:var(--ac);border:1px solid rgba(0,255,136,.2);letter-spacing:.08em}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 6px var(--ac);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.topbar-time{font-family:var(--mono);font-size:.72rem;color:var(--mut)}
+.topbar-lock{background:var(--panel2);border:1px solid var(--bor2);color:var(--mut);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.72rem;font-family:var(--mono);transition:.15s}
+.topbar-lock:hover{color:var(--txt);border-color:var(--mut)}
+
+/* SIDEBAR */
+.sidebar{background:var(--panel);border-right:1px solid var(--bor);padding:16px 0;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+.sidebar-section{font-family:var(--mono);font-size:.55rem;color:var(--mut);letter-spacing:.12em;text-transform:uppercase;padding:8px 16px 4px;margin-top:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;border-radius:0;transition:.15s;color:var(--mut);font-size:.8rem;font-weight:500;border-left:2px solid transparent;position:relative}
+.nav-item:hover{color:var(--txt);background:rgba(255,255,255,.03)}
+.nav-item.active{color:var(--ac);background:rgba(0,255,136,.06);border-left-color:var(--ac)}
+.nav-item i{width:16px;text-align:center;font-size:.8rem}
+.nav-badge{margin-left:auto;font-family:var(--mono);font-size:.55rem;padding:1px 6px;border-radius:10px;background:rgba(255,68,102,.15);color:var(--ac3);border:1px solid rgba(255,68,102,.2)}
+.nav-badge.green{background:rgba(0,255,136,.1);color:var(--ac);border-color:rgba(0,255,136,.2)}
+
+/* MAIN CONTENT */
+.main{overflow-y:auto;background:var(--bg);padding:20px}
+.page{display:none}
+.page.active{display:block}
+
+/* CARDS & PANELS */
+.card{background:var(--panel);border:1px solid var(--bor);border-radius:10px;padding:16px}
+.card-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bor)}
+.card-title{font-size:.8rem;font-weight:600;color:var(--txt);letter-spacing:.02em}
+.card-icon{font-size:.8rem;color:var(--ac)}
+.card-count{margin-left:auto;font-family:var(--mono);font-size:.65rem;color:var(--mut)}
+
+/* STAT TILES */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat-tile{background:var(--panel);border:1px solid var(--bor);border-radius:10px;padding:14px;position:relative;overflow:hidden}
+.stat-tile::after{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.stat-tile.green::after{background:var(--ac)}
+.stat-tile.blue::after{background:var(--ac2)}
+.stat-tile.red::after{background:var(--ac3)}
+.stat-tile.orange::after{background:var(--ac4)}
+.stat-tile.purple::after{background:var(--ac5)}
+.stat-num{font-family:var(--mono);font-size:1.8rem;font-weight:600;line-height:1;margin-bottom:4px}
+.stat-num.green{color:var(--ac)}
+.stat-num.blue{color:var(--ac2)}
+.stat-num.red{color:var(--ac3)}
+.stat-num.orange{color:var(--ac4)}
+.stat-label{font-size:.65rem;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+
+/* SECTION TITLES */
+.page-title{font-size:1.1rem;font-weight:700;color:var(--txt);margin-bottom:4px}
+.page-sub{font-size:.72rem;color:var(--mut);margin-bottom:16px;font-family:var(--mono)}
+.section-label{font-family:var(--mono);font-size:.6rem;color:var(--ac);text-transform:uppercase;letter-spacing:.1em;margin:18px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--bor)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* RESUME CARDS */
+.resume-card{background:var(--panel2);border:1px solid var(--bor2);border-radius:10px;padding:14px;transition:.2s;cursor:pointer;position:relative;overflow:hidden}
+.resume-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px}
+.resume-card.it::before{background:var(--ac2)}
+.resume-card.network::before{background:var(--ac)}
+.resume-card.general::before{background:var(--ac4)}
+.resume-card.gig::before{background:var(--ac5)}
+.resume-card:hover{border-color:var(--bor);transform:translateY(-2px);box-shadow:var(--glow)}
+.resume-title{font-weight:600;font-size:.85rem;margin-bottom:4px}
+.resume-sub{font-size:.68rem;color:var(--mut);line-height:1.5;margin-bottom:10px}
+.resume-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.rtag{font-family:var(--mono);font-size:.55rem;padding:2px 7px;border-radius:4px;border:1px solid var(--bor2);color:var(--mut);background:var(--panel)}
+.resume-actions{display:flex;gap:6px}
+.r-btn{font-size:.68rem;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:var(--font);font-weight:500;border:1px solid var(--bor2);background:transparent;color:var(--mut);transition:.15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.r-btn:hover{background:var(--panel3);color:var(--txt)}
+.r-btn.primary{background:rgba(0,136,255,.1);border-color:rgba(0,136,255,.3);color:var(--ac2)}
+.r-btn.primary:hover{background:rgba(0,136,255,.2)}
+
+/* JOB ROLES */
+.role-list{display:flex;flex-direction:column;gap:6px}
+.role-item{background:var(--panel2);border:1px solid var(--bor2);border-radius:8px;padding:12px;display:flex;align-items:center;gap:12px;transition:.15s}
+.role-item:hover{border-color:var(--bor);background:var(--panel3)}
+.role-rank{font-family:var(--mono);font-size:.6rem;color:var(--mut);width:28px;flex-shrink:0;text-align:right}
+.role-info{flex:1;min-width:0}
+.role-title{font-weight:600;font-size:.82rem;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.role-pay{font-family:var(--mono);font-size:.65rem;color:var(--ac)}
+.role-type{font-size:.62rem;color:var(--mut)}
+.role-links{display:flex;gap:5px;flex-shrink:0}
+.site-link{font-size:.6rem;padding:3px 8px;border-radius:4px;border:1px solid var(--bor2);color:var(--mut);text-decoration:none;font-family:var(--mono);transition:.15s;display:inline-flex;align-items:center;gap:4px;background:var(--panel)}
+.site-link:hover{color:var(--ac2);border-color:rgba(0,136,255,.3);background:rgba(0,136,255,.05)}
+
+/* JOB SITES */
+.site-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.site-card{background:var(--panel2);border:1px solid var(--bor2);border-radius:10px;padding:14px;text-align:center;transition:.2s;text-decoration:none;display:block}
+.site-card:hover{transform:translateY(-3px);border-color:var(--bor);box-shadow:var(--glow)}
+.site-icon{font-size:1.4rem;margin-bottom:6px}
+.site-name{font-size:.75rem;font-weight:600;color:var(--txt);margin-bottom:2px}
+.site-desc{font-size:.6rem;color:var(--mut);font-family:var(--mono)}
+
+/* ALERTS */
+.alert-item{background:var(--panel2);border:1px solid var(--bor2);border-radius:8px;padding:12px;display:flex;gap:12px;align-items:flex-start;margin-bottom:6px;position:relative;overflow:hidden}
+.alert-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.alert-item.high::before{background:var(--ac3)}
+.alert-item.med::before{background:var(--ac4)}
+.alert-item.low::before{background:var(--ac)}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.alert-item.high .alert-dot{background:var(--ac3)}
+.alert-item.med .alert-dot{background:var(--ac4)}
+.alert-item.low .alert-dot{background:var(--ac)}
+.alert-body{flex:1}
+.alert-title{font-size:.78rem;font-weight:600;margin-bottom:3px}
+.alert-meta{font-size:.62rem;color:var(--mut);font-family:var(--mono)}
+.alert-time{margin-left:auto;font-family:var(--mono);font-size:.58rem;color:var(--mut);flex-shrink:0}
+.alert-form{background:var(--panel2);border:1px solid var(--bor2);border-radius:10px;padding:16px;margin-bottom:12px}
+.alert-form h4{font-size:.78rem;font-weight:600;margin-bottom:12px;color:var(--ac)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-label{font-size:.6rem;color:var(--mut);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.form-input{background:var(--panel);border:1px solid var(--bor2);color:var(--txt);padding:8px 10px;border-radius:6px;font-family:var(--font);font-size:.78rem;outline:none;transition:.15s}
+.form-input:focus{border-color:var(--ac);box-shadow:0 0 0 2px rgba(0,255,136,.08)}
+.form-select{background:var(--panel);border:1px solid var(--bor2);color:var(--txt);padding:8px 10px;border-radius:6px;font-family:var(--font);font-size:.78rem;outline:none;appearance:none;cursor:pointer}
+.submit-btn{background:linear-gradient(135deg,var(--ac),rgba(0,136,255,.8));color:#000;border:none;padding:9px 20px;border-radius:7px;font-family:var(--font);font-weight:700;font-size:.78rem;cursor:pointer;transition:.15s;letter-spacing:.03em}
+.submit-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+
+/* TRACKER */
+.tracker-table{width:100%;border-collapse:collapse}
+.tracker-table th{font-family:var(--mono);font-size:.6rem;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;padding:8px 10px;text-align:left;border-bottom:1px solid var(--bor)}
+.tracker-table td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.03);font-size:.76rem;vertical-align:middle}
+.tracker-table tr:hover td{background:rgba(255,255,255,.02)}
+.status-pill{font-family:var(--mono);font-size:.55rem;padding:3px 8px;border-radius:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.status-pill.applied{background:rgba(0,136,255,.1);color:var(--ac2);border:1px solid rgba(0,136,255,.2)}
+.status-pill.interview{background:rgba(255,170,0,.1);color:var(--ac4);border:1px solid rgba(255,170,0,.2)}
+.status-pill.rejected{background:rgba(255,68,102,.1);color:var(--ac3);border:1px solid rgba(255,68,102,.2)}
+.status-pill.offer{background:rgba(0,255,136,.1);color:var(--ac);border:1px solid rgba(0,255,136,.2)}
+.status-pill.ghosted{background:rgba(74,85,104,.1);color:var(--mut);border:1px solid rgba(74,85,104,.2)}
+.add-btn{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);color:var(--ac);padding:7px 14px;border-radius:7px;cursor:pointer;font-family:var(--font);font-size:.75rem;font-weight:600;transition:.15s}
+.add-btn:hover{background:rgba(0,255,136,.15)}
+.del-btn{background:none;border:none;color:var(--mut);cursor:pointer;font-size:.75rem;padding:4px 6px;border-radius:4px;transition:.15s}
+.del-btn:hover{color:var(--ac3);background:rgba(255,68,102,.1)}
+
+/* STUDY */
+.study-card{background:var(--panel2);border:1px solid var(--bor2);border-radius:10px;padding:16px;transition:.2s}
+.study-card:hover{border-color:var(--bor)}
+.study-card h3{font-size:.85rem;font-weight:600;margin-bottom:6px}
+.study-progress{height:5px;background:var(--bor2);border-radius:3px;margin:8px 0;overflow:hidden}
+.study-bar{height:100%;border-radius:3px;transition:.8s ease}
+.bar-green{background:linear-gradient(90deg,var(--ac),#00cc66)}
+.bar-blue{background:linear-gradient(90deg,var(--ac2),#0055ff)}
+.bar-orange{background:linear-gradient(90deg,var(--ac4),#ff6600)}
+.bar-purple{background:linear-gradient(90deg,var(--ac5),#7700ff)}
+.bar-red{background:linear-gradient(90deg,var(--ac3),#cc0033)}
+.study-meta{display:flex;justify-content:space-between;font-size:.62rem;font-family:var(--mono);color:var(--mut);margin-top:2px}
+.study-link{font-size:.68rem;color:var(--ac2);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-top:8px;transition:.15s}
+.study-link:hover{color:var(--txt)}
+.resource-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel2);border:1px solid var(--bor2);border-radius:8px;margin-bottom:5px;text-decoration:none;color:var(--txt);transition:.15s}
+.resource-item:hover{border-color:var(--bor);background:var(--panel3)}
+.resource-icon{font-size:.9rem;width:22px;text-align:center;flex-shrink:0}
+.resource-info{flex:1}
+.resource-name{font-size:.78rem;font-weight:600;margin-bottom:1px}
+.resource-desc{font-size:.6rem;color:var(--mut);font-family:var(--mono)}
+.resource-badge{font-family:var(--mono);font-size:.55rem;padding:2px 6px;border-radius:4px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--panel);border:1px solid var(--bor2);border-radius:14px;padding:24px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--bor)}
+.modal-title{font-size:.95rem;font-weight:600}
+.modal-close{background:none;border:none;color:var(--mut);cursor:pointer;font-size:1.1rem;padding:4px;border-radius:4px;transition:.15s}
+.modal-close:hover{color:var(--txt);background:var(--panel2)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bor2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--mut)}
+
+/* TAGS */
+.tag{font-family:var(--mono);font-size:.58rem;padding:3px 8px;border-radius:5px;display:inline-flex;align-items:center;gap:4px}
+.tag-it{background:rgba(0,136,255,.1);color:var(--ac2);border:1px solid rgba(0,136,255,.2)}
+.tag-net{background:rgba(0,255,136,.08);color:var(--ac);border:1px solid rgba(0,255,136,.2)}
+.tag-gen{background:rgba(255,170,0,.08);color:var(--ac4);border:1px solid rgba(255,170,0,.2)}
+.tag-gig{background:rgba(170,68,255,.08);color:var(--ac5);border:1px solid rgba(170,68,255,.2)}
+
+/* UTIL */
+.flex{display:flex;align-items:center;gap:8px}
+.flex-between{display:flex;align-items:center;justify-content:space-between}
+.mb8{margin-bottom:8px}
+.mb12{margin-bottom:12px}
+.mb16{margin-bottom:16px}
+.text-mut{color:var(--mut);font-size:.72rem}
+.text-mono{font-family:var(--mono)}
+.empty-state{text-align:center;padding:32px;color:var(--mut);font-size:.78rem}
+.empty-icon{font-size:2rem;margin-bottom:8px;opacity:.4}
+
+/* TOOLTIP */
+[title]{cursor:help}
+
+/* Alert notification bar */
+.notif-bar{background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.15);border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:.75rem;animation:slideIn .3s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.notif-bar i{color:var(--ac);font-size:.9rem}
+.notif-bar .notif-close{margin-left:auto;cursor:pointer;color:var(--mut);background:none;border:none;font-size:.9rem;padding:0 2px}
+.notif-bar .notif-close:hover{color:var(--txt)}
+
+/* Checkbox toggle */
+.toggle{width:36px;height:20px;background:var(--bor2);border-radius:10px;position:relative;cursor:pointer;transition:.2s;flex-shrink:0;border:none}
+.toggle.on{background:rgba(0,255,136,.3)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;background:var(--mut);border-radius:50%;transition:.2s}
+.toggle.on::after{left:19px;background:var(--ac)}
+
+/* Copy btn */
+.copy-btn{background:none;border:1px solid var(--bor2);color:var(--mut);padding:4px 8px;border-radius:5px;cursor:pointer;font-size:.65rem;font-family:var(--mono);transition:.15s}
+.copy-btn:hover{background:var(--panel3);color:var(--txt)}
+.copy-btn.copied{color:var(--ac);border-color:rgba(0,255,136,.3)}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+  <div style="font-family:var(--mono);font-size:.6rem;color:var(--mut);letter-spacing:.2em;text-transform:uppercase;position:relative;z-index:1">HUNTER DASH // SECURE ACCESS</div>
+  <div class="lock-logo" style="position:relative;z-index:1">⬡ HUNTER</div>
+  <div class="lock-sub" style="position:relative;z-index:1">JOB INTELLIGENCE SYSTEM v2.1</div>
+  <div class="lock-form">
+    <div class="lock-label">Passphrase Required</div>
+    <input type="password" class="lock-input" id="lockInput" placeholder="••••••••" maxlength="32" autocomplete="off">
+    <button class="lock-btn" onclick="tryUnlock()">UNLOCK DASHBOARD</button>
+    <div class="lock-error" id="lockError"><i class="fas fa-triangle-exclamation"></i> Incorrect passphrase</div>
+    <div class="lock-hint">Default: <strong style="color:var(--ac)">hunter2026</strong><br>Change in Settings → Security</div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <span class="topbar-logo">⬡ HUNTER<span> // JOB DASH</span></span>
+    <span class="topbar-badge">SECURE</span>
+    <div style="flex:1"></div>
+    <div class="topbar-right">
+      <div class="pulse-dot"></div>
+      <span class="topbar-time" id="topTime"></span>
+      <button class="topbar-lock" onclick="lockApp()"><i class="fas fa-lock"></i> Lock</button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-section">Overview</div>
+    <div class="nav-item active" onclick="showPage('overview',this)"><i class="fas fa-th-large"></i> Dashboard</div>
+    <div class="nav-item" onclick="showPage('tracker',this)"><i class="fas fa-table"></i> Application Tracker <span class="nav-badge green" id="trackerBadge">0</span></div>
+
+    <div class="sidebar-section">Resumes</div>
+    <div class="nav-item" onclick="showPage('resumes',this)"><i class="fas fa-file-lines"></i> All Resumes</div>
+    <div class="nav-item" onclick="showPage('resumes-it',this)"><i class="fas fa-desktop"></i> IT Roles</div>
+    <div class="nav-item" onclick="showPage('resumes-net',this)"><i class="fas fa-network-wired"></i> Network Roles</div>
+    <div class="nav-item" onclick="showPage('resumes-gen',this)"><i class="fas fa-briefcase"></i> General / Gigs</div>
+
+    <div class="sidebar-section">Job Hunt</div>
+    <div class="nav-item" onclick="showPage('roles',this)"><i class="fas fa-list-check"></i> Job Roles <span class="nav-badge">25</span></div>
+    <div class="nav-item" onclick="showPage('sites',this)"><i class="fas fa-globe"></i> Job Sites</div>
+    <div class="nav-item" onclick="showPage('alerts',this)"><i class="fas fa-bell"></i> Alerts <span class="nav-badge" id="alertBadge">3</span></div>
+
+    <div class="sidebar-section">Study</div>
+    <div class="nav-item" onclick="showPage('study',this)"><i class="fas fa-graduation-cap"></i> Study Hub</div>
+    <div class="nav-item" onclick="showPage('resources',this)"><i class="fas fa-book"></i> Resources</div>
+
+    <div class="sidebar-section">Settings</div>
+    <div class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-gear"></i> Settings</div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ========== OVERVIEW ========== -->
+    <div class="page active" id="page-overview">
+      <div class="page-title">Good hustle, Issac.</div>
+      <div class="page-sub">HUNTER DASH // <span id="dashDate"></span></div>
+
+      <div class="stat-grid" id="statGrid">
+        <div class="stat-tile green"><div class="stat-num green" id="s-applied">0</div><div class="stat-label">Applied</div></div>
+        <div class="stat-tile blue"><div class="stat-num blue" id="s-interview">0</div><div class="stat-label">Interviews</div></div>
+        <div class="stat-tile orange"><div class="stat-num orange" id="s-pending">0</div><div class="stat-label">Pending</div></div>
+        <div class="stat-tile red"><div class="stat-num red" id="s-offers">0</div><div class="stat-label">Offers</div></div>
+      </div>
+
+      <div class="grid2 mb16">
+        <div>
+          <div class="section-label"><i class="fas fa-bell"></i> Recent Alerts</div>
+          <div id="recentAlerts"></div>
+          <div style="text-align:right;margin-top:6px"><button class="r-btn primary" onclick="showPage('alerts',null)">All Alerts →</button></div>
+        </div>
+        <div>
+          <div class="section-label"><i class="fas fa-fire"></i> Daily Targets</div>
+          <div id="dailyTargets"></div>
+        </div>
+      </div>
+
+      <div class="section-label"><i class="fas fa-file-lines"></i> Quick Resume Access</div>
+      <div id="quickResumes" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"></div>
+    </div>
+
+    <!-- ========== TRACKER ========== -->
+    <div class="page" id="page-tracker">
+      <div class="page-title">Application Tracker</div>
+      <div class="page-sub">ENCRYPTED // all data stays local</div>
+
+      <div class="flex-between mb12">
+        <div class="flex" style="gap:6px">
+          <select class="form-select" id="filterStatus" onchange="renderTracker()" style="font-size:.72rem;padding:6px 10px">
+            <option value="">All Status</option>
+            <option value="applied">Applied</option>
+            <option value="interview">Interview</option>
+            <option value="offer">Offer</option>
+            <option value="rejected">Rejected</option>
+            <option value="ghosted">Ghosted</option>
+          </select>
+          <input class="form-input" id="searchTracker" placeholder="Search..." oninput="renderTracker()" style="font-size:.72rem;padding:6px 10px;width:160px">
+        </div>
+        <button class="add-btn" onclick="openAddModal()"><i class="fas fa-plus"></i> Log Application</button>
+      </div>
+
+      <div class="card">
+        <table class="tracker-table" id="trackerTable">
+          <thead>
+            <tr>
+              <th>Company</th><th>Role</th><th>Type</th><th>Applied</th><th>Status</th><th>Notes</th><th>Links</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="trackerBody"></tbody>
+        </table>
+        <div class="empty-state" id="trackerEmpty" style="display:none">
+          <div class="empty-icon">📋</div>No applications yet. Hit "Log Application" to get started.
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== ALL RESUMES ========== -->
+    <div class="page" id="page-resumes">
+      <div class="page-title">Resume Library</div>
+      <div class="page-sub">15 tailored resumes across IT, Network, General & Gig categories</div>
+      <div class="section-label">IT Roles</div>
+      <div class="grid3 mb16" id="r-it-all"></div>
+      <div class="section-label">Network Roles</div>
+      <div class="grid3 mb16" id="r-net-all"></div>
+      <div class="section-label">General + Gigs</div>
+      <div class="grid3" id="r-gen-all"></div>
+    </div>
+
+    <!-- ========== IT RESUMES ========== -->
+    <div class="page" id="page-resumes-it">
+      <div class="page-title">IT Role Resumes</div>
+      <div class="page-sub">Systems, helpdesk, cloud, security, and infra roles</div>
+      <div class="grid3" id="r-it"></div>
+    </div>
+
+    <!-- ========== NETWORK RESUMES ========== -->
+    <div class="page" id="page-resumes-net">
+      <div class="page-title">Network Role Resumes</div>
+      <div class="page-sub">NOC, network engineering, CCNA-track, and telecom roles</div>
+      <div class="grid3" id="r-net"></div>
+    </div>
+
+    <!-- ========== GENERAL RESUMES ========== -->
+    <div class="page" id="page-resumes-gen">
+      <div class="page-title">General + Gig Resumes</div>
+      <div class="page-sub">General IT, admin, temp, gig, and help roles</div>
+      <div class="grid3" id="r-gen"></div>
+    </div>
+
+    <!-- ========== JOB ROLES ========== -->
+    <div class="page" id="page-roles">
+      <div class="page-title">Target Job Roles</div>
+      <div class="page-sub">25 curated roles with live job board links</div>
+      <div class="flex-between mb8">
+        <div class="flex" style="gap:6px;flex-wrap:wrap">
+          <button class="r-btn primary" id="filter-all" onclick="filterRoles('all',this)">All (25)</button>
+          <button class="r-btn" id="filter-IT" onclick="filterRoles('IT',this)">IT</button>
+          <button class="r-btn" id="filter-Network" onclick="filterRoles('Network',this)">Network</button>
+          <button class="r-btn" id="filter-General" onclick="filterRoles('General',this)">General</button>
+          <button class="r-btn" id="filter-Gig" onclick="filterRoles('Gig',this)">Gigs</button>
+        </div>
+        <input class="form-input" id="roleSearch" placeholder="Search roles..." oninput="filterRoleSearch()" style="width:160px;font-size:.72rem;padding:6px 10px">
+      </div>
+      <div class="role-list" id="roleList"></div>
+    </div>
+
+    <!-- ========== JOB SITES ========== -->
+    <div class="page" id="page-sites">
+      <div class="page-title">Job Boards</div>
+      <div class="page-sub">5 primary platforms + specialized boards</div>
+
+      <div class="section-label">Primary Platforms</div>
+      <div class="site-cards" id="primarySites"></div>
+
+      <div class="section-label">Specialized Boards</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px" id="specSites"></div>
+    </div>
+
+    <!-- ========== ALERTS ========== -->
+    <div class="page" id="page-alerts">
+      <div class="page-title">Alert Center</div>
+      <div class="page-sub">Job alerts, email reminders & follow-up scheduler</div>
+
+      <div class="alert-form">
+        <h4><i class="fas fa-plus"></i> Create New Alert</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <div class="form-label">Alert Type</div>
+            <select class="form-select" id="alertType">
+              <option value="job">Job Alert</option>
+              <option value="followup">Follow-Up Reminder</option>
+              <option value="email">Email Reminder</option>
+              <option value="deadline">Application Deadline</option>
+              <option value="interview">Interview Prep</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="form-label">Priority</div>
+            <select class="form-select" id="alertPriority">
+              <option value="high">🔴 High</option>
+              <option value="med" selected>🟡 Medium</option>
+              <option value="low">🟢 Low</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <div class="form-label">Title / Role</div>
+            <input class="form-input" id="alertTitle" placeholder="e.g. Apply to Google NOC">
+          </div>
+          <div class="form-group">
+            <div class="form-label">Due Date</div>
+            <input class="form-input" type="date" id="alertDate">
+          </div>
+        </div>
+        <div class="form-group mb8">
+          <div class="form-label">Notes</div>
+          <input class="form-input" id="alertNotes" placeholder="Company name, link, contact...">
+        </div>
+        <button class="submit-btn" onclick="addAlert()"><i class="fas fa-bell"></i> Set Alert</button>
+      </div>
+
+      <div class="section-label">Active Alerts (<span id="alertCount">0</span>)</div>
+      <div id="alertList"></div>
+
+      <div class="section-label" style="margin-top:20px">Email Alert Setup — Job Boards</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="emailSetup"></div>
+    </div>
+
+    <!-- ========== STUDY ========== -->
+    <div class="page" id="page-study">
+      <div class="page-title">Study Hub</div>
+      <div class="page-sub">Track progress across CCNA, certs, and skills</div>
+      <div class="grid3" id="studyCards"></div>
+      <div class="section-label" style="margin-top:16px">Daily Study Checklist</div>
+      <div id="studyChecklist"></div>
+    </div>
+
+    <!-- ========== RESOURCES ========== -->
+    <div class="page" id="page-resources">
+      <div class="page-title">Study Resources</div>
+      <div class="page-sub">Free & paid links for certs, practice, and portfolio</div>
+      <div id="resourceList"></div>
+    </div>
+
+    <!-- ========== SETTINGS ========== -->
+    <div class="page" id="page-settings">
+      <div class="page-title">Settings</div>
+      <div class="page-sub">Preferences, security & data</div>
+
+      <div class="card mb16">
+        <div class="card-header"><i class="fas fa-shield-halved card-icon" style="color:var(--ac3)"></i><span class="card-title">Security</span></div>
+        <div class="form-group mb8">
+          <div class="form-label">Change Passphrase</div>
+          <div class="flex">
+            <input class="form-input" type="password" id="newPass" placeholder="New passphrase" style="flex:1">
+            <input class="form-input" type="password" id="newPass2" placeholder="Confirm" style="flex:1">
+          </div>
+        </div>
+        <button class="submit-btn" onclick="changePass()">Update Passphrase</button>
+        <div style="margin-top:10px;font-size:.68rem;color:var(--mut);font-family:var(--mono)">⚠️ Passphrase is hashed locally. If forgotten, data must be reset.</div>
+      </div>
+
+      <div class="card mb16">
+        <div class="card-header"><i class="fas fa-user card-icon"></i><span class="card-title">Profile</span></div>
+        <div class="form-row">
+          <div class="form-group">
+            <div class="form-label">Your Name</div>
+            <input class="form-input" id="settingName" placeholder="Issac Henderson">
+          </div>
+          <div class="form-group">
+            <div class="form-label">Target Role</div>
+            <input class="form-input" id="settingRole" placeholder="Network Engineer">
+          </div>
+        </div>
+        <div class="form-group mb8">
+          <div class="form-label">Location</div>
+          <input class="form-input" id="settingLoc" placeholder="New York, NY">
+        </div>
+        <button class="submit-btn" onclick="saveSettings()">Save Profile</button>
+      </div>
+
+      <div class="card mb16">
+        <div class="card-header"><i class="fas fa-database card-icon" style="color:var(--ac4)"></i><span class="card-title">Data</span></div>
+        <div class="flex" style="gap:8px;flex-wrap:wrap">
+          <button class="r-btn" onclick="exportData()"><i class="fas fa-download"></i> Export All Data</button>
+          <button class="r-btn" onclick="importData()"><i class="fas fa-upload"></i> Import Data</button>
+          <button class="r-btn" style="color:var(--ac3);border-color:rgba(255,68,102,.3)" onclick="clearData()"><i class="fas fa-trash"></i> Clear All Data</button>
+        </div>
+        <input type="file" id="importFile" style="display:none" accept=".json" onchange="handleImport(event)">
+        <div style="margin-top:10px;font-size:.68rem;color:var(--mut);font-family:var(--mono)">All data encrypted with AES-256 and stored locally in your browser.</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ADD APPLICATION MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Log New Application</span>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <div class="form-label">Company</div>
+        <input class="form-input" id="m-company" placeholder="Google, Cisco...">
+      </div>
+      <div class="form-group">
+        <div class="form-label">Role Title</div>
+        <input class="form-input" id="m-role" placeholder="Network Engineer">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <div class="form-label">Type</div>
+        <select class="form-select" id="m-type">
+          <option>IT</option><option>Network</option><option>General</option><option>Gig</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="form-label">Status</div>
+        <select class="form-select" id="m-status">
+          <option value="applied">Applied</option>
+          <option value="interview">Interview</option>
+          <option value="offer">Offer</option>
+          <option value="rejected">Rejected</option>
+          <option value="ghosted">Ghosted</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <div class="form-label">Applied Date</div>
+        <input class="form-input" type="date" id="m-date">
+      </div>
+      <div class="form-group">
+        <div class="form-label">Salary Range</div>
+        <input class="form-input" id="m-salary" placeholder="$70k - $85k">
+      </div>
+    </div>
+    <div class="form-group mb8">
+      <div class="form-label">Job Link</div>
+      <input class="form-input" id="m-link" placeholder="https://...">
+    </div>
+    <div class="form-group mb8">
+      <div class="form-label">Notes</div>
+      <input class="form-input" id="m-notes" placeholder="Recruiter name, referral, keywords...">
+    </div>
+    <div style="text-align:right;margin-top:14px">
+      <button class="r-btn" onclick="closeModal()" style="margin-right:8px">Cancel</button>
+      <button class="submit-btn" onclick="saveApplication()"><i class="fas fa-save"></i> Save Application</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME PREVIEW MODAL -->
+<div class="modal-overlay" id="resumeModal">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <span class="modal-title" id="resumeModalTitle">Resume</span>
+      <button class="modal-close" onclick="document.getElementById('resumeModal').classList.remove('open')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div id="resumeModalBody"></div>
+  </div>
+</div>
+
+<script>
+// ============================================
+// ENCRYPTION MODULE (AES-GCM via Web Crypto)
+// ============================================
+const CRYPTO = {
+  async deriveKey(password, salt) {
+    const enc = new TextEncoder();
+    const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+      keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+    );
+  },
+  async encrypt(text, password) {
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const key = await this.deriveKey(password, salt);
+    const enc = new TextEncoder();
+    const cipher = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(text));
+    const buf = new Uint8Array(salt.length + iv.length + cipher.byteLength);
+    buf.set(salt, 0); buf.set(iv, 16); buf.set(new Uint8Array(cipher), 28);
+    return btoa(String.fromCharCode(...buf));
+  },
+  async decrypt(b64, password) {
+    try {
+      const buf = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+      const salt = buf.slice(0, 16), iv = buf.slice(16, 28), data = buf.slice(28);
+      const key = await this.deriveKey(password, salt);
+      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, data);
+      return new TextDecoder().decode(plain);
+    } catch { return null; }
+  },
+  async hashPass(pass) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pass + 'hunter-salt-2026'));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+};
+
+// ============================================
+// STATE
+// ============================================
+let SESSION_PASS = '';
+let DATA = {
+  applications: [],
+  alerts: [],
+  studyProgress: { ccna: 45, comptia: 20, azure: 10, linux: 35, python: 15, cisco: 40 },
+  studyChecks: {},
+  settings: { name: 'Issac Henderson', role: 'Network Engineer', loc: 'New York, NY' },
+  passHash: ''
+};
+
+// ============================================
+// DATA — RESUMES
+// ============================================
+const RESUMES = [
+  // IT
+  { id: 'it-help', cat: 'IT', title: 'Help Desk / IT Support', sub: 'Entry to mid-level IT support, ticketing, hardware/software troubleshooting', tags: ['Tier 1', 'Tier 2', 'Active Directory', 'ITSM'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'it' },
+  { id: 'it-sysad', cat: 'IT', title: 'Systems Administrator', sub: 'Windows Server, VMware, Active Directory, Group Policy, backup systems', tags: ['Windows Server', 'VMware', 'AD', 'PowerShell'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'it' },
+  { id: 'it-cloud', cat: 'IT', title: 'Cloud / IAM Specialist', sub: 'Azure AD, Okta, identity access management, cloud infra support', tags: ['Azure', 'Okta', 'IAM', 'SSO'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'it' },
+  { id: 'it-sec', cat: 'IT', title: 'Security / SOC Analyst', sub: 'SIEM monitoring, incident response, vulnerability scanning, CompTIA Security+', tags: ['SOC', 'SIEM', 'Security+', 'IR'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'it' },
+  { id: 'it-infra', cat: 'IT', title: 'IT Infrastructure Engineer', sub: 'Core infra, rack/stack, cabling, servers, networking combined', tags: ['Infra', 'Rack', 'Servers', 'Network'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'it' },
+  // Network
+  { id: 'net-noc', cat: 'Network', title: 'NOC Technician', sub: 'Network operations center, 24/7 monitoring, incident escalation, ticketing', tags: ['NOC', 'Monitoring', 'Cisco', 'CCNA'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'network' },
+  { id: 'net-eng', cat: 'Network', title: 'Network Engineer', sub: 'LAN/WAN design, BGP/OSPF, Cisco IOS, firewall config, VPN', tags: ['Cisco', 'BGP', 'OSPF', 'Firewall'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'network' },
+  { id: 'net-jr', cat: 'Network', title: 'Jr. Network Admin', sub: 'Entry-level network administration, CCNA-ready, switch/router config', tags: ['Jr. Level', 'CCNA', 'Switches', 'Routing'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'network' },
+  { id: 'net-isp', cat: 'Network', title: 'ISP / Telecom Tech', sub: 'Field or NOC, fiber/copper, CPE, last-mile troubleshooting', tags: ['ISP', 'Fiber', 'CPE', 'Field'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'network' },
+  { id: 'net-msp', cat: 'Network', title: 'MSP / Contract Network', sub: 'Managed services provider, multi-client environments, RMM tools', tags: ['MSP', 'RMM', 'Multi-client', 'Contract'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'network' },
+  // General + Gig
+  { id: 'gen-it', cat: 'General', title: 'General IT (Broad)', sub: 'All-purpose IT resume for small biz, startups, non-profits', tags: ['Broad', 'Flexible', 'SMB', 'Startup'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'general' },
+  { id: 'gen-admin', cat: 'General', title: 'Tech Admin / Coordinator', sub: 'Admin roles with tech focus: IT coordinator, office tech, ops support', tags: ['Admin', 'Coordinator', 'Ops', 'Office'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'general' },
+  { id: 'gen-remote', cat: 'General', title: 'Remote IT / Freelance', sub: 'Remote-optimized, freelance IT consulting, contract work', tags: ['Remote', 'Freelance', 'Contract', 'Consulting'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'general' },
+  { id: 'gig-tech', cat: 'Gig', title: 'Tech Gig / Temp Work', sub: 'TaskRabbit-style tech help, computer repair, setup, cable runs', tags: ['Gig', 'Temp', 'TaskRabbit', 'Repair'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'gig' },
+  { id: 'gig-help', cat: 'Gig', title: 'General Help / Labor', sub: 'Broad gig economy, warehouse, delivery, general helper while searching', tags: ['Gig', 'Labor', 'Delivery', 'Flexible'], link: 'https://drive.google.com/file/d/1oIYPhBMCO46-QzUyeUQTdse6V9o4iGm8/view', color: 'gig' },
+];
+
+// ============================================
+// DATA — JOB ROLES (25)
+// ============================================
+const ROLES = [
+  { rank:1, title:'NOC Technician', pay:'$45k–$65k', type:'Network', desc:'24/7 ops, monitoring, tier 1 incident response' },
+  { rank:2, title:'Network Engineer I', pay:'$65k–$90k', type:'Network', desc:'LAN/WAN, Cisco IOS, routing & switching' },
+  { rank:3, title:'Jr. Network Administrator', pay:'$50k–$70k', type:'Network', desc:'Entry-level admin, switch configs, CCNA' },
+  { rank:4, title:'Help Desk Technician', pay:'$40k–$58k', type:'IT', desc:'Tier 1/2 support, ticketing, hardware/software' },
+  { rank:5, title:'Systems Administrator', pay:'$65k–$95k', type:'IT', desc:'Windows Server, VMware, Active Directory' },
+  { rank:6, title:'IT Support Specialist', pay:'$45k–$65k', type:'IT', desc:'End-user support, onboarding, ITSM tools' },
+  { rank:7, title:'Cloud Support Engineer', pay:'$70k–$100k', type:'IT', desc:'Azure/AWS support, tickets, documentation' },
+  { rank:8, title:'SOC Analyst Tier 1', pay:'$55k–$75k', type:'IT', desc:'SIEM alerts, triage, incident response' },
+  { rank:9, title:'Infrastructure Technician', pay:'$50k–$70k', type:'IT', desc:'Rack/stack, cabling, server builds' },
+  { rank:10, title:'MSP Network Tech', pay:'$48k–$68k', type:'Network', desc:'Multi-client, RMM, remote support' },
+  { rank:11, title:'Field Network Tech', pay:'$45k–$62k', type:'Network', desc:'On-site installs, ISP, CPE config' },
+  { rank:12, title:'IAM Specialist', pay:'$70k–$95k', type:'IT', desc:'Okta, Azure AD, access provisioning' },
+  { rank:13, title:'Firewall / VPN Engineer', pay:'$75k–$105k', type:'Network', desc:'Palo Alto, Cisco ASA, remote access VPN' },
+  { rank:14, title:'IT Coordinator', pay:'$48k–$65k', type:'General', desc:'Asset management, vendor coordination, tech admin' },
+  { rank:15, title:'Wireless Network Engineer', pay:'$70k–$95k', type:'Network', desc:'Meraki, Aruba, WiFi design/troubleshoot' },
+  { rank:16, title:'Network Operations Analyst', pay:'$60k–$80k', type:'Network', desc:'Capacity planning, performance monitoring' },
+  { rank:17, title:'Desktop Support Technician', pay:'$42k–$58k', type:'IT', desc:'Hardware builds, OS imaging, user support' },
+  { rank:18, title:'IT Analyst', pay:'$58k–$80k', type:'IT', desc:'Tickets, documentation, process improvement' },
+  { rank:19, title:'Cisco Network Admin', pay:'$65k–$88k', type:'Network', desc:'Cisco IOS/NX-OS, OSPF, BGP, VLANs' },
+  { rank:20, title:'Remote Support Specialist', pay:'$45k–$65k', type:'General', desc:'Fully remote, L1/L2, all-industry' },
+  { rank:21, title:'Temp IT Staffing', pay:'$20–$35/hr', type:'Gig', desc:'TEKsystems, Robert Half, contract placements' },
+  { rank:22, title:'Freelance Tech Support', pay:'$25–$55/hr', type:'Gig', desc:'TaskRabbit, Thumbtack, direct clients' },
+  { rank:23, title:'Data Center Technician', pay:'$50k–$72k', type:'IT', desc:'Colocation, hardware swap, cable management' },
+  { rank:24, title:'VoIP / Unified Comms Tech', pay:'$55k–$78k', type:'Network', desc:'Cisco UCM, Teams, SIP trunking' },
+  { rank:25, title:'Cybersecurity Analyst', pay:'$72k–$100k', type:'IT', desc:'Vulnerability scans, pen-test assist, hardening' },
+];
+
+// ============================================
+// DATA — JOB SITES
+// ============================================
+const PRIMARY_SITES = [
+  { icon:'💼', name:'LinkedIn', desc:'#1 for network jobs', url:'https://linkedin.com/jobs/search/?keywords=network+engineer+CCNA&location=New+York' },
+  { icon:'🔍', name:'Indeed', desc:'Volume + alerts', url:'https://indeed.com/jobs?q=network+engineer&l=New+York' },
+  { icon:'🎲', name:'Dice', desc:'Best for IT/tech', url:'https://dice.com/jobs?q=network+engineer&location=New+York' },
+  { icon:'🤐', name:'ZipRecruiter', desc:'Fast apply', url:'https://ziprecruiter.com/jobs/search?search=network+engineer&location=New+York' },
+  { icon:'🏛️', name:'USAJobs', desc:'Federal IT/network', url:'https://usajobs.gov/Search/Results?k=network+engineer&l=New+York' },
+];
+
+const SPEC_SITES = [
+  { icon:'🌐', name:'Glassdoor', desc:'Salary intel + jobs', url:'https://glassdoor.com/Job/new-york-network-engineer-jobs-SRCH_IL.0,8_IC1132348_KO9,25.htm', color:'blue' },
+  { icon:'⚡', name:'Robert Half', desc:'IT contract/perm', url:'https://roberthalf.com/us/en/jobs/technology', color:'orange' },
+  { icon:'🔧', name:'TEKsystems', desc:'Staffing powerhouse', url:'https://teksystems.com/en/job-search?q=network&location=New+York', color:'green' },
+  { icon:'🏢', name:'ClearanceJobs', desc:'Cleared IT/network', url:'https://clearancejobs.com/jobs?q=network+engineer', color:'red' },
+  { icon:'🤝', name:'Handshake', desc:'Entry-level friendly', url:'https://joinhandshake.com/career-network/student-research/it-network-jobs/', color:'purple' },
+  { icon:'💡', name:'Built In NYC', desc:'Startup tech jobs', url:'https://builtin.com/jobs/new-york/network', color:'blue' },
+];
+
+// ============================================
+// DATA — STUDY TRACKS
+// ============================================
+const STUDY_TRACKS = [
+  { id:'ccna', label:'CCNA 200-301', pct:45, color:'bar-green', link:'ccnahub.html', desc:'OSI, routing, switching, security, WAN' },
+  { id:'comptia', label:'CompTIA A+', pct:20, color:'bar-blue', link:'https://www.professormesser.com/free-a-plus-training/220-1101/220-1101-video/220-1101-training-course/', desc:'Hardware, OS, troubleshooting, networking' },
+  { id:'azure', label:'AZ-900 Azure', pct:10, color:'bar-purple', link:'https://learn.microsoft.com/en-us/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/', desc:'Cloud concepts, Azure services, pricing' },
+  { id:'linux', label:'Linux Fundamentals', pct:35, color:'bar-orange', link:'https://linuxjourney.com/', desc:'CLI, file system, networking, scripting' },
+  { id:'python', label:'Python / Automation', pct:15, color:'bar-red', link:'https://www.netacad.com/courses/programming/pcap-programming-essentials-python', desc:'Network automation, scripting, APIs' },
+  { id:'cisco', label:'Cisco Packet Tracer', pct:40, color:'bar-green', link:'https://www.netacad.com/cisco-packet-tracer', desc:'Lab practice, topologies, configs' },
+];
+
+const STUDY_CHECKS = [
+  { id:'s1', label:'Watch 30 min of CCNA video', link:'ccnahub.html' },
+  { id:'s2', label:'Complete 1 practice lab (Packet Tracer)', link:'https://www.netacad.com/cisco-packet-tracer' },
+  { id:'s3', label:'Review flashcards (15 min)', link:'https://quizlet.com/search?query=ccna&type=sets' },
+  { id:'s4', label:'Apply to 5+ jobs today', link:null },
+  { id:'s5', label:'Update 1 application / follow up', link:null },
+  { id:'s6', label:'LinkedIn: connect with 3 people in field', link:'https://linkedin.com' },
+  { id:'s7', label:'Read 1 IT/network article or Reddit thread', link:'https://reddit.com/r/ccna' },
+];
+
+// ============================================
+// DATA — RESOURCES
+// ============================================
+const RESOURCES = [
+  { cat: 'CCNA Study', items: [
+    { icon:'🎥', name:'Cisco NetAcad', desc:'Free CCNA content, labs', url:'https://www.netacad.com/', badge:'FREE', bc:'tag-net' },
+    { icon:'🎥', name:'Jeremy\'s IT Lab (YouTube)', desc:'Best free CCNA video series', url:'https://www.youtube.com/@JeremysITLab', badge:'FREE', bc:'tag-net' },
+    { icon:'📖', name:'Professor Messer CompTIA', desc:'Free A+, Security+, Net+ videos', url:'https://www.professormesser.com/', badge:'FREE', bc:'tag-it' },
+    { icon:'🧪', name:'Cisco Packet Tracer', desc:'Free network simulator', url:'https://www.netacad.com/cisco-packet-tracer', badge:'FREE', bc:'tag-net' },
+  ]},
+  { cat: 'Practice & Certs', items: [
+    { icon:'📝', name:'Boson ExSim', desc:'Best CCNA practice exams', url:'https://www.boson.com/practice-exam/200-301-cisco-ccna-practice-exam', badge:'PAID', bc:'tag-gen' },
+    { icon:'📝', name:'ExamCompass', desc:'Free networking practice tests', url:'https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests', badge:'FREE', bc:'tag-net' },
+    { icon:'🏆', name:'Credly / Acclaim', desc:'Digital badge platform for certs', url:'https://www.credly.com/', badge:'FREE', bc:'tag-it' },
+  ]},
+  { cat: 'Job Search Tools', items: [
+    { icon:'🤖', name:'Jobscan', desc:'ATS resume scanner — keyword match', url:'https://www.jobscan.co/', badge:'FREEMIUM', bc:'tag-gen' },
+    { icon:'📊', name:'LinkedIn Premium', desc:'See who viewed, InMail recruiters', url:'https://premium.linkedin.com/', badge:'PAID', bc:'tag-gen' },
+    { icon:'📧', name:'Hunter.io', desc:'Find recruiter email addresses', url:'https://hunter.io/', badge:'FREEMIUM', bc:'tag-gig' },
+    { icon:'🔔', name:'Otta.com', desc:'Curated tech job board', url:'https://otta.com/', badge:'FREE', bc:'tag-it' },
+  ]},
+  { cat: 'Portfolio & Projects', items: [
+    { icon:'💻', name:'GitHub', desc:'Host your automation scripts, configs', url:'https://github.com/', badge:'FREE', bc:'tag-it' },
+    { icon:'🌐', name:'GNS3', desc:'Advanced network simulator / lab', url:'https://www.gns3.com/', badge:'FREE', bc:'tag-net' },
+    { icon:'📄', name:'Your Portfolio Site', desc:'issachenderson.dev — keep it updated!', url:'https://issachenderson.dev', badge:'LIVE', bc:'tag-gen' },
+  ]},
+];
+
+// ============================================
+// EMAIL ALERT SETUP DATA
+// ============================================
+const EMAIL_SITES = [
+  { name:'LinkedIn Job Alerts', steps:'Search a role → Save search → "Get email alerts"', url:'https://linkedin.com/jobs/', icon:'💼' },
+  { name:'Indeed Alerts', steps:'Search → Get job alerts button → Choose frequency (daily)', url:'https://indeed.com/prefs/email', icon:'🔍' },
+  { name:'Dice Alerts', steps:'Search → Save search → Notifications → Email daily digest', url:'https://dice.com/dashboard/saved-searches', icon:'🎲' },
+  { name:'ZipRecruiter Alerts', steps:'Account → Saved Searches → Alert frequency → Instant or Daily', url:'https://ziprecruiter.com/candidate/job-alerts', icon:'🤐' },
+  { name:'Google Job Alerts', steps:'Search "network engineer NYC site:linkedin.com" → Tools → Any time → Create Alert', url:'https://alerts.google.com/', icon:'🔔' },
+];
+
+// ============================================
+// LOCK / UNLOCK
+// ============================================
+async function tryUnlock() {
+  const input = document.getElementById('lockInput').value;
+  if (!input) return;
+  const stored = localStorage.getItem('hunter_hash');
+  const inputHash = await CRYPTO.hashPass(input);
+  if (!stored) {
+    // First time — set password
+    localStorage.setItem('hunter_hash', inputHash);
+    SESSION_PASS = input;
+    await loadData();
+    unlock();
+  } else if (stored === inputHash) {
+    SESSION_PASS = input;
+    await loadData();
+    unlock();
+  } else {
+    const err = document.getElementById('lockError');
+    err.style.display = 'flex';
+    err.style.alignItems = 'center';
+    err.style.gap = '6px';
+    document.getElementById('lockInput').style.borderColor = 'var(--red)';
+    setTimeout(() => { err.style.display = 'none'; document.getElementById('lockInput').style.borderColor = ''; }, 3000);
+  }
+}
+document.getElementById('lockInput').addEventListener('keydown', e => { if(e.key==='Enter') tryUnlock(); });
+
+function unlock() {
+  document.getElementById('lockScreen').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  updateStats();
+  renderRecentAlerts();
+  renderDailyTargets();
+  renderQuickResumes();
+  renderAllResumes();
+  renderRoles();
+  renderSites();
+  renderAlerts();
+  renderStudy();
+  renderResources();
+  renderTrackerPage();
+  loadSettings();
+  startClock();
+}
+
+function lockApp() {
+  SESSION_PASS = '';
+  document.getElementById('lockScreen').style.display = 'flex';
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('lockInput').value = '';
+}
+
+// ============================================
+// CLOCK
+// ============================================
+function startClock() {
+  function tick() {
+    const now = new Date();
+    document.getElementById('topTime').textContent = now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+    document.getElementById('dashDate').textContent = now.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+// ============================================
+// NAVIGATION
+// ============================================
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id)?.classList.add('active');
+  if (el) el.classList.add('active');
+  else {
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.getAttribute('onclick')?.includes("'"+id+"'")) n.classList.add('active');
+    });
+  }
+}
+
+// ============================================
+// DATA — SAVE / LOAD (ENCRYPTED)
+// ============================================
+async function saveData() {
+  if (!SESSION_PASS) return;
+  const json = JSON.stringify(DATA);
+  const enc = await CRYPTO.encrypt(json, SESSION_PASS);
+  localStorage.setItem('hunter_data', enc);
+}
+
+async function loadData() {
+  const enc = localStorage.getItem('hunter_data');
+  if (!enc) return;
+  const json = await CRYPTO.decrypt(enc, SESSION_PASS);
+  if (json) {
+    try { DATA = { ...DATA, ...JSON.parse(json) }; } catch {}
+  }
+}
+
+// ============================================
+// TRACKER
+// ============================================
+function renderTracker() {
+  const filter = document.getElementById('filterStatus').value;
+  const search = (document.getElementById('searchTracker')?.value || '').toLowerCase();
+  let apps = DATA.applications || [];
+  if (filter) apps = apps.filter(a => a.status === filter);
+  if (search) apps = apps.filter(a => (a.company+a.role+a.notes).toLowerCase().includes(search));
+  const tbody = document.getElementById('trackerBody');
+  const empty = document.getElementById('trackerEmpty');
+  if (!apps.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = apps.map((a,i) => `
+    <tr>
+      <td><strong style="font-size:.8rem">${a.company}</strong></td>
+      <td style="color:var(--txt)">${a.role}</td>
+      <td><span class="tag tag-${a.type?.toLowerCase()}">${a.type||'IT'}</span></td>
+      <td style="color:var(--mut);font-family:var(--mono);font-size:.65rem">${a.date||'—'}</td>
+      <td><span class="status-pill ${a.status}">${a.status}</span></td>
+      <td style="color:var(--mut);font-size:.72rem;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.notes||'—'}</td>
+      <td>${a.link ? `<a href="${a.link}" target="_blank" class="site-link"><i class="fas fa-external-link-alt"></i> View</a>` : '—'}</td>
+      <td><button class="del-btn" onclick="deleteApp(${DATA.applications.indexOf(a)})"><i class="fas fa-trash"></i></button></td>
+    </tr>
+  `).join('');
+  updateStats();
+  document.getElementById('trackerBadge').textContent = DATA.applications.length;
+}
+
+function renderTrackerPage() { renderTracker(); }
+
+function openAddModal() {
+  document.getElementById('m-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('addModal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('addModal').classList.remove('open'); }
+
+async function saveApplication() {
+  const app = {
+    company: document.getElementById('m-company').value || 'Unknown',
+    role: document.getElementById('m-role').value || 'Unknown Role',
+    type: document.getElementById('m-type').value,
+    status: document.getElementById('m-status').value,
+    date: document.getElementById('m-date').value,
+    salary: document.getElementById('m-salary').value,
+    link: document.getElementById('m-link').value,
+    notes: document.getElementById('m-notes').value,
+    id: Date.now()
+  };
+  DATA.applications.push(app);
+  await saveData();
+  closeModal();
+  renderTracker();
+  updateStats();
+  ['m-company','m-role','m-salary','m-link','m-notes'].forEach(id => document.getElementById(id).value = '');
+}
+
+async function deleteApp(i) {
+  if (!confirm('Remove this application?')) return;
+  DATA.applications.splice(i, 1);
+  await saveData();
+  renderTracker();
+  updateStats();
+}
+
+function updateStats() {
+  const apps = DATA.applications || [];
+  document.getElementById('s-applied').textContent = apps.length;
+  document.getElementById('s-interview').textContent = apps.filter(a=>a.status==='interview').length;
+  document.getElementById('s-pending').textContent = apps.filter(a=>a.status==='applied').length;
+  document.getElementById('s-offers').textContent = apps.filter(a=>a.status==='offer').length;
+  document.getElementById('trackerBadge').textContent = apps.length;
+}
+
+// ============================================
+// RESUMES
+// ============================================
+function resumeCard(r) {
+  const colorMap = { it:'tag-it', network:'tag-net', general:'tag-gen', gig:'tag-gig' };
+  return `
+  <div class="resume-card ${r.color}" onclick="previewResume('${r.id}')">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px">
+      <div class="resume-title">${r.title}</div>
+      <span class="tag ${colorMap[r.color]||'tag-gen'}">${r.cat}</span>
+    </div>
+    <div class="resume-sub">${r.sub}</div>
+    <div class="resume-tags">${r.tags.map(t=>`<span class="rtag">${t}</span>`).join('')}</div>
+    <div class="resume-actions">
+      <a href="${r.link}" target="_blank" class="r-btn primary" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Open</a>
+      <button class="r-btn" onclick="event.stopPropagation();copyLink('${r.link}')"><i class="fas fa-copy"></i> Copy Link</button>
+      <button class="r-btn" onclick="event.stopPropagation();quickApply('${r.id}')"><i class="fas fa-bolt"></i> Log Apply</button>
+    </div>
+  </div>`;
+}
+
+function renderAllResumes() {
+  const it = RESUMES.filter(r=>r.cat==='IT');
+  const net = RESUMES.filter(r=>r.cat==='Network');
+  const gen = RESUMES.filter(r=>r.cat==='General'||r.cat==='Gig');
+  ['r-it-all','r-it'].forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = it.map(resumeCard).join(''); });
+  ['r-net-all','r-net'].forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = net.map(resumeCard).join(''); });
+  ['r-gen-all','r-gen'].forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = gen.map(resumeCard).join(''); });
+  const quick = document.getElementById('quickResumes');
+  if (quick) quick.innerHTML = RESUMES.slice(0,6).map(resumeCard).join('');
+}
+
+function renderQuickResumes() {
+  const quick = document.getElementById('quickResumes');
+  if (quick) quick.innerHTML = RESUMES.slice(0,6).map(resumeCard).join('');
+}
+
+function previewResume(id) {
+  const r = RESUMES.find(x=>x.id===id);
+  if (!r) return;
+  document.getElementById('resumeModalTitle').textContent = r.title;
+  document.getElementById('resumeModalBody').innerHTML = `
+    <div class="resume-sub mb8">${r.sub}</div>
+    <div class="resume-tags mb12">${r.tags.map(t=>`<span class="rtag">${t}</span>`).join('')}</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <a href="${r.link}" target="_blank" class="r-btn primary" style="justify-content:center"><i class="fas fa-external-link-alt"></i> Open on Google Drive</a>
+      <button class="r-btn" onclick="copyLink('${r.link}')" style="justify-content:center"><i class="fas fa-copy"></i> Copy Link</button>
+    </div>
+    <div style="margin-top:14px;font-size:.68rem;color:var(--mut);font-family:var(--mono)">💡 Tip: Customize keywords to match each job posting before applying. Use Jobscan.co to check ATS score.</div>
+  `;
+  document.getElementById('resumeModal').classList.add('open');
+}
+
+function copyLink(url) {
+  navigator.clipboard.writeText(url).then(() => showToast('Link copied!'));
+}
+
+async function quickApply(resumeId) {
+  const r = RESUMES.find(x=>x.id===resumeId);
+  const app = {
+    company: prompt('Company name?') || 'Unknown',
+    role: r?.title || 'Unknown',
+    type: r?.cat || 'IT',
+    status: 'applied',
+    date: new Date().toISOString().split('T')[0],
+    salary: '',
+    link: '',
+    notes: `Applied via ${r?.title} resume`,
+    id: Date.now()
+  };
+  DATA.applications.push(app);
+  await saveData();
+  updateStats();
+  renderTracker();
+  showToast('Application logged!');
+}
+
+// ============================================
+// JOB ROLES
+// ============================================
+let roleFilter = 'all';
+
+const SITE_LINKS = [
+  { name:'LinkedIn', build: r => `https://linkedin.com/jobs/search/?keywords=${encodeURIComponent(r.title)}&location=New+York` },
+  { name:'Indeed', build: r => `https://indeed.com/jobs?q=${encodeURIComponent(r.title)}&l=New+York` },
+  { name:'Dice', build: r => `https://dice.com/jobs?q=${encodeURIComponent(r.title)}&location=New+York` },
+  { name:'Zip', build: r => `https://ziprecruiter.com/jobs/search?search=${encodeURIComponent(r.title)}&location=New+York` },
+  { name:'Glass.', build: r => `https://glassdoor.com/Job/new-york-${r.title.toLowerCase().replace(/ /g,'-')}-jobs-SRCH_IL.0,8_IC1132348.htm` },
+];
+
+function filterRoles(f, el) {
+  roleFilter = f;
+  document.querySelectorAll('[id^=filter-]').forEach(b => b.classList.remove('primary'));
+  if(el) el.classList.add('primary');
+  renderRoles();
+}
+
+function filterRoleSearch() { renderRoles(); }
+
+function renderRoles() {
+  const search = (document.getElementById('roleSearch')?.value||'').toLowerCase();
+  let roles = ROLES;
+  if (roleFilter !== 'all') roles = roles.filter(r=>r.type===roleFilter);
+  if (search) roles = roles.filter(r=>(r.title+r.desc+r.type).toLowerCase().includes(search));
+  const colorMap = { IT:'tag-it', Network:'tag-net', General:'tag-gen', Gig:'tag-gig' };
+  document.getElementById('roleList').innerHTML = roles.map(r => `
+    <div class="role-item">
+      <div class="role-rank">#${r.rank}</div>
+      <div class="role-info">
+        <div class="role-title">${r.title} <span class="tag ${colorMap[r.type]||'tag-gen'}" style="margin-left:4px">${r.type}</span></div>
+        <div style="display:flex;gap:12px;margin-top:2px">
+          <span class="role-pay">${r.pay}</span>
+          <span class="role-type">${r.desc}</span>
+        </div>
+      </div>
+      <div class="role-links">
+        ${SITE_LINKS.map(s=>`<a href="${s.build(r)}" target="_blank" class="site-link">${s.name}</a>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================
+// JOB SITES
+// ============================================
+function renderSites() {
+  document.getElementById('primarySites').innerHTML = PRIMARY_SITES.map(s => `
+    <a href="${s.url}" target="_blank" class="site-card">
+      <div class="site-icon">${s.icon}</div>
+      <div class="site-name">${s.name}</div>
+      <div class="site-desc">${s.desc}</div>
+    </a>
+  `).join('');
+  document.getElementById('specSites').innerHTML = SPEC_SITES.map(s => `
+    <a href="${s.url}" target="_blank" class="resource-item">
+      <div class="resource-icon">${s.icon}</div>
+      <div class="resource-info">
+        <div class="resource-name">${s.name}</div>
+        <div class="resource-desc">${s.desc}</div>
+      </div>
+      <i class="fas fa-external-link-alt" style="color:var(--mut);font-size:.7rem;flex-shrink:0"></i>
+    </a>
+  `).join('');
+}
+
+// ============================================
+// ALERTS
+// ============================================
+function renderAlerts() {
+  const alerts = DATA.alerts || [];
+  document.getElementById('alertCount').textContent = alerts.length;
+  document.getElementById('alertBadge').textContent = alerts.filter(a=>a.priority==='high').length || alerts.length;
+  document.getElementById('alertList').innerHTML = alerts.length
+    ? alerts.map((a,i) => `
+      <div class="alert-item ${a.priority}">
+        <div class="alert-dot"></div>
+        <div class="alert-body">
+          <div class="alert-title">${a.title}</div>
+          <div class="alert-meta">${a.type?.toUpperCase()} · ${a.notes||'No notes'}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+          <span class="alert-time">${a.date||'No date'}</span>
+          <button class="del-btn" onclick="deleteAlert(${i})"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>`).join('')
+    : '<div class="empty-state"><div class="empty-icon">🔔</div>No alerts yet. Set one above.</div>';
+
+  document.getElementById('emailSetup').innerHTML = EMAIL_SITES.map(s => `
+    <a href="${s.url}" target="_blank" class="resource-item">
+      <div class="resource-icon">${s.icon}</div>
+      <div class="resource-info">
+        <div class="resource-name">${s.name}</div>
+        <div class="resource-desc">${s.steps}</div>
+      </div>
+      <i class="fas fa-external-link-alt" style="color:var(--mut);font-size:.7rem"></i>
+    </a>`).join('');
+}
+
+function renderRecentAlerts() {
+  const el = document.getElementById('recentAlerts');
+  const alerts = (DATA.alerts||[]).slice(0,3);
+  if (!alerts.length) { el.innerHTML = '<div class="text-mut" style="padding:12px 0">No alerts set yet.</div>'; return; }
+  el.innerHTML = alerts.map(a => `
+    <div class="alert-item ${a.priority}" style="margin-bottom:6px">
+      <div class="alert-dot"></div>
+      <div class="alert-body">
+        <div class="alert-title">${a.title}</div>
+        <div class="alert-meta">${a.type?.toUpperCase()} · ${a.date||'No date'}</div>
+      </div>
+    </div>`).join('');
+}
+
+async function addAlert() {
+  const alert = {
+    type: document.getElementById('alertType').value,
+    priority: document.getElementById('alertPriority').value,
+    title: document.getElementById('alertTitle').value || 'Untitled Alert',
+    date: document.getElementById('alertDate').value,
+    notes: document.getElementById('alertNotes').value,
+    id: Date.now()
+  };
+  DATA.alerts.push(alert);
+  await saveData();
+  renderAlerts();
+  renderRecentAlerts();
+  document.getElementById('alertTitle').value = '';
+  document.getElementById('alertNotes').value = '';
+  document.getElementById('alertDate').value = '';
+  showToast('Alert created!');
+}
+
+async function deleteAlert(i) {
+  DATA.alerts.splice(i, 1);
+  await saveData();
+  renderAlerts();
+  renderRecentAlerts();
+}
+
+// ============================================
+// STUDY
+// ============================================
+function renderStudy() {
+  document.getElementById('studyCards').innerHTML = STUDY_TRACKS.map(t => `
+    <div class="study-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <h3>${t.label}</h3>
+        <span style="font-family:var(--mono);font-size:.72rem;color:var(--ac)">${DATA.studyProgress[t.id]||0}%</span>
+      </div>
+      <div style="font-size:.65rem;color:var(--mut);margin-bottom:6px">${t.desc}</div>
+      <div class="study-progress"><div class="study-bar ${t.color}" style="width:${DATA.studyProgress[t.id]||0}%"></div></div>
+      <input type="range" min="0" max="100" value="${DATA.studyProgress[t.id]||0}"
+        oninput="updateProgress('${t.id}',this.value)"
+        style="width:100%;margin:6px 0;accent-color:var(--ac);cursor:pointer">
+      <div class="study-meta"><span>0%</span><span>100%</span></div>
+      <a href="${t.link}" target="_blank" class="study-link"><i class="fas fa-play-circle"></i> Study Now →</a>
+    </div>
+  `).join('');
+
+  const todayKey = new Date().toDateString();
+  document.getElementById('studyChecklist').innerHTML = STUDY_CHECKS.map(c => {
+    const key = `check_${c.id}_${todayKey}`;
+    const done = DATA.studyChecks[key] || false;
+    return `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--panel2);border:1px solid var(--bor2);border-radius:8px;margin-bottom:5px${done?';opacity:.6':''}">
+      <button class="toggle ${done?'on':''}" onclick="toggleCheck('${key}')"></button>
+      <span style="flex:1;font-size:.78rem${done?';text-decoration:line-through;color:var(--mut)':''}">${c.label}</span>
+      ${c.link ? `<a href="${c.link}" target="_blank" class="site-link"><i class="fas fa-arrow-right"></i></a>` : ''}
+    </div>`;
+  }).join('');
+}
+
+async function updateProgress(id, val) {
+  DATA.studyProgress[id] = parseInt(val);
+  document.querySelectorAll('.study-card').forEach(c => {
+    const input = c.querySelector('input[type=range]');
+    if (input && c.querySelector('h3').textContent === STUDY_TRACKS.find(t=>t.id===id)?.label) {
+      c.querySelector('.study-bar').style.width = val+'%';
+      c.querySelector('span[style*="mono"]').textContent = val+'%';
+    }
+  });
+  await saveData();
+}
+
+async function toggleCheck(key) {
+  DATA.studyChecks[key] = !DATA.studyChecks[key];
+  await saveData();
+  renderStudy();
+}
+
+// ============================================
+// RESOURCES
+// ============================================
+function renderResources() {
+  document.getElementById('resourceList').innerHTML = RESOURCES.map(r => `
+    <div class="section-label">${r.cat}</div>
+    ${r.items.map(item => `
+    <a href="${item.url}" target="_blank" class="resource-item" style="margin-bottom:5px">
+      <div class="resource-icon">${item.icon}</div>
+      <div class="resource-info">
+        <div class="resource-name">${item.name}</div>
+        <div class="resource-desc">${item.desc}</div>
+      </div>
+      <span class="resource-badge tag ${item.bc}">${item.badge}</span>
+    </a>`).join('')}
+  `).join('');
+}
+
+// ============================================
+// DAILY TARGETS
+// ============================================
+function renderDailyTargets() {
+  const targets = [
+    { icon:'💼', label:'Apply to 5+ jobs', note:'Daily minimum' },
+    { icon:'🔗', label:'3 LinkedIn connections', note:'Field contacts' },
+    { icon:'📚', label:'30min CCNA study', note:'Stay sharp' },
+    { icon:'📧', label:'Follow up old apps', note:'7+ days old' },
+    { icon:'📝', label:'Log all applications', note:'Stay organized' },
+  ];
+  document.getElementById('dailyTargets').innerHTML = targets.map(t => `
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel2);border:1px solid var(--bor2);border-radius:8px;margin-bottom:5px">
+      <span style="font-size:1rem">${t.icon}</span>
+      <div>
+        <div style="font-size:.78rem;font-weight:600">${t.label}</div>
+        <div style="font-size:.62rem;color:var(--mut);font-family:var(--mono)">${t.note}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ============================================
+// SETTINGS
+// ============================================
+async function changePass() {
+  const p1 = document.getElementById('newPass').value;
+  const p2 = document.getElementById('newPass2').value;
+  if (!p1 || p1 !== p2) { showToast('Passphrases must match!', 'error'); return; }
+  const newHash = await CRYPTO.hashPass(p1);
+  const json = JSON.stringify(DATA);
+  const enc = await CRYPTO.encrypt(json, p1);
+  localStorage.setItem('hunter_hash', newHash);
+  localStorage.setItem('hunter_data', enc);
+  SESSION_PASS = p1;
+  document.getElementById('newPass').value = '';
+  document.getElementById('newPass2').value = '';
+  showToast('Passphrase updated!');
+}
+
+function loadSettings() {
+  document.getElementById('settingName').value = DATA.settings?.name || '';
+  document.getElementById('settingRole').value = DATA.settings?.role || '';
+  document.getElementById('settingLoc').value = DATA.settings?.loc || '';
+}
+
+async function saveSettings() {
+  DATA.settings = {
+    name: document.getElementById('settingName').value,
+    role: document.getElementById('settingRole').value,
+    loc: document.getElementById('settingLoc').value,
+  };
+  await saveData();
+  showToast('Settings saved!');
+}
+
+async function exportData() {
+  const json = JSON.stringify(DATA, null, 2);
+  const blob = new Blob([json], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='hunter-dash-export.json'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('Data exported!');
+}
+
+function importData() { document.getElementById('importFile').click(); }
+
+async function handleImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const text = await file.text();
+  try {
+    const imported = JSON.parse(text);
+    DATA = { ...DATA, ...imported };
+    await saveData();
+    showToast('Data imported!');
+    updateStats(); renderTracker(); renderAlerts(); renderStudy();
+  } catch { showToast('Invalid file!', 'error'); }
+}
+
+async function clearData() {
+  if (!confirm('Clear ALL data? This cannot be undone.')) return;
+  DATA = { applications: [], alerts: [], studyProgress: { ccna:0,comptia:0,azure:0,linux:0,python:0,cisco:0 }, studyChecks: {}, settings: DATA.settings, passHash: DATA.passHash };
+  await saveData();
+  updateStats(); renderTracker(); renderAlerts(); renderStudy();
+  showToast('Data cleared.');
+}
+
+// ============================================
+// TOAST
+// ============================================
+function showToast(msg, type='success') {
+  const t = document.createElement('div');
+  t.style.cssText = `position:fixed;bottom:24px;right:24px;background:var(--panel);border:1px solid ${type==='error'?'var(--red)':'var(--ac)'};color:${type==='error'?'var(--red)':'var(--ac)'};padding:10px 18px;border-radius:8px;font-size:.78rem;font-family:var(--mono);z-index:9999;animation:slideIn .3s ease;box-shadow:0 4px 20px rgba(0,0,0,.3)`;
+  t.textContent = (type==='error'?'❌ ':'✅ ') + msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2800);
+}
+
+// Init date input
+document.getElementById('alertDate').value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
