@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HUNTER // Job Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.umd.min.js"></script>
 <style>
 :root{
-  --bg:#07080d;--panel:#0d1117;--panel2:#111827;--panel3:#161c2a;
-  --ac:#00ff88;--ac2:#0088ff;--ac3:#ff4466;--ac4:#ffaa00;--ac5:#aa44ff;
-  --txt:#c8d6e8;--mut:#4a5568;--bor:#1a2234;--bor2:#1e2d40;
-  --red:#ff3355;--green:#00ff88;--orange:#ff8800;--blue:#0088ff;
-  --glow:0 0 20px rgba(0,255,136,.12);
-  --font:'Space Grotesk',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --bg:#1a1f2e;--panel:#222736;--panel2:#1e2435;--panel3:#252b3d;
+  --ac:#64d2ff;--ac2:#30d158;--ac3:#ff453a;--ac4:#ff9f0a;--ac5:#bf5af2;
+  --txt:#cdd6f4;--mut:#6c7086;--bor:#2a3248;--bor2:#2e3855;
+  --red:#ff453a;--green:#30d158;--orange:#ff9f0a;--blue:#64d2ff;
+  --pu:#632ca6;--pu2:#7b4dbf;
+  --glow:0 0 20px rgba(100,210,255,.1);
+  --font:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -21,16 +23,16 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 
 /* LOCK SCREEN */
 #lockScreen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
-#lockScreen::before{content:'';position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,rgba(0,255,136,.4) 0%,transparent 100%),radial-gradient(1px 1px at 80% 60%,rgba(0,136,255,.3) 0%,transparent 100%),radial-gradient(1px 1px at 50% 80%,rgba(170,68,255,.3) 0%,transparent 100%);background-size:300px 300px,400px 400px,250px 250px;animation:starfield 20s linear infinite;pointer-events:none}
+#lockScreen::before{content:'';position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,rgba(99,44,166,.5) 0%,transparent 100%),radial-gradient(1px 1px at 80% 60%,rgba(0,113,227,.4) 0%,transparent 100%),radial-gradient(1px 1px at 50% 80%,rgba(100,210,255,.3) 0%,transparent 100%);background-size:300px 300px,400px 400px,250px 250px;animation:starfield 20s linear infinite;pointer-events:none}
 @keyframes starfield{0%{background-position:0 0,0 0,0 0}100%{background-position:300px 300px,400px 400px,250px 250px}}
-.lock-logo{font-family:var(--mono);font-size:2.2rem;font-weight:600;letter-spacing:.1em;color:var(--ac);text-shadow:0 0 30px rgba(0,255,136,.5)}
+.lock-logo{font-family:var(--mono);font-size:2.2rem;font-weight:600;letter-spacing:.1em;background:linear-gradient(135deg,var(--pu),var(--ac));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .lock-sub{font-family:var(--mono);font-size:.7rem;color:var(--mut);letter-spacing:.15em;text-transform:uppercase;margin-top:-16px}
 .lock-form{display:flex;flex-direction:column;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--bor2);border-radius:16px;padding:32px 40px;position:relative;z-index:1;min-width:320px}
 .lock-form::before{content:'🔐';font-size:2rem;margin-bottom:4px}
 .lock-label{font-size:.72rem;color:var(--mut);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;align-self:flex-start}
 .lock-input{width:100%;background:var(--panel2);border:1px solid var(--bor2);color:var(--txt);padding:12px 16px;border-radius:8px;font-family:var(--mono);font-size:.9rem;letter-spacing:.15em;text-align:center;transition:.2s;outline:none}
 .lock-input:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(0,255,136,.1)}
-.lock-btn{width:100%;background:var(--ac);color:#000;border:none;padding:12px;border-radius:8px;font-family:var(--font);font-weight:700;font-size:.9rem;cursor:pointer;letter-spacing:.05em;transition:.15s}
+.lock-btn{width:100%;background:linear-gradient(135deg,var(--pu),var(--pu2));color:#fff;border:none;padding:12px;border-radius:8px;font-family:var(--font);font-weight:700;font-size:.9rem;cursor:pointer;letter-spacing:.05em;transition:.15s}
 .lock-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
 .lock-error{color:var(--red);font-size:.72rem;font-family:var(--mono);display:none}
 .lock-hint{color:var(--mut);font-size:.62rem;font-family:var(--mono);text-align:center;line-height:1.6}
@@ -56,7 +58,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 .sidebar-section{font-family:var(--mono);font-size:.55rem;color:var(--mut);letter-spacing:.12em;text-transform:uppercase;padding:8px 16px 4px;margin-top:8px}
 .nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;border-radius:0;transition:.15s;color:var(--mut);font-size:.8rem;font-weight:500;border-left:2px solid transparent;position:relative}
 .nav-item:hover{color:var(--txt);background:rgba(255,255,255,.03)}
-.nav-item.active{color:var(--ac);background:rgba(0,255,136,.06);border-left-color:var(--ac)}
+.nav-item.active{color:var(--ac);background:rgba(100,210,255,.06);border-left-color:var(--ac)}
 .nav-item i{width:16px;text-align:center;font-size:.8rem}
 .nav-badge{margin-left:auto;font-family:var(--mono);font-size:.55rem;padding:1px 6px;border-radius:10px;background:rgba(255,68,102,.15);color:var(--ac3);border:1px solid rgba(255,68,102,.2)}
 .nav-badge.green{background:rgba(0,255,136,.1);color:var(--ac);border-color:rgba(0,255,136,.2)}
@@ -157,7 +159,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 .form-input{background:var(--panel);border:1px solid var(--bor2);color:var(--txt);padding:8px 10px;border-radius:6px;font-family:var(--font);font-size:.78rem;outline:none;transition:.15s}
 .form-input:focus{border-color:var(--ac);box-shadow:0 0 0 2px rgba(0,255,136,.08)}
 .form-select{background:var(--panel);border:1px solid var(--bor2);color:var(--txt);padding:8px 10px;border-radius:6px;font-family:var(--font);font-size:.78rem;outline:none;appearance:none;cursor:pointer}
-.submit-btn{background:linear-gradient(135deg,var(--ac),rgba(0,136,255,.8));color:#000;border:none;padding:9px 20px;border-radius:7px;font-family:var(--font);font-weight:700;font-size:.78rem;cursor:pointer;transition:.15s;letter-spacing:.03em}
+.submit-btn{background:linear-gradient(135deg,var(--pu),var(--pu2));color:#fff;border:none;padding:9px 20px;border-radius:7px;font-family:var(--font);font-weight:700;font-size:.78rem;cursor:pointer;transition:.15s;letter-spacing:.03em}
 .submit-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
 
 /* TRACKER */
@@ -342,10 +344,10 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
     <!-- ========== TRACKER ========== -->
     <div class="page" id="page-tracker">
       <div class="page-title">Application Tracker</div>
-      <div class="page-sub">ENCRYPTED // all data stays local</div>
+      <div class="page-sub">ENCRYPTED // all data stays local &nbsp;·&nbsp; Select rows → Export as Employment Tracker doc</div>
 
       <div class="flex-between mb12">
-        <div class="flex" style="gap:6px">
+        <div class="flex" style="gap:6px;flex-wrap:wrap">
           <select class="form-select" id="filterStatus" onchange="renderTracker()" style="font-size:.72rem;padding:6px 10px">
             <option value="">All Status</option>
             <option value="applied">Applied</option>
@@ -356,14 +358,32 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
           </select>
           <input class="form-input" id="searchTracker" placeholder="Search..." oninput="renderTracker()" style="font-size:.72rem;padding:6px 10px;width:160px">
         </div>
-        <button class="add-btn" onclick="openAddModal()"><i class="fas fa-plus"></i> Log Application</button>
+        <div class="flex" style="gap:6px">
+          <button class="add-btn" onclick="openAddModal()"><i class="fas fa-plus"></i> Log Application</button>
+        </div>
+      </div>
+
+      <!-- EXPORT TOOLBAR -->
+      <div style="background:rgba(99,44,166,.08);border:1px solid rgba(123,77,191,.25);border-radius:10px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:8px">
+          <input type="checkbox" id="selectAll" onchange="toggleSelectAll(this)" style="accent-color:var(--pu2);width:15px;height:15px;cursor:pointer">
+          <label for="selectAll" style="font-size:.76rem;font-weight:600;cursor:pointer">Select All</label>
+        </div>
+        <span style="color:var(--mut);font-size:.7rem;font-family:var(--mono)" id="selectedCount">0 selected</span>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+          <span style="font-size:.68rem;color:var(--mut);font-family:var(--mono)">Export as Employment Tracker doc:</span>
+          <button class="submit-btn" onclick="exportEmploymentTracker()" style="padding:7px 16px;font-size:.75rem;display:flex;align-items:center;gap:6px">
+            <i class="fas fa-file-word"></i> Export .docx
+          </button>
+        </div>
       </div>
 
       <div class="card">
         <table class="tracker-table" id="trackerTable">
           <thead>
             <tr>
-              <th>Company</th><th>Role</th><th>Type</th><th>Applied</th><th>Status</th><th>Notes</th><th>Links</th><th></th>
+              <th style="width:36px"></th>
+              <th>Company</th><th>Role</th><th>Type</th><th>Applied</th><th>Phone / Contact</th><th>Status</th><th>Notes</th><th>Links</th><th></th>
             </tr>
           </thead>
           <tbody id="trackerBody"></tbody>
@@ -596,8 +616,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
         <input class="form-input" type="date" id="m-date">
       </div>
       <div class="form-group">
-        <div class="form-label">Salary Range</div>
-        <input class="form-input" id="m-salary" placeholder="$70k - $85k">
+        <div class="form-label">Phone / Contact</div>
+        <input class="form-input" id="m-phone" placeholder="(212) 555-1234 or recruiter name">
       </div>
     </div>
     <div class="form-group mb8">
@@ -925,21 +945,28 @@ function renderTracker() {
   if (search) apps = apps.filter(a => (a.company+a.role+a.notes).toLowerCase().includes(search));
   const tbody = document.getElementById('trackerBody');
   const empty = document.getElementById('trackerEmpty');
-  if (!apps.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  if (!apps.length) { tbody.innerHTML = ''; empty.style.display = 'block'; updateSelectedCount(); return; }
   empty.style.display = 'none';
-  tbody.innerHTML = apps.map((a,i) => `
+  tbody.innerHTML = apps.map((a,i) => {
+    const realIdx = DATA.applications.indexOf(a);
+    return `
     <tr>
+      <td style="text-align:center">
+        <input type="checkbox" class="row-check" data-idx="${realIdx}" onchange="updateSelectedCount()" style="accent-color:var(--pu2);width:14px;height:14px;cursor:pointer">
+      </td>
       <td><strong style="font-size:.8rem">${a.company}</strong></td>
       <td style="color:var(--txt)">${a.role}</td>
-      <td><span class="tag tag-${a.type?.toLowerCase()}">${a.type||'IT'}</span></td>
+      <td><span class="tag tag-${(a.type||'IT').toLowerCase()}">${a.type||'IT'}</span></td>
       <td style="color:var(--mut);font-family:var(--mono);font-size:.65rem">${a.date||'—'}</td>
+      <td style="color:var(--mut);font-size:.72rem">${a.phone||'—'}</td>
       <td><span class="status-pill ${a.status}">${a.status}</span></td>
-      <td style="color:var(--mut);font-size:.72rem;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.notes||'—'}</td>
+      <td style="color:var(--mut);font-size:.72rem;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.notes||'—'}</td>
       <td>${a.link ? `<a href="${a.link}" target="_blank" class="site-link"><i class="fas fa-external-link-alt"></i> View</a>` : '—'}</td>
-      <td><button class="del-btn" onclick="deleteApp(${DATA.applications.indexOf(a)})"><i class="fas fa-trash"></i></button></td>
-    </tr>
-  `).join('');
+      <td><button class="del-btn" onclick="deleteApp(${realIdx})"><i class="fas fa-trash"></i></button></td>
+    </tr>`;
+  }).join('');
   updateStats();
+  updateSelectedCount();
   document.getElementById('trackerBadge').textContent = DATA.applications.length;
 }
 
@@ -959,7 +986,7 @@ async function saveApplication() {
     type: document.getElementById('m-type').value,
     status: document.getElementById('m-status').value,
     date: document.getElementById('m-date').value,
-    salary: document.getElementById('m-salary').value,
+    phone: document.getElementById('m-phone').value,
     link: document.getElementById('m-link').value,
     notes: document.getElementById('m-notes').value,
     id: Date.now()
@@ -969,7 +996,7 @@ async function saveApplication() {
   closeModal();
   renderTracker();
   updateStats();
-  ['m-company','m-role','m-salary','m-link','m-notes'].forEach(id => document.getElementById(id).value = '');
+  ['m-company','m-role','m-phone','m-link','m-notes'].forEach(id => document.getElementById(id).value = '');
 }
 
 async function deleteApp(i) {
@@ -1372,6 +1399,171 @@ function showToast(msg, type='success') {
   t.textContent = (type==='error'?'❌ ':'✅ ') + msg;
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 2800);
+}
+
+// ============================================
+// SELECT & EXPORT EMPLOYMENT TRACKER
+// ============================================
+function toggleSelectAll(cb) {
+  document.querySelectorAll('.row-check').forEach(c => c.checked = cb.checked);
+  updateSelectedCount();
+}
+
+function updateSelectedCount() {
+  const checks = document.querySelectorAll('.row-check:checked');
+  const el = document.getElementById('selectedCount');
+  if (el) el.textContent = `${checks.length} selected`;
+}
+
+async function exportEmploymentTracker() {
+  const checks = document.querySelectorAll('.row-check:checked');
+  if (!checks.length) { showToast('Select at least one application first!', 'error'); return; }
+
+  const selected = [];
+  checks.forEach(c => {
+    const idx = parseInt(c.dataset.idx);
+    if (DATA.applications[idx]) selected.push(DATA.applications[idx]);
+  });
+
+  // Build docx using docx.js (loaded via CDN as window.docx)
+  const {
+    Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+    AlignmentType, BorderStyle, WidthType, VerticalAlign, ShadingType,
+    HeadingLevel, UnderlineType
+  } = window.docx;
+
+  const borderColor = '555555';
+  const cellBorder = { style: BorderStyle.SINGLE, size: 4, color: borderColor };
+  const borders = { top: cellBorder, bottom: cellBorder, left: cellBorder, right: cellBorder };
+
+  // Header row — matches the image exactly: COMPANY NAME | PHONE # | DATE CONTACTED | CHECKED OFF
+  const colWidths = [3060, 2400, 2100, 1800]; // sum = 9360 DXA (US Letter 1" margins)
+
+  function headerCell(text) {
+    return new TableCell({
+      borders,
+      width: { size: colWidths[['COMPANY NAME:','PHONE #:','DATE CONTACTED:','CHECKED\nOFF:'].indexOf(text) >= 0 ? ['COMPANY NAME:','PHONE #:','DATE CONTACTED:','CHECKED\nOFF:'].indexOf(text) : 0], type: WidthType.DXA },
+      margins: { top: 60, bottom: 60, left: 100, right: 100 },
+      shading: { fill: 'FFFFFF', type: ShadingType.CLEAR },
+      children: [new Paragraph({
+        children: [new TextRun({ text, bold: true, size: 18, font: 'Arial', underline: { type: UnderlineType.SINGLE } })],
+      })]
+    });
+  }
+
+  function makeHeaderCell(text, width) {
+    return new TableCell({
+      borders,
+      width: { size: width, type: WidthType.DXA },
+      margins: { top: 60, bottom: 60, left: 100, right: 100 },
+      shading: { fill: 'FFFFFF', type: ShadingType.CLEAR },
+      children: [new Paragraph({
+        children: [new TextRun({ text, bold: true, size: 18, font: 'Arial', underline: { type: UnderlineType.SINGLE } })]
+      })]
+    });
+  }
+
+  function makeDataCell(text, width) {
+    return new TableCell({
+      borders,
+      width: { size: width, type: WidthType.DXA },
+      margins: { top: 60, bottom: 60, left: 100, right: 100 },
+      shading: { fill: 'FFFFFF', type: ShadingType.CLEAR },
+      children: [new Paragraph({
+        children: [new TextRun({ text: text || '', size: 18, font: 'Arial' })]
+      })]
+    });
+  }
+
+  // Header row
+  const headerRow = new TableRow({
+    tableHeader: true,
+    children: [
+      makeHeaderCell('COMPANY NAME:', colWidths[0]),
+      makeHeaderCell('PHONE #:', colWidths[1]),
+      makeHeaderCell('DATE CONTACTED:', colWidths[2]),
+      new TableCell({
+        borders,
+        width: { size: colWidths[3], type: WidthType.DXA },
+        margins: { top: 60, bottom: 60, left: 100, right: 100 },
+        shading: { fill: 'FFFFFF', type: ShadingType.CLEAR },
+        children: [
+          new Paragraph({ children: [new TextRun({ text: 'CHECKED', bold: true, size: 18, font: 'Arial', underline: { type: UnderlineType.SINGLE } })] }),
+          new Paragraph({ children: [new TextRun({ text: 'OFF:', bold: true, size: 18, font: 'Arial', underline: { type: UnderlineType.SINGLE } })] }),
+        ]
+      }),
+    ]
+  });
+
+  // Data rows from selected applications
+  const dataRows = selected.map(a => new TableRow({
+    height: { value: 360, rule: 'exact' },
+    children: [
+      makeDataCell(a.company || '', colWidths[0]),
+      makeDataCell(a.phone || '', colWidths[1]),
+      makeDataCell(a.date || '', colWidths[2]),
+      makeDataCell(a.status === 'offer' || a.status === 'rejected' ? '✓' : '', colWidths[3]),
+    ]
+  }));
+
+  // Pad to at least 25 rows total (like the printed form)
+  const minRows = 25;
+  const padCount = Math.max(0, minRows - selected.length);
+  const emptyRows = Array.from({ length: padCount }, () => new TableRow({
+    height: { value: 360, rule: 'exact' },
+    children: [
+      makeDataCell('', colWidths[0]),
+      makeDataCell('', colWidths[1]),
+      makeDataCell('', colWidths[2]),
+      makeDataCell('', colWidths[3]),
+    ]
+  }));
+
+  const table = new Table({
+    width: { size: 9360, type: WidthType.DXA },
+    columnWidths: colWidths,
+    rows: [headerRow, ...dataRows, ...emptyRows]
+  });
+
+  const doc = new Document({
+    sections: [{
+      properties: {
+        page: {
+          size: { width: 12240, height: 15840 },
+          margin: { top: 1440, right: 1008, bottom: 1440, left: 1008 }
+        }
+      },
+      children: [
+        new Paragraph({
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 320 },
+          children: [new TextRun({
+            text: 'Employment Tracker:',
+            bold: true,
+            size: 40,
+            font: 'Arial',
+            underline: { type: UnderlineType.SINGLE }
+          })]
+        }),
+        table
+      ]
+    }]
+  });
+
+  try {
+    const buffer = await Packer.toBuffer(doc);
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `employment-tracker-${new Date().toISOString().split('T')[0]}.docx`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast(`Exported ${selected.length} application${selected.length>1?'s':''}!`);
+  } catch(e) {
+    console.error(e);
+    showToast('Export failed — see console', 'error');
+  }
 }
 
 // Init date input
