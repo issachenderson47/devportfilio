@@ -173,18 +173,113 @@
     .cert-st.ok{color:var(--grd)}.cert-st.ok::before{content:'✓ '}
     .cert-st.wip{color:var(--ord)}.cert-st.wip::before{content:'◌ '}
 
-    /* PROJECTS */
-    #projects{padding:var(--sec);background:var(--bg2)}
-    .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:56px}
-    .proj{background:var(--bg);padding:40px 32px;transition:background .15s}
-    .proj:hover{background:#fff}
-    .proj-n{font-size:56px;font-weight:900;color:var(--bdr2);line-height:1;margin-bottom:20px;letter-spacing:-.03em;transition:color .2s}
+    /* PROJECTS — Full grid with filter + accordions */
+    #projects{padding:var(--sec) 0;background:var(--bg2)}
+    #projects .wrap-hd{max-width:var(--mw);margin:0 auto;padding:0 24px 0;position:relative;z-index:2}
+    .filter-wrap{padding:24px 0 28px;position:relative;z-index:10}
+    .filter-inner{max-width:var(--mw);margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .f-btn{font-family:var(--fm);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--bdr2);background:var(--bg);color:var(--tx3);border-radius:980px;cursor:pointer;transition:all .2s}
+    .f-btn:hover,.f-btn.active{border-color:var(--pu);color:var(--pu);background:var(--pub)}
+    .projects-inner{padding:0 0 0;position:relative;overflow:hidden;}
+    .projects-inner::before{content:'';position:absolute;inset:-10%;z-index:0;pointer-events:none;background:url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=3840&q=90') center/cover no-repeat;opacity:0.25;animation:ambientPan 40s ease-in-out infinite alternate;}
+    .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:48px;position:relative;z-index:2}
+    .proj{background:var(--bg);padding:36px 28px;transition:background .15s;display:flex;flex-direction:column;position:relative;overflow:hidden}
+    .proj::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pu);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+    .proj:hover::before{transform:scaleX(1)}
+    .proj:hover{background:var(--bg2)}
+    .proj.featured{grid-column:span 2}
+    .proj-n{font-size:56px;font-weight:800;color:var(--bdr2);line-height:1;margin-bottom:16px;letter-spacing:-.03em;transition:color .25s}
     .proj:hover .proj-n{color:var(--pu)}
-    .proj-cat{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--pu);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
-    .proj-t{font-size:20px;font-weight:800;color:var(--tx);line-height:1.3;margin-bottom:12px}
-    .proj-d{font-size:15px;color:var(--tx2);line-height:1.6}
-    .ptag{display:inline-block;font-family:var(--fm);font-size:12px;font-weight:500;color:var(--tx3);background:var(--bg2);padding:4px 10px;margin:12px 4px 0 0;border-radius:4px}
-    .pcta{display:flex;justify-content:center}
+    .proj-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .proj-cat{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--pu);text-transform:uppercase;letter-spacing:.12em}
+    .proj-yr{font-family:var(--fm);font-size:10px;color:var(--tx3)}
+    .proj-t{font-size:18px;font-weight:600;color:var(--tx);line-height:1.3;margin-bottom:12px}
+    .proj.featured .proj-t{font-size:22px}
+    .proj-d{font-size:14px;color:var(--tx2);line-height:1.7;flex:1;margin-bottom:20px}
+    .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+    .ptag{font-family:var(--fm);font-size:10px;color:var(--tx3);background:var(--bg2);padding:3px 10px;border-radius:4px}
+    .outcomes{list-style:none;margin-bottom:0}
+    .outcomes li{font-family:var(--fm);font-size:11px;color:var(--tx2);padding:7px 0;border-bottom:1px solid var(--bdr2);display:flex;align-items:center;gap:8px}
+    .outcomes li:last-child{border-bottom:none}
+    .outcomes li::before{content:'\2192';color:var(--pu);font-size:10px;flex-shrink:0}
+    .proj-link{font-family:var(--fm);font-size:11px;color:var(--pu);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:12px;transition:gap .2s}
+    .proj-link:hover{gap:10px}
+    /* CASE STUDY ACCORDIONS */
+    .cs-section-wrap{position:relative;z-index:2;max-width:var(--mw);margin:0 auto;padding:0 24px}
+    .cs-accordion{margin-bottom:0;scroll-margin-top:72px}
+    .cs-trigger{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;background:#0f1117;border-radius:var(--rad);cursor:pointer;transition:all .3s ease;margin-bottom:2px;position:relative;overflow:hidden;}
+    .cs-trigger::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(99,44,166,.12) 1px,transparent 1px);background-size:28px 28px;opacity:.4}
+    .cs-trigger:hover{background:#141824}
+    .cs-accordion.open .cs-trigger{border-radius:var(--rad) var(--rad) 0 0}
+    .cs-trigger-left{display:flex;align-items:center;gap:20px;position:relative;z-index:1}
+    .cs-trigger-num{font-family:var(--fm);font-size:28px;font-weight:800;color:rgba(255,255,255,.1);line-height:1;letter-spacing:-.02em}
+    .cs-trigger-info{display:flex;flex-direction:column;gap:2px}
+    .cs-trigger-cat{font-family:var(--fm);font-size:9px;font-weight:500;color:#a78bfa;letter-spacing:.14em;text-transform:uppercase}
+    .cs-trigger-title{font-size:16px;font-weight:600;color:#fff;letter-spacing:-.01em}
+    .cs-trigger-right{display:flex;align-items:center;gap:16px;position:relative;z-index:1}
+    .cs-trigger-tags{display:flex;gap:6px}
+    .cs-trigger-tag{font-family:var(--fm);font-size:9px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);padding:3px 10px;border-radius:4px;letter-spacing:.04em}
+    .cs-trigger-icon{width:32px;height:32px;border-radius:50%;background:rgba(99,44,166,.2);display:flex;align-items:center;justify-content:center;transition:all .3s ease;flex-shrink:0}
+    .cs-trigger-icon i{color:#a78bfa;font-size:12px;transition:transform .3s ease}
+    .cs-accordion.open .cs-trigger-icon{background:rgba(99,44,166,.35)}
+    .cs-accordion.open .cs-trigger-icon i{transform:rotate(180deg)}
+    .cs-collapse{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);background:var(--bg);border-radius:0 0 var(--rad) var(--rad);border:1px solid var(--bdr2);border-top:none}
+    .cs-accordion.open .cs-collapse{max-height:6000px;transition:max-height .7s cubic-bezier(.4,0,.2,1)}
+    .cs-collapse-inner{padding:0;opacity:0;transform:translateY(-8px);transition:opacity .35s ease .1s,transform .35s ease .1s}
+    .cs-accordion.open .cs-collapse-inner{opacity:1;transform:none;transition:opacity .4s ease .15s,transform .4s ease .15s}
+    .cs-collapse-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;background:var(--bg2);border-top:1px solid var(--bdr2);cursor:pointer;transition:background .2s;font-family:var(--fm);font-size:11px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase}
+    .cs-collapse-btn:hover{background:var(--bdr2);color:var(--pu)}
+    .cs-collapse-btn i{font-size:10px;transition:transform .2s}
+    .case-study{padding:40px 28px 0;position:relative}
+    .cs-hero{position:relative;border-radius:var(--rad);overflow:hidden;margin-bottom:48px;background:#0f1117;padding:48px 40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+    .cs-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(99,44,166,.18) 1px,transparent 1px);background-size:32px 32px;opacity:.5}
+    .cs-hero-text{position:relative;z-index:1}
+    .cs-hero-eyebrow{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--tcyan);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+    .cs-hero-title{font-size:clamp(24px,3.5vw,36px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px}
+    .cs-hero-sub{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7}
+    .cs-hero-img{position:relative;z-index:1;border-radius:10px;overflow:hidden;aspect-ratio:4/3}
+    .cs-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .cs-sections{display:grid;grid-template-columns:240px 1fr;gap:0;border:1px solid var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:40px}
+    .cs-nav{background:var(--bg2);padding:28px 24px;border-right:1px solid var(--bdr2)}
+    .cs-nav-label{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+    .cs-nav-item{display:block;font-size:13px;font-weight:500;color:var(--tx2);padding:8px 0;border-bottom:1px solid var(--bdr2);cursor:pointer;transition:color .2s;text-decoration:none}
+    .cs-nav-item:last-child{border-bottom:none}
+    .cs-nav-item:hover,.cs-nav-item.active{color:var(--pu)}
+    .cs-nav-item .nav-num{font-family:var(--fm);font-size:10px;color:var(--tx3);margin-right:8px}
+    .cs-body{padding:28px 32px}
+    .cs-block{margin-bottom:32px}
+    .cs-block:last-child{margin-bottom:0}
+    .cs-block-title{font-family:var(--fm);font-size:11px;font-weight:500;color:var(--pu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--pub2)}
+    .cs-block p{font-size:14px;color:var(--tx2);line-height:1.8;margin-bottom:12px}
+    .cs-block p:last-child{margin-bottom:0}
+    .cs-list{list-style:none;padding:0}
+    .cs-list li{font-size:14px;color:var(--tx2);line-height:1.7;padding:5px 0;padding-left:20px;position:relative}
+    .cs-list li::before{content:'\2192';position:absolute;left:0;color:var(--pu);font-size:12px}
+    .cs-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr2);border-radius:var(--rad);overflow:hidden;margin-bottom:40px}
+    .cs-spec{background:var(--bg);padding:24px 20px;text-align:center}
+    .cs-spec-label{font-family:var(--fm);font-size:10px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+    .cs-spec-value{font-size:13px;font-weight:600;color:var(--tx);line-height:1.4}
+    .cs-gallery-label{font-family:var(--fm);font-size:11px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+    .cs-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+    .cs-gallery.top-row{grid-template-columns:repeat(3,1fr);margin-bottom:8px}
+    .cs-gal-item{border-radius:10px;overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;background:#f0f0f0}
+    .cs-gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+    .cs-gal-item:hover img{transform:scale(1.05)}
+    .cs-gal-item .gal-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.06em;text-transform:uppercase}
+    .cs-vid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+    .cs-vid-item{border-radius:10px;overflow:hidden;position:relative;background:#000}
+    .cs-vid-item video{width:100%;display:block;border-radius:10px}
+    .cs-vid-item .gal-label{position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;align-items:center;justify-content:center;cursor:zoom-out}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain}
+    .lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;opacity:.7;transition:opacity .2s}
+    .lightbox-close:hover{opacity:1}
+    .cs-spacer{height:12px}
+    .coming-soon{margin-top:48px;background:var(--bg2);border-radius:var(--rad);padding:56px;text-align:center}
+    .cs-label{font-family:var(--fm);font-size:11px;color:var(--pu);letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px}
+    .cs-title-cs{font-size:32px;font-weight:700;color:var(--tx);letter-spacing:-.02em;margin-bottom:12px}
+    .cs-sub{font-size:15px;color:var(--tx2);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.6}
 
     /* CONTACT */
     #contact{padding:var(--sec);background:var(--bg);position:relative;overflow:hidden;}
@@ -215,17 +310,33 @@
       .hero-grid{grid-template-columns:1fr;text-align:center}
       .badges,.actions{justify-content:center}
       .ag,.con-grid{grid-template-columns:1fr;gap:48px}
-      .sk-grid,.proj-grid{grid-template-columns:1fr 1fr}
+      .sk-grid{grid-template-columns:1fr 1fr}
+      .proj-grid{grid-template-columns:1fr}
+      .proj.featured{grid-column:span 1}
       .cert-grid{grid-template-columns:1fr 1fr}
       .xitem{grid-template-columns:1fr;gap:16px}
       .ft{flex-direction:column;gap:20px;text-align:center}
       .ccna{flex-direction:column;text-align:center}
       .ccna-r{margin-left:0}.prg-tr{margin:0 auto}
+      .cs-trigger-tags{display:none}
+      .cs-trigger-left{gap:14px}
+      .cs-trigger{padding:16px 20px}
+      .cs-trigger-num{font-size:22px}
+      .cs-trigger-title{font-size:14px}
+      .case-study{padding:28px 16px 0}
+      .cs-hero{grid-template-columns:1fr;padding:32px 24px}
+      .cs-hero-img{max-height:240px}
+      .cs-sections{grid-template-columns:1fr}
+      .cs-nav{border-right:none;border-bottom:1px solid var(--bdr2);padding:20px 24px}
+      .cs-specs{grid-template-columns:1fr}
+      .cs-gallery,.cs-gallery.top-row{grid-template-columns:repeat(2,1fr)}
+      .cs-vid-grid{grid-template-columns:1fr}
     }
     @media(max-width:600px){
       .sk-grid,.cert-grid,.proj-grid{grid-template-columns:1fr}
       :root{--sec:100px 0}
       #hero{padding-top:140px}
+      .cs-gallery,.cs-gallery.top-row{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -372,16 +483,528 @@
 </section>
 
 <section id="projects">
-  <div class="wrap">
+  <div class="wrap-hd" style="max-width:1080px;margin:0 auto;padding:140px 24px 0">
     <div class="shd fade-up"><div class="slbl">Projects</div><h2 class="stitle">Selected Work</h2></div>
-    <div class="proj-grid fade-up">
-      <div class="proj"><div class="proj-n">01</div><div class="proj-cat">IAM / Security</div><div class="proj-t">Enterprise Okta SSO Deployment</div><div class="proj-d">SSO, MFA, and lifecycle management for 2,000+ users at 99.97% uptime across strict compliance environments.</div><div><span class="ptag">Okta</span><span class="ptag">CyberArk</span><span class="ptag">Zero Trust</span></div></div>
-      <div class="proj"><div class="proj-n">02</div><div class="proj-cat">Network Infrastructure</div><div class="proj-t">Multi-Site MSP Network Ops</div><div class="proj-d">Network security and infrastructure across 50+ client sites via Datto RMM in a multi-tenant MSP environment.</div><div><span class="ptag">SonicWall</span><span class="ptag">Datto RMM</span><span class="ptag">Sophos</span></div></div>
-      <div class="proj"><div class="proj-n">03</div><div class="proj-cat">Structured Cabling</div><div class="proj-t">BICSI-Standard Fiber Install</div><div class="proj-d">End-to-end Cat5e/Cat6 and fiber installation with TIA-607 compliant grounding and Tier 1 OLTS verification.</div><div><span class="ptag">BICSI</span><span class="ptag">LC/SC Fiber</span><span class="ptag">OLTS</span></div></div>
-    </div>
-    <div class="pcta fade-up"><a href="projects.html" class="btn btn-out-pu">View All Projects</a></div>
   </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-wrap">
+    <div class="filter-inner">
+      <button class="f-btn active" data-filter="all">All</button>
+      <button class="f-btn" data-filter="iam">IAM / Security</button>
+      <button class="f-btn" data-filter="network">Network</button>
+      <button class="f-btn" data-filter="cabling">Cabling</button>
+      <button class="f-btn" data-filter="automation">Automation</button>
+    </div>
+  </div>
+
+  <div class="projects-inner">
+    <div class="wrap">
+      <div class="proj-grid">
+
+        <!-- 01 — Featured -->
+        <div class="proj featured fade-up" data-category="iam">
+          <div class="proj-n">01</div>
+          <div class="proj-meta">
+            <div class="proj-cat">IAM / Security — Featured</div>
+            <div class="proj-yr">2022 – 2023</div>
+          </div>
+          <div class="proj-t">Enterprise Okta SSO and IAM Platform — Wells Fargo</div>
+          <div class="proj-d">Administered a full enterprise Okta environment for one of the largest financial institutions in the US. Responsible for SSO configuration, MFA enforcement, user lifecycle management, and third-party integrations across strict financial compliance environments. Managed privileged access vaulting via CyberArk and identity governance across a global user base.</div>
+          <div class="proj-tags"><span class="ptag">Okta</span><span class="ptag">CyberArk PAM</span><span class="ptag">Citrix</span><span class="ptag">Azure AD</span><span class="ptag">SSO</span><span class="ptag">MFA</span><span class="ptag">Zero Trust</span></div>
+          <ul class="outcomes">
+            <li>99.97% uptime SLA maintained across full engagement</li>
+            <li>10,000+ users secured across financial and healthcare environments</li>
+            <li>2,000+ user Okta environment administered end-to-end</li>
+          </ul>
+        </div>
+
+        <!-- 02 -->
+        <div class="proj fade-up" data-category="network">
+          <div class="proj-n">02</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Network Infrastructure</div>
+            <div class="proj-yr">2021 – 2022</div>
+          </div>
+          <div class="proj-t">Multi-Site MSP Network Operations</div>
+          <div class="proj-d">Managed network infrastructure, security, and Office 365 across 50+ client sites in a multi-tenant MSP environment using Datto RMM. Senior escalation point for site-wide outages including routing failures and DHCP scope exhaustion.</div>
+          <div class="proj-tags"><span class="ptag">SonicWall</span><span class="ptag">Datto RMM</span><span class="ptag">Sophos</span><span class="ptag">DHCP</span><span class="ptag">VLANs</span></div>
+          <ul class="outcomes">
+            <li>50+ distinct client sites managed concurrently</li>
+            <li>Resolved routing failures, DHCP exhaustion, and firewall outages</li>
+          </ul>
+        </div>
+
+        <!-- 03 -->
+        <div class="proj fade-up" data-category="cabling">
+          <div class="proj-n">03</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Structured Cabling</div>
+            <div class="proj-yr">2026</div>
+          </div>
+          <div class="proj-t">Backbone Cabling from TRs/TE to SIM ER</div>
+          <div class="proj-d">Deployed backbone copper and fiber infrastructure across a hierarchical star network — running Cat 6 and OM4 fiber from the central Equipment Room to multiple TRs and TEs, all through conduit and terminated at patch panels per ANSI/TIA-568.</div>
+          <div class="proj-tags"><span class="ptag">BICSI</span><span class="ptag">Cat 6</span><span class="ptag">OM4 Fiber</span><span class="ptag">ANSI/TIA-568</span><span class="ptag">Patch Panels</span><span class="ptag">Hierarchical Star</span></div>
+          <a href="#cs-backbone" class="proj-link cs-link" data-target="cs-backbone">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+        </div>
+
+        <!-- 04 -->
+        <div class="proj fade-up" data-category="automation">
+          <div class="proj-n">04</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Automation / NOC</div>
+            <div class="proj-yr">2021 – 2022</div>
+          </div>
+          <div class="proj-t">PowerShell NOC Automation Scripts</div>
+          <div class="proj-d">Built PowerShell scripts to automate overnight NOC checks and DR appliance integrity verification across all MSP client sites, reducing manual effort and catching failures before business hours.</div>
+          <div class="proj-tags"><span class="ptag">PowerShell</span><span class="ptag">Datto</span><span class="ptag">NOC</span><span class="ptag">Windows Server</span></div>
+          <ul class="outcomes">
+            <li>Automated DR appliance integrity verification across all sites</li>
+            <li>Reduced manual overnight NOC checks significantly</li>
+          </ul>
+        </div>
+
+        <!-- 05 -->
+        <div class="proj fade-up" data-category="automation">
+          <div class="proj-n">05</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Automation / Operations</div>
+            <div class="proj-yr">2016 – 2021</div>
+          </div>
+          <div class="proj-t">Nationwide Google Workspace and IVR Deployment — Topgolf</div>
+          <div class="proj-d">Designed and deployed Google Workspace architecture and IVR call routing logic across 60+ Topgolf venues nationwide. Transformed a manual sticky-note workflow into a centralized, standardized knowledge base.</div>
+          <div class="proj-tags"><span class="ptag">Google Workspace</span><span class="ptag">IVR</span><span class="ptag">Google Sites</span></div>
+          <ul class="outcomes">
+            <li>85% reduction in call processing time</li>
+            <li>16,170 operational hours saved annually</li>
+            <li>60+ venues standardized on one platform</li>
+          </ul>
+        </div>
+
+        <!-- 06 -->
+        <div class="proj fade-up" data-category="iam">
+          <div class="proj-n">06</div>
+          <div class="proj-meta">
+            <div class="proj-cat">ITSM / Support Ops</div>
+            <div class="proj-yr">2023 – 2024</div>
+          </div>
+          <div class="proj-t">ServiceNow KB and Ticket Reduction — BioLife</div>
+          <div class="proj-d">Built a structured Salesforce knowledge base and ticketing templates for BioLife Plasma Services. Identified top recurring issue categories and created resolution playbooks that measurably reduced escalation volume.</div>
+          <div class="proj-tags"><span class="ptag">ServiceNow</span><span class="ptag">Salesforce KB</span><span class="ptag">ITSM</span></div>
+          <ul class="outcomes">
+            <li>30% reduction in 3 major recurring ticket categories</li>
+            <li>95% first-contact resolution rate on complex blockers</li>
+          </ul>
+        </div>
+
+        <!-- 07 -->
+        <div class="proj fade-up" data-category="network">
+          <div class="proj-n">07</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Hardware / Server Ops</div>
+            <div class="proj-yr">2026</div>
+          </div>
+          <div class="proj-t">Dell Server No VGA &amp; OS Restoration</div>
+          <div class="proj-d">Diagnosed and resolved a no-POST / no-VGA condition on a Dell rack server caused by a faulty RAM module, then repaired Windows Server OS corruption via WinRE — bringing the system from dead screen to full login.</div>
+          <div class="proj-tags"><span class="ptag">Dell PowerEdge</span><span class="ptag">IPMI</span><span class="ptag">RAM Diagnostics</span><span class="ptag">WinRE</span><span class="ptag">Windows Server</span></div>
+          <a href="#cs-dell-server" class="proj-link cs-link" data-target="cs-dell-server">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+        </div>
+
+        <!-- 08 -->
+        <div class="proj fade-up" data-category="cabling">
+          <div class="proj-n">08</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Structured Cabling</div>
+            <div class="proj-yr">2026</div>
+          </div>
+          <div class="proj-t">RJ45 Cable Fabrication (T568B)</div>
+          <div class="proj-d">Fabricated custom-length Cat 6 Ethernet patch cables using the T568B wiring standard — stripped, aligned, terminated into RJ45 modular plugs, crimped, and verified with a Klein Scout Pro 3 tester. All pins passed continuity and wiremap.</div>
+          <div class="proj-tags"><span class="ptag">Cat 6</span><span class="ptag">T568B</span><span class="ptag">RJ45</span><span class="ptag">Klein Tools</span><span class="ptag">Scout Pro 3</span></div>
+          <a href="#cs-rj45" class="proj-link cs-link" data-target="cs-rj45">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+        </div>
+
+        <!-- 09 -->
+        <div class="proj fade-up" data-category="cabling">
+          <div class="proj-n">09</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Structured Cabling</div>
+            <div class="proj-yr">2026</div>
+          </div>
+          <div class="proj-t">110 &amp; 66 Patch Panel Terminations</div>
+          <div class="proj-d">Terminated Cat 5e/Cat 6 cabling on both 110-style wiring blocks and 66-style punch-down blocks using a standard impact tool — maintaining proper pair mapping and color code compliance for voice and data circuits.</div>
+          <div class="proj-tags"><span class="ptag">110 Block</span><span class="ptag">66 Block</span><span class="ptag">Punch-Down</span><span class="ptag">T568B</span><span class="ptag">Voice/Data</span></div>
+          <a href="#cs-110-66" class="proj-link cs-link" data-target="cs-110-66">View full case study <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+        </div>
+
+      </div><!-- /.proj-grid -->
+
+      <!-- CASE STUDY ACCORDIONS -->
+
+      <!-- 03 — BACKBONE CABLING -->
+      <div class="cs-accordion fade-up" id="cs-backbone">
+        <div class="cs-trigger" onclick="toggleAccordion('cs-backbone')">
+          <div class="cs-trigger-left">
+            <div class="cs-trigger-num">03</div>
+            <div class="cs-trigger-info">
+              <div class="cs-trigger-cat">Case Study</div>
+              <div class="cs-trigger-title">Backbone Cabling from TRs/TE to SIM ER</div>
+            </div>
+          </div>
+          <div class="cs-trigger-right">
+            <div class="cs-trigger-tags"><span class="cs-trigger-tag">Cat 6</span><span class="cs-trigger-tag">OM4 Fiber</span><span class="cs-trigger-tag">BICSI</span></div>
+            <div class="cs-trigger-icon"><i class="fa fa-chevron-down"></i></div>
+          </div>
+        </div>
+        <div class="cs-collapse">
+          <div class="cs-collapse-inner">
+            <section class="case-study">
+              <div class="cs-hero">
+                <div class="cs-hero-text">
+                  <div class="cs-hero-eyebrow">Case Study — 03</div>
+                  <h2 class="cs-hero-title">Backbone Cabling from TRs/TE to SIM ER</h2>
+                  <p class="cs-hero-sub">Structured copper and fiber backbone deployment across a hierarchical star network, built to ANSI/TIA-568 and BICSI standards.</p>
+                </div>
+                <div class="cs-hero-img"><img src="images/IMG_4553.jpg" alt="Equipment Room — full rack"></div>
+              </div>
+              <div class="cs-sections">
+                <div class="cs-nav">
+                  <div class="cs-nav-label">Sections</div>
+                  <span class="cs-nav-item active"><span class="nav-num">01</span> The Challenge</span>
+                  <span class="cs-nav-item"><span class="nav-num">02</span> The Goals</span>
+                  <span class="cs-nav-item"><span class="nav-num">03</span> Our Approach</span>
+                </div>
+                <div class="cs-body">
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Challenge</div>
+                    <p>The lab's hierarchical network required a reliable backbone to connect two Telecommunications Rooms (TRs) and a Telecommunications Enclosure (TE) back to the central SIM Equipment Room (SIM ER). All cabling needed to be routed through a conduit cross box for protection, organization, and future serviceability — then installed, terminated, tested, certified, and commissioned to bring the network live.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Goals</div>
+                    <ul class="cs-list">
+                      <li>Deliver standards-compliant, future-proof cabling infrastructure</li>
+                      <li>Support high-speed data, voice, and video applications</li>
+                      <li>Create a scalable, easily maintainable network backbone</li>
+                      <li>Ensure all work meets ANSI/TIA-568 and BICSI compliance</li>
+                    </ul>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">Our Approach</div>
+                    <p>We ran 6 Cat 6 cables and 2 OM4 multimode fiber cables from each TR and the TE back to the SIM ER, all routed through the central conduit cross box. Cat 6 twisted-pair was terminated using both T568A and T568B configurations, and OM4 fiber was pulled to replace the existing OS1 single-mode runs for higher bandwidth capacity.</p>
+                    <p>All horizontal and backbone cabling was terminated at patch panels for clean cross-connects and simplified future moves/adds/changes. We built a hierarchical star topology by interconnecting individual star topologies — providing excellent scalability, performance, fault isolation, and simplified troubleshooting.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-specs">
+                <div class="cs-spec"><div class="cs-spec-label">Cabling Media</div><div class="cs-spec-value">Cat 6 UTP &bull; Coaxial (F-conn) &bull; OM4 Multimode Fiber</div></div>
+                <div class="cs-spec"><div class="cs-spec-label">Standards</div><div class="cs-spec-value">ANSI/TIA-568 &bull; BICSI Installation &amp; Testing</div></div>
+                <div class="cs-spec"><div class="cs-spec-label">Topology</div><div class="cs-spec-value">Hierarchical Star &mdash; ER &rarr; TRs/TEs &rarr; Work Areas</div></div>
+              </div>
+              <div>
+                <div class="cs-gallery-label">Project Photos</div>
+                <div class="cs-gallery top-row">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4553.jpg" alt="ER North — full rack"><div class="gal-label">ER North — Full Rack</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4513.jpg" alt="ER North — switches and patch panels"><div class="gal-label">ER North — Switches &amp; Panels</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4507.jpg" alt="Central conduit"><div class="gal-label">Central Conduit</div></div>
+                </div>
+                <div class="cs-gallery">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4508.jpg" alt="Cable tray close-up"><div class="gal-label">Cable Tray Detail</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4482.jpg" alt="T568B terminations"><div class="gal-label">T568B Terminations</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4483.jpg" alt="Patch panel rack"><div class="gal-label">Patch Panel Rack</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4485.jpg" alt="Punch-Down detail"><div class="gal-label">Punch-Down Detail</div></div>
+                </div>
+                <div class="cs-gallery" style="margin-top:8px">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4555.jpg" alt="TE South"><div class="gal-label">TE South</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4401.jpg" alt="TE South — open"><div class="gal-label">TE South — Open</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4515.jpg" alt="TR East"><div class="gal-label">TR East</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4407.jpg" alt="TR West"><div class="gal-label">TR West</div></div>
+                </div>
+                <div class="cs-gallery-label" style="margin-top:28px">Project Videos</div>
+                <div class="cs-vid-grid">
+                  <div class="cs-vid-item"><video controls preload="metadata" playsinline><source src="images/IMG_4557.mp4" type="video/mp4"></video><div class="gal-label">Camera Feed Verification</div></div>
+                  <div class="cs-vid-item"><video controls preload="metadata" playsinline><source src="images/IMG_4559.mp4" type="video/mp4"></video><div class="gal-label">Phone Confirmation</div></div>
+                </div>
+              </div>
+            </section>
+            <div class="cs-collapse-btn" onclick="toggleAccordion('cs-backbone')"><i class="fa fa-chevron-up"></i> Collapse Case Study</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-spacer"></div>
+
+      <!-- 07 — DELL SERVER -->
+      <div class="cs-accordion fade-up" id="cs-dell-server">
+        <div class="cs-trigger" onclick="toggleAccordion('cs-dell-server')">
+          <div class="cs-trigger-left">
+            <div class="cs-trigger-num">07</div>
+            <div class="cs-trigger-info">
+              <div class="cs-trigger-cat">Case Study</div>
+              <div class="cs-trigger-title">Dell Server No VGA &amp; OS Restoration</div>
+            </div>
+          </div>
+          <div class="cs-trigger-right">
+            <div class="cs-trigger-tags"><span class="cs-trigger-tag">Dell PowerEdge</span><span class="cs-trigger-tag">WinRE</span></div>
+            <div class="cs-trigger-icon"><i class="fa fa-chevron-down"></i></div>
+          </div>
+        </div>
+        <div class="cs-collapse">
+          <div class="cs-collapse-inner">
+            <section class="case-study">
+              <div class="cs-hero">
+                <div class="cs-hero-text">
+                  <div class="cs-hero-eyebrow">Case Study — 07</div>
+                  <h2 class="cs-hero-title">Dell Server No VGA &amp; OS Restoration</h2>
+                  <p class="cs-hero-sub">No POST, no video output, corrupted OS — diagnosed faulty RAM via systematic isolation, then restored Windows Server through WinRE recovery.</p>
+                </div>
+                <div class="cs-hero-img"><img src="images/IMG_4542.jpg" alt="Dell server POST screen showing successful boot"></div>
+              </div>
+              <div class="cs-sections">
+                <div class="cs-nav">
+                  <div class="cs-nav-label">Sections</div>
+                  <span class="cs-nav-item active"><span class="nav-num">01</span> The Challenge</span>
+                  <span class="cs-nav-item"><span class="nav-num">02</span> The Diagnosis</span>
+                  <span class="cs-nav-item"><span class="nav-num">03</span> The Fix</span>
+                  <span class="cs-nav-item"><span class="nav-num">04</span> The Result</span>
+                </div>
+                <div class="cs-body">
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Challenge</div>
+                    <p>A Dell rack server in the lab failed to display any video output (VGA) on boot. The system was stuck in a boot loop/hang state — no BIOS, no OS, just a black screen. Initial remote checks via IPMI confirmed the server was receiving power but failing to initialize video.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Diagnosis</div>
+                    <p>Started with a CMOS battery test to rule out BIOS configuration resets — battery was nominal, issue persisted. Performed a full reseat of all memory modules; video returned intermittently but failed again, pointing to a hardware fault. Systematically removed individual RAM sticks to isolate the defective component. Identified and removed one faulty module — the server immediately POSTed with stable video output.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Fix</div>
+                    <p>With hardware resolved, a second problem surfaced: repeated failed boot attempts had corrupted the Windows Server OS files. Accessed WinRE via the pre-boot menu, executed Startup Repair and recovery tools to rebuild the boot configuration data, then restored OS integrity. Server booted straight to the login screen.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Result</div>
+                    <ul class="cs-list">
+                      <li>Hardware: Server powers on with stable video output and passes POST</li>
+                      <li>OS: System boots consistently to the Windows Server login screen</li>
+                      <li>Network: Server fully operational — confirmed complete success</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-specs">
+                <div class="cs-spec"><div class="cs-spec-label">Root Cause</div><div class="cs-spec-value">Faulty RAM Module &bull; OS Boot Corruption</div></div>
+                <div class="cs-spec"><div class="cs-spec-label">Tools Used</div><div class="cs-spec-value">IPMI &bull; CMOS Tester &bull; WinRE &bull; Startup Repair</div></div>
+                <div class="cs-spec"><div class="cs-spec-label">Outcome</div><div class="cs-spec-value">Full POST &bull; OS Restored &bull; Server Operational</div></div>
+              </div>
+              <div>
+                <div class="cs-gallery-label">Project Photos</div>
+                <div class="cs-gallery top-row">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4536.jpg" alt="Server internals — RAM and motherboard"><div class="gal-label">Server Internals</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4537.jpg" alt="RAM isolation"><div class="gal-label">RAM Isolation</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4538.jpg" alt="No VGA — black screen"><div class="gal-label">No VGA — Black Screen</div></div>
+                </div>
+                <div class="cs-gallery">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4539.jpg" alt="Signal returns"><div class="gal-label">Signal Returns</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4541.jpg" alt="POST screen — 2 GB RAM"><div class="gal-label">Successful POST — 2 GB</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4542.jpg" alt="BIOS boot options"><div class="gal-label">BIOS Boot Options</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4543.jpg" alt="System init complete"><div class="gal-label">System Init Complete</div></div>
+                </div>
+                <div class="cs-gallery" style="margin-top:8px">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4532.jpg" alt="BIOS — drive config"><div class="gal-label">BIOS — Drive Config</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4533.jpg" alt="BIOS — network config"><div class="gal-label">BIOS — Network Config</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4540.jpg" alt="WinRE recovery"><div class="gal-label">WinRE Recovery</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4544.jpg" alt="Windows booting"><div class="gal-label">Windows Booting</div></div>
+                </div>
+                <div class="cs-gallery top-row" style="margin-top:8px">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4534.jpg" alt="Workbench setup"><div class="gal-label">Workbench Setup</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4572.jpg" alt="Restored — login screen"><div class="gal-label">Restored — Login Screen</div></div>
+                </div>
+              </div>
+            </section>
+            <div class="cs-collapse-btn" onclick="toggleAccordion('cs-dell-server')"><i class="fa fa-chevron-up"></i> Collapse Case Study</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-spacer"></div>
+
+      <!-- 08 — RJ45 CABLE FABRICATION -->
+      <div class="cs-accordion fade-up" id="cs-rj45">
+        <div class="cs-trigger" onclick="toggleAccordion('cs-rj45')">
+          <div class="cs-trigger-left">
+            <div class="cs-trigger-num">08</div>
+            <div class="cs-trigger-info">
+              <div class="cs-trigger-cat">Case Study</div>
+              <div class="cs-trigger-title">RJ45 Cable Fabrication (T568B)</div>
+            </div>
+          </div>
+          <div class="cs-trigger-right">
+            <div class="cs-trigger-tags"><span class="cs-trigger-tag">Cat 6</span><span class="cs-trigger-tag">T568B</span><span class="cs-trigger-tag">RJ45</span></div>
+            <div class="cs-trigger-icon"><i class="fa fa-chevron-down"></i></div>
+          </div>
+        </div>
+        <div class="cs-collapse">
+          <div class="cs-collapse-inner">
+            <section class="case-study">
+              <div class="cs-hero">
+                <div class="cs-hero-text">
+                  <div class="cs-hero-eyebrow">Case Study — 08</div>
+                  <h2 class="cs-hero-title">RJ45 Cable Fabrication</h2>
+                  <p class="cs-hero-sub">Custom Cat 6 Ethernet patch cable — stripped, aligned to T568B, terminated, crimped, and verified pass on all 8 pins.</p>
+                </div>
+                <div class="cs-hero-img"><img src="images/IMG_4292.jpg" alt="RJ45 plug T568B pin seating"></div>
+              </div>
+              <div class="cs-sections">
+                <div class="cs-nav">
+                  <div class="cs-nav-label">Sections</div>
+                  <span class="cs-nav-item active"><span class="nav-num">01</span> The Challenge</span>
+                  <span class="cs-nav-item"><span class="nav-num">02</span> The Goals</span>
+                  <span class="cs-nav-item"><span class="nav-num">03</span> Our Approach</span>
+                </div>
+                <div class="cs-body">
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Challenge</div>
+                    <p>Fabricate a custom-length Cat 6 Ethernet patch cable from bulk cable stock, ensuring full data continuity and proper pin mapping to the T568B wiring standard — the industry standard for commercial structured cabling.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Goals</div>
+                    <ul class="cs-list">
+                      <li>Produce a working straight-through Cat 6 patch cable</li>
+                      <li>Follow T568B color code on both ends</li>
+                      <li>Pass continuity and wiremap testing on all 8 pins with no shorts, opens, or split pairs</li>
+                    </ul>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">Our Approach</div>
+                    <p>Stripped approximately 1.5 inches of outer PVC jacket using a cable jacket stripper, taking care not to nick internal conductors. Untwisted the four pairs, removed the internal spline separator, and arranged all 8 wires in T568B order: White/Orange, Orange, White/Green, Blue, White/Blue, Green, White/Brown, Brown.</p>
+                    <p>Trimmed conductors flush, inserted into the RJ45 modular plug verifying the jacket extended past the strain relief tab, then crimped with a Klein Tools ratcheting crimper. Tested with a Klein Tools Scout Pro 3: LCD confirmed "Pass" on pins 1–8 — no shorts, opens, or split pairs detected.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-specs">
+                <div class="cs-spec"><div class="cs-spec-label">Standard</div><div class="cs-spec-value">T568B &bull; Cat 6 UTP</div></div>
+                <div class="cs-spec"><div class="cs-spec-label">Tools</div><div class="cs-spec-value">Klein Ratcheting Crimper &bull; V-Notch Scissors &bull; Jacket Stripper</div></div>
+                <div class="cs-spec"><div class="cs-spec-label">Verification</div><div class="cs-spec-value">Klein Scout Pro 3 &bull; Pass — All 8 Pins</div></div>
+              </div>
+              <div>
+                <div class="cs-gallery-label">Project Photos</div>
+                <div class="cs-gallery top-row">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4290.jpg" alt="Tool layout"><div class="gal-label">Tool Layout</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4292.jpg" alt="T568B pin seating"><div class="gal-label">T568B Pin Seating</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4298.jpg" alt="Klein crimper and stripper"><div class="gal-label">Crimper &amp; Stripper</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4294.jpg" alt="Cable stripped with pairs exposed"><div class="gal-label">Cable Stripped</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4300.jpg" alt="Pair separation"><div class="gal-label">Pair Separation</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4304.jpg" alt="T568B wire order in RJ45"><div class="gal-label">T568B Wire Order</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4306.jpg" alt="Conductor alignment before crimp"><div class="gal-label">Conductor Alignment</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4295.jpg" alt="Crimping process"><div class="gal-label">Crimping Process</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4310.jpg" alt="Completed patch cable"><div class="gal-label">Completed Patch Cable</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4311.jpg" alt="Klein Scout Pro 3"><div class="gal-label">Klein Scout Pro 3</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4331.jpg" alt="Cable labeling"><div class="gal-label">Cable Labeling</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4332.jpg" alt="Worksite overview"><div class="gal-label">Worksite Overview</div></div>
+                </div>
+              </div>
+            </section>
+            <div class="cs-collapse-btn" onclick="toggleAccordion('cs-rj45')"><i class="fa fa-chevron-up"></i> Collapse Case Study</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-spacer"></div>
+
+      <!-- 09 — 110 & 66 TERMINATIONS -->
+      <div class="cs-accordion fade-up" id="cs-110-66">
+        <div class="cs-trigger" onclick="toggleAccordion('cs-110-66')">
+          <div class="cs-trigger-left">
+            <div class="cs-trigger-num">09</div>
+            <div class="cs-trigger-info">
+              <div class="cs-trigger-cat">Case Study</div>
+              <div class="cs-trigger-title">110 &amp; 66 Patch Panel Terminations</div>
+            </div>
+          </div>
+          <div class="cs-trigger-right">
+            <div class="cs-trigger-tags"><span class="cs-trigger-tag">110 Block</span><span class="cs-trigger-tag">66 Block</span></div>
+            <div class="cs-trigger-icon"><i class="fa fa-chevron-down"></i></div>
+          </div>
+        </div>
+        <div class="cs-collapse">
+          <div class="cs-collapse-inner">
+            <section class="case-study">
+              <div class="cs-hero">
+                <div class="cs-hero-text">
+                  <div class="cs-hero-eyebrow">Case Study — 09</div>
+                  <h2 class="cs-hero-title">110 &amp; 66 Patch Panel Terminations</h2>
+                  <p class="cs-hero-sub">Hands-on termination of Cat 5e/Cat 6 cabling on both 110-style wiring blocks and legacy 66-style punch-down blocks for voice and data circuits.</p>
+                </div>
+                <div class="cs-hero-img"><img src="images/IMG_4575.jpg" alt="110 block with color-coded pair terminations"></div>
+              </div>
+              <div class="cs-sections">
+                <div class="cs-nav">
+                  <div class="cs-nav-label">Sections</div>
+                  <span class="cs-nav-item active"><span class="nav-num">01</span> The Challenge</span>
+                  <span class="cs-nav-item"><span class="nav-num">02</span> The Goals</span>
+                  <span class="cs-nav-item"><span class="nav-num">03</span> Our Approach</span>
+                </div>
+                <div class="cs-body">
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Challenge</div>
+                    <p>Terminate multi-pair cabling on both modern 110-style wiring blocks (used for structured data cabling) and legacy 66-style punch-down blocks (traditionally used for telephony/voice circuits). Both block types require precise pair mapping, correct color code adherence, and clean terminations using a standard impact punch-down tool.</p>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">The Goals</div>
+                    <ul class="cs-list">
+                      <li>Terminate cabling on 110 blocks following the T568B color code</li>
+                      <li>Terminate cabling on 66 blocks following standard 25-pair color code</li>
+                      <li>Maintain proper pair mapping with no split pairs or crossed conductors</li>
+                      <li>Build familiarity with both modern and legacy termination methods</li>
+                    </ul>
+                  </div>
+                  <div class="cs-block">
+                    <div class="cs-block-title">Our Approach</div>
+                    <p>For the 110 block terminations, stripped back the cable jacket, fanned out individual pairs, and seated each conductor into the correct slot on the 110 wiring block following T568B color code. Used a standard impact tool to punch down and trim conductors in a single motion, ensuring solid contact with the IDC blades.</p>
+                    <p>For the 66 block terminations, followed the same preparation process but terminated onto the legacy 66-style block — seating conductors into the clip-style rows and punching down with the impact tool. Both block types were mounted on a training wall for organized, real-world practice.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-specs">
+                <div class="cs-spec"><div class="cs-spec-label">Block Types</div><div class="cs-spec-value">110 Wiring Block &bull; 66 Punch-Down Block</div></div>
+                <div class="cs-spec"><div class="cs-spec-label">Tools</div><div class="cs-spec-value">Impact Punch-Down Tool &bull; Cable Stripper &bull; Electrician's Scissors</div></div>
+                <div class="cs-spec"><div class="cs-spec-label">Standards</div><div class="cs-spec-value">T568B &bull; 25-Pair Color Code &bull; ANSI/TIA-568</div></div>
+              </div>
+              <div>
+                <div class="cs-gallery-label">Project Photos</div>
+                <div class="cs-gallery top-row">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4575.jpg" alt="110 block completed"><div class="gal-label">110 Block — Completed</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4327.jpg" alt="110 block close-up"><div class="gal-label">110 Block — Close-Up</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4328.jpg" alt="110 block pairs"><div class="gal-label">110 Block — Pairs</div></div>
+                </div>
+                <div class="cs-gallery" style="margin-top:8px">
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4329.jpg" alt="66 block"><div class="gal-label">66 Block</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4330.jpg" alt="66 block close-up"><div class="gal-label">66 Block — Close-Up</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4325.jpg" alt="Training wall full view"><div class="gal-label">Training Wall — Full View</div></div>
+                  <div class="cs-gal-item" onclick="openLightbox(this)"><img src="images/IMG_4326.jpg" alt="Training wall wide"><div class="gal-label">Training Wall — Wide</div></div>
+                </div>
+              </div>
+            </section>
+            <div class="cs-collapse-btn" onclick="toggleAccordion('cs-110-66')"><i class="fa fa-chevron-up"></i> Collapse Case Study</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coming soon -->
+      <div class="coming-soon fade-up" style="margin-top:48px;margin-bottom:48px">
+        <div class="cs-label">Coming Soon</div>
+        <div class="cs-title-cs">More Projects In Progress</div>
+        <p class="cs-sub">Additional infrastructure, automation, and security projects are being documented and will be added here soon.</p>
+        <a href="mailto:buildwithissac@gmail.com" class="btn btn-pu">Get In Touch</a>
+      </div>
+
+    </div><!-- /.wrap -->
+  </div><!-- /.projects-inner -->
 </section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
 
 <section id="contact">
   <video class="bg-video" autoplay muted loop playsinline>
@@ -489,6 +1112,59 @@
     init(); frame();
     window.addEventListener('resize',()=>{ cancelAnimationFrame(raf); init(); frame(); });
   })();
+
+  // Filter
+  const fBtns = document.querySelectorAll('.f-btn');
+  const projCards = document.querySelectorAll('.proj[data-category]');
+  fBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      fBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      projCards.forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.category === f) ? 'flex' : 'none';
+      });
+    });
+  });
+
+  // Accordion
+  function toggleAccordion(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const isOpen = el.classList.contains('open');
+    if (isOpen) {
+      el.classList.remove('open');
+      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    } else {
+      el.classList.add('open');
+      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    }
+  }
+
+  // Case study links → open accordion + scroll
+  document.querySelectorAll('.cs-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.dataset.target;
+      const accordion = document.getElementById(targetId);
+      if (!accordion) return;
+      if (!accordion.classList.contains('open')) accordion.classList.add('open');
+      setTimeout(() => accordion.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    });
+  });
+
+  // Lightbox
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
 
   // — Secret back door —
   // Trigger 1: Konami code  ↑↑↓↓←→←→BA
