@@ -193,6 +193,76 @@ const CHAP_FILES={
   37:["v2_ch01_wireless.pdf","v2_ch02_wireless_arch.pdf","v2_ch03_wireless_sec.pdf","v2_ch04_building_wlan.pdf"],
 };
 
+// ============================================================
+// EXTRA_FILES — supplementary PDFs (Lowe "Networking All-in-One"
+// chapter extracts + original study notes for topics Lowe doesn't
+// cover). Lives in extra_files/, separate from chapters/ so it
+// never collides with CHAP_FILES / the Odom OCG slot.
+// ============================================================
+const EXTRA_FILES={
+  3:[{f:"lowe_bk2_ch1_network_protocols_and_standards.pdf",label:"Lowe: Network Protocols & Standards",src:"lowe"}],
+  4:[{f:"new_s4_the_cisco_ios_operating_system.pdf",label:"IOS CLI Modes & Memory (original notes)",src:"new"}],
+  6:[{f:"lowe_bk2_ch1_network_protocols_and_standards.pdf",label:"Lowe: Network Protocols & Standards",src:"lowe"},
+     {f:"lowe_bk2_ch3_ip_addresses.pdf",label:"Lowe: IP Addresses",src:"lowe"}],
+  7:[{f:"lowe_bk2_ch3_ip_addresses.pdf",label:"Lowe: IP Addresses",src:"lowe"}],
+  8:[{f:"lowe_bk2_ch3_ip_addresses.pdf",label:"Lowe: IP Addresses (Subnetting)",src:"lowe"}],
+  9:[{f:"lowe_bk2_ch1_network_protocols_and_standards.pdf",label:"Lowe: Network Protocols & Standards",src:"lowe"},
+     {f:"lowe_bk1_ch3_switches_routers_and_vlans.pdf",label:"Lowe: Switches, Routers & VLANs",src:"lowe"}],
+  10:[{f:"lowe_bk1_ch2_network_infrastructure.pdf",label:"Lowe: Network Infrastructure",src:"lowe"},
+      {f:"lowe_bk2_ch1_network_protocols_and_standards.pdf",label:"Lowe: Protocols & Standards",src:"lowe"}],
+  11:[{f:"lowe_bk1_ch3_switches_routers_and_vlans.pdf",label:"Lowe: Switches, Routers & VLANs",src:"lowe"}],
+  12:[{f:"new_s12_the_life_of_a_packet.pdf",label:"The Life of a Packet (original notes)",src:"new"},
+      {f:"lowe_bk2_ch2_tcp_ip_and_the_internet.pdf",label:"Lowe: TCP/IP & the Internet",src:"lowe"}],
+  13:[{f:"new_s13_cisco_troubleshooting_methodology.pdf",label:"Troubleshooting Methodology (original notes)",src:"new"},
+      {f:"lowe_bk2_ch7_tcp_ip_tools_and_commands.pdf",label:"Lowe: TCP/IP Tools & Commands",src:"lowe"}],
+  14:[{f:"new_s14_cisco_router_and_switch_basics.pdf",label:"Router & Switch Basics (original notes)",src:"new"}],
+  15:[{f:"new_s15_cisco_device_management.pdf",label:"Device Management — Syslog/NTP/SNMP (original notes)",src:"new"}],
+  16:[{f:"lowe_bk2_ch4_routing.pdf",label:"Lowe: Routing",src:"lowe"}],
+  17:[{f:"new_s17_dynamic_routing_protocols.pdf",label:"Dynamic Routing Protocols (original notes)",src:"new"}],
+  18:[{f:"lowe_bk2_ch7_tcp_ip_tools_and_commands.pdf",label:"Lowe: TCP/IP Tools & Commands",src:"lowe"}],
+  19:[{f:"new_s19_igp_fundamentals.pdf",label:"IGP Fundamentals (original notes)",src:"new"}],
+  20:[{f:"new_s20_ospf.pdf",label:"OSPF — Full Reference (original notes)",src:"new"}],
+  22:[{f:"new_s22_vlan_inter_vlan_routing.pdf",label:"VLAN & Inter-VLAN Routing (original notes)",src:"new"}],
+  23:[{f:"lowe_bk2_ch5_dhcp.pdf",label:"Lowe: DHCP",src:"lowe"}],
+  24:[{f:"new_s24_hsrp.pdf",label:"HSRP (original notes)",src:"new"}],
+  25:[{f:"new_s25_stp.pdf",label:"STP — Full Reference (original notes)",src:"new"}],
+  26:[{f:"new_s26_etherchannel.pdf",label:"EtherChannel (original notes)",src:"new"}],
+  27:[{f:"new_s27_port_security.pdf",label:"Port Security & DHCP Snooping (original notes)",src:"new"}],
+  28:[{f:"new_s28_acls.pdf",label:"ACLs — Full Reference (original notes)",src:"new"}],
+  29:[{f:"lowe_bk2_ch3_ip_addresses.pdf",label:"Lowe: IP Addresses (NAT intro)",src:"lowe"}],
+  30:[{f:"new_s30_ipv6.pdf",label:"IPv6 — Full Reference (original notes)",src:"new"}],
+  31:[{f:"lowe_bk3_ch2_wide_area_networks.pdf",label:"Lowe: Wide Area Networks",src:"lowe"}],
+  32:[{f:"new_s32_the_security_threat_landscape.pdf",label:"Security Threat Landscape (original notes)",src:"new"},
+      {f:"lowe_bk1_ch4_cybersecurity.pdf",label:"Lowe: Cybersecurity",src:"lowe"}],
+  33:[{f:"new_s33_cisco_device_security.pdf",label:"Cisco Device Security — SSH/AAA (original notes)",src:"new"}],
+  34:[{f:"new_s34_network_device_management.pdf",label:"Network Device Management (original notes)",src:"new"}],
+  35:[{f:"new_s35_qos.pdf",label:"QoS (original notes)",src:"new"}],
+  37:[{f:"lowe_bk4_ch2_wireless_networks.pdf",label:"Lowe: Wireless Networks",src:"lowe"}],
+};
+
+// ============================================================
+// VENDOR_FILES — parallel Juniper / Arista command references
+// per section, so Cisco isn't the only CLI you know. Lives in
+// vendor_files/.
+// ============================================================
+const VENDOR_FILES={
+  4:[{f:"vendor_s04_ios_juniper_arista.pdf",label:"IOS vs JunOS vs EOS — CLI Philosophy",vendors:["Juniper","Arista"]}],
+  8:[{f:"vendor_s08_subnetting_juniper_arista.pdf",label:"Subnetting & Addressing — Vendor Notes",vendors:["Juniper","Arista"]}],
+  16:[{f:"vendor_s16_routing_juniper_arista.pdf",label:"Static & Basic Routing — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  20:[{f:"vendor_s20_ospf_juniper_arista.pdf",label:"OSPF — Juniper/Arista Command Reference",vendors:["Juniper","Arista"]}],
+  22:[{f:"vendor_s22_vlans_juniper_arista.pdf",label:"VLANs & Inter-VLAN — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  24:[{f:"vendor_s24_fhrp_juniper_arista.pdf",label:"FHRP (VRRP/MLAG) — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  25:[{f:"vendor_s25_stp_juniper_arista.pdf",label:"STP/RSTP/MSTP — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  26:[{f:"vendor_s26_etherchannel_juniper_arista.pdf",label:"LAG/MLAG — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  27:[{f:"vendor_s27_port_security_juniper_arista.pdf",label:"Port Security — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  28:[{f:"vendor_s28_acls_juniper_arista.pdf",label:"Filters/ACLs — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  29:[{f:"vendor_s29_nat_juniper_arista.pdf",label:"NAT — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  30:[{f:"vendor_s30_ipv6_juniper_arista.pdf",label:"IPv6 — Juniper/Arista",vendors:["Juniper","Arista"]}],
+  33:[{f:"vendor_s33_device_security_juniper_arista.pdf",label:"Device Security — Juniper/Arista",vendors:["Juniper","Arista"]}],
+};
+const EXTRA_FILES_COUNT=Object.values(EXTRA_FILES).reduce((s,a)=>s+a.length,0);
+const VENDOR_FILES_COUNT=Object.values(VENDOR_FILES).reduce((s,a)=>s+a.length,0);
+
 const PKT_FILES={
 4:{pkt:["s04_ios.pkt"],img:[],txt:[]},
 11:{pkt:["s11_device_functions.pkt"],img:["s11_device_functions.jpg"],txt:[]},
@@ -1885,6 +1955,44 @@ skills:"Every CCNA topic integrated into one real-world design",
 deliverable:"Complete Packet Tracer file + Network documentation package (topology diagram, IP address plan, VLAN map, OSPF design, security policy, wireless design)"},
 ];
 
+// ============================================================
+// IT_CAPS — broader infrastructure capstones: network + server +
+// identity + cloud, not just Cisco topology. These round out a
+// portfolio with the "real job" skills CCNA alone doesn't cover.
+// ============================================================
+const IT_CAPS=[
+{title:"Small Business Network + AD Domain",stack:"Network + Windows Server",diff:"Beginner",time:"6-9 hours",
+desc:"Extend a basic Cisco topology with a real Windows Server domain controller, turning a pure-routing lab into something closer to an actual small-business environment.",
+reqs:["Build the network topology from Capstone #1 (router, 2 switches, VLANs)","Stand up a Windows Server VM as a Domain Controller running AD DS + DNS","Create an OU structure with at least 3 OUs and a GPO that maps a network drive","Configure the Cisco DHCP scope (or Windows DHCP) to hand out the domain's DNS server","Join 2+ client VMs to the domain and verify Group Policy applies on login","Create at least 3 users and 2 security groups, and assign NTFS+share permissions on a file share using those groups","Document the AD structure alongside your existing IP address plan"],
+skills:"Active Directory, GPOs, DNS integration, file/print services, combining network + server design",
+deliverable:"Working topology + AD structure diagram + GPO list + permissions matrix"},
+
+{title:"Virtualized Multi-Site Infrastructure",stack:"Network + Virtualization + Storage",diff:"Intermediate",time:"8-12 hours",
+desc:"Design a virtualized server stack behind your routed/switched topology, including basic storage and backup planning — the layer most CCNA-only candidates have never touched.",
+reqs:["Reuse or build a multi-site OSPF topology (can borrow from Capstone #2)","Install a Type 1 hypervisor (ESXi, or Hyper-V Server) on at least one host per site, virtually if needed","Deploy at least 2 VMs per site behind the routed network (e.g., a file server and a domain controller)","Design a basic backup plan applying the 3-2-1 rule for at least one critical VM","Document RPO/RTO targets and justify your chosen backup frequency","Configure a shared storage concept (even simulated/documented if no real SAN/NAS is available) and explain RAID level choice with a tradeoff justification","Produce a single diagram showing network + virtualization + storage layers together"],
+skills:"Hypervisor basics, VM provisioning, backup strategy (3-2-1, RPO/RTO), RAID tradeoffs, multi-layer documentation",
+deliverable:"Multi-layer architecture diagram + backup/DR plan + RAID justification writeup"},
+
+{title:"Hybrid Identity & M365 Tenant Pilot",stack:"Network + Identity + Cloud",diff:"Intermediate",time:"5-8 hours",
+desc:"Connect your on-prem AD environment to a cloud identity layer, mirroring the hybrid setups most mid-size companies actually run.",
+reqs:["Start from an existing on-prem AD domain (reuse Capstone: Small Business Network + AD Domain)","Set up a free/trial Microsoft 365 developer tenant","Configure (or document in detail, if licensing prevents a live build) Entra Connect sync between on-prem AD and the tenant","Enable MFA for at least one test account and document the Conditional Access policy logic you'd apply","Create a mix of a shared mailbox, a distribution list, and a Microsoft 365 Group to show you understand the differences","Map out, in writing, which user attributes sync from on-prem AD to Entra ID and which don't by default","Write a short security review: what changes about your attack surface once you go hybrid?"],
+skills:"Entra ID, hybrid identity sync, MFA/Conditional Access, M365 collaboration objects, security tradeoff analysis",
+deliverable:"Hybrid identity architecture diagram + Conditional Access policy doc + security review writeup"},
+
+{title:"Cloud VPC/VNet Interconnect Lab",stack:"Network + Cloud Networking",diff:"Intermediate",time:"6-10 hours",
+desc:"Translate your on-prem routing and subnetting knowledge directly into a cloud provider's networking model, including a simulated site-to-site VPN back to your on-prem topology.",
+reqs:["Create a VPC (AWS) or VNet (Azure) free-tier account and design an addressing scheme that doesn't overlap with your on-prem VLSM plan","Build at least 2 subnets (public/private pattern) with an appropriate route table and security group/NSG per subnet","Launch a small test instance in the private subnet and verify it's NOT directly internet-reachable, only via a bastion/NAT gateway","Configure (or fully document, if budget-constrained) a site-to-site VPN connection from the cloud VPC/VNet back to your on-prem router","Write an IP addressing plan showing how on-prem and cloud subnets coexist without conflict","Compare, in writing, Security Groups (stateful, instance-level) vs NACLs (stateless, subnet-level) using your own lab as the example"],
+skills:"Cloud VPC/VNet design, security groups vs NACLs, site-to-site VPN concepts, addressing coordination across on-prem+cloud",
+deliverable:"Cloud network diagram + addressing plan + VPN config/design doc + security group vs NACL comparison"},
+
+{title:"Full-Stack IT Capstone — Network, Server, Identity, Cloud",stack:"Everything",diff:"Advanced",time:"15-25 hours",
+desc:"The IT-generalist counterpart to your CCNA Final Capstone: one integrated environment spanning routed/switched network, virtualized servers, AD/hybrid identity, and a cloud interconnect — the full stack a junior network/sysadmin engineer is expected to reason about.",
+reqs:["Reuse your CCNA Final Capstone topology (3 sites, multi-area OSPF, VLANs, security hardening, wireless) as the network foundation","Add a virtualized server tier at HQ: AD DS + DNS, a file server, and at least one application VM, on a Type 1 hypervisor","Implement a documented backup strategy (3-2-1 rule) with explicit RPO/RTO targets for the AD server and file server","Stand up a hybrid identity layer: on-prem AD synced to a cloud tenant (Entra ID or equivalent), with MFA on at least one account","Build a cloud VPC/VNet that interconnects to HQ via a documented (or live) site-to-site VPN, with its own non-overlapping addressing","Write a single unified architecture document covering: network design, server/virtualization layer, identity/hybrid design, cloud interconnect, backup/DR plan, and security policy","Be ready to walk an interviewer through any single layer of this build without notes — this is your full portfolio centerpiece"],
+skills:"Everything from the CCNA capstones PLUS Active Directory, virtualization, backup/DR planning, hybrid identity, cloud networking — the complete junior network/sysadmin skill set",
+deliverable:"Unified architecture document + network topology + server/AD design + hybrid identity diagram + cloud interconnect diagram + backup/DR plan + security policy"},
+];
+
+
 
 
 
@@ -2476,13 +2584,13 @@ const JOB_TASKS=[
 
 
 
-let view='menu',cur=null,gSrch='',secTab='study',qAns={},qSub=false,curChap=null,jobRegion=0;
+let view='menu',cur=null,gSrch='',secTab='study',qAns={},qSub=false,curChap=null,jobRegion=0,itfTab='sysadmin';
 const SO=[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37];
 
 function render(){const a=document.getElementById('app');
 if(view==='menu')renderMenu(a);else if(view==='section')renderSection(a);else if(view==='glossary')renderGlossary(a);
 else if(view==='blueprint')renderBlueprint(a);else if(view==='otj')renderOTJ(a);
-else if(view==='interview')renderInterview(a);else if(view==='capstones')renderCapstones(a);
+else if(view==='interview')renderInterview(a);else if(view==='capstones')renderCapstones(a);else if(view==='itfound')renderITFound(a);
 else if(view==='simlets')renderSimlets(a);else if(view==='jobs')renderJobs(a);}
 
 // ============ MENU ============
@@ -2500,6 +2608,7 @@ h+=`<div class="sg" style="margin-bottom:10px">
 <button class="sb" style="border-color:#3b82f6" onclick="go('interview')"><span class="n" style="background:#3b82f6">💼</span><span style="font-weight:700;color:#93c5fd">Interview Prep — Behavioral + Technical Q&A</span><span class="qc" style="color:#3b82f6">20+ Q</span></button>
 <button class="sb sp" onclick="go('simlets')"><span class="n" style="background:var(--no)">🎯</span><span style="font-weight:700;color:#fca5a5">Simlet Labs — Exam-Style Scenarios</span><span class="qc" style="color:var(--no)">${SIMLETS.length} labs</span></button>
 <button class="sb sp" onclick="go('capstones')"><span class="n">🏗️</span><span style="font-weight:700;color:var(--warn)">Capstone Projects — Portfolio Builds</span><span class="qc" style="color:var(--warn)">${CAPS.length}</span></button>
+<button class="sb" style="border-color:#4c1d95" onclick="go('itfound')"><span class="n" style="background:#4c1d95">🧰</span><span style="font-weight:700;color:#c4b5fd">IT Foundations & Multi-Vendor — Beyond Cisco</span><span class="qc" style="color:#c4b5fd">${EXTRA_FILES_COUNT+VENDOR_FILES_COUNT}</span></button>
 <button class="sb gl" onclick="go('glossary')"><span class="n">📖</span><span style="font-weight:700;color:var(--gold)">Full CCNA Glossary — ${G.length} Terms</span><span class="qc" style="color:var(--gold)">A-Z</span></button>
 </div>`;
 
@@ -2575,6 +2684,21 @@ h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:5px">Where Neil An
 supp.forEach(v=>{h+=`<div style="background:#0a1628;border:1px solid var(--bor);border-radius:5px;padding:7px;margin-bottom:4px">
 <a href="${v.url}" target="_blank" style="color:var(--ac);font-size:.74rem;font-weight:600;text-decoration:none">${v.src}: ${v.title} →</a>
 <div style="font-size:.64rem;color:var(--mut);margin-top:2px">${v.why}</div></div>`;});
+h+=`</div>`;}
+
+// Extra Reading (Lowe chapters + original study notes)
+const extraFiles=EXTRA_FILES[id]||[];
+if(extraFiles.length>0){h+=`<div class="cs" style="border-color:#3d3500"><h3 style="color:var(--gold)">📚 Extra Reading — Real-World IT Context</h3>`;
+h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:5px">Vendor-neutral IT background (Lowe's <i>Networking All-in-One</i>) and original notes for topics outside that book</p>`;
+extraFiles.forEach(ef=>{const tag=ef.src==='lowe'?'<span style="background:#1a1500;color:var(--gold);border:1px solid #3d3500;padding:1px 5px;border-radius:3px;font-size:.58rem;margin-right:5px">LOWE</span>':'<span style="background:#0f1a2e;color:var(--ac);border:1px solid var(--bor);padding:1px 5px;border-radius:3px;font-size:.58rem;margin-right:5px">NOTES</span>';
+h+=`<div style="margin-bottom:4px"><a href="extra_files/${ef.f}" target="_blank" style="color:var(--txt);font-size:.72rem;text-decoration:none">${tag}${ef.label} →</a></div>`;});
+h+=`</div>`;}
+
+// Multi-Vendor command references (Juniper/Arista)
+const vendorFiles=VENDOR_FILES[id]||[];
+if(vendorFiles.length>0){h+=`<div class="cs" style="border-color:#4c1d95"><h3 style="color:#c4b5fd">🌐 Multi-Vendor — Don't Be Cisco-Blind</h3>`;
+h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:5px">Same concept, different CLI. Juniper (JunOS) and Arista (EOS) command-equivalents</p>`;
+vendorFiles.forEach(vf=>{h+=`<div style="margin-bottom:4px"><a href="vendor_files/${vf.f}" target="_blank" style="color:var(--txt);font-size:.72rem;text-decoration:none">🔀 ${vf.label} →</a></div>`;});
 h+=`</div>`;}
 
 // Interview Q&A (embedded in study)
@@ -2725,6 +2849,92 @@ h+=`</ul><div class="cap-del">📦 ${cap.deliverable}</div><p style="font-size:.
 h+=`<div style="text-align:center;padding:10px"><button class="bb" onclick="goMenu()">← Menu</button></div>`;
 a.innerHTML=h;}
 
+// ============================================================
+// IT FOUNDATIONS & MULTI-VENDOR HUB
+// ============================================================
+const BONUS_LOWE=[
+  {f:"lowe_bk1_ch1_welcome_to_networking.pdf",label:"Welcome to Networking (general intro)"},
+  {f:"lowe_bk1_ch5_servers_and_virtualization.pdf",label:"Servers and Virtualization (general intro)"},
+  {f:"lowe_bk1_ch6_cloud_computing.pdf",label:"Cloud Computing (general intro)"},
+  {f:"lowe_bk2_ch6_dns.pdf",label:"DNS (general background)"},
+  {f:"lowe_bk3_ch1_local_area_networks.pdf",label:"Local Area Networks (general background)"},
+];
+const IT_TOPICS=[
+{cat:"Windows & Active Directory",icon:"🪟",topics:[
+{t:"Active Directory Domain Services",pts:["Domains, trees, forests, OUs — the logical structure that organizes users/computers/groups","Group Policy Objects (GPOs) push config to users/computers without touching each machine manually","FSMO roles (Schema Master, Domain Naming, RID, PDC Emulator, Infrastructure Master) — single points of responsibility in a domain","DNS is mandatory for AD — domain controllers register themselves in DNS and clients use it to find a DC"]},
+{t:"Windows Server File/Print/DHCP/DNS roles",pts:["A 'role' in Windows Server is a major function (DHCP, DNS, File Server, AD DS) installed via Server Manager / PowerShell","Windows DHCP/DNS server roles mirror the Cisco concepts from §23 but with a GUI/PowerShell management layer instead of CLI","File server shares + NTFS permissions are layered: share permission AND NTFS permission both apply, most-restrictive wins"]},
+{t:"PowerShell basics for IT generalists",pts:["Get-/Set-/New-/Remove- verb-noun pattern is consistent across nearly all PowerShell cmdlets","Get-ADUser, Get-ADComputer, Get-NetIPConfiguration are everyday helpdesk/sysadmin commands","Piping (|) chains cmdlets together, e.g., Get-Service | Where-Object {$_.Status -eq 'Running'}"]},
+]},
+{cat:"Microsoft 365 / Cloud Identity",icon:"☁️",topics:[
+{t:"Entra ID (formerly Azure AD)",pts:["Cloud-based identity service; can sync with on-prem AD via Entra Connect (formerly Azure AD Connect) for hybrid environments","Conditional Access policies gate sign-in based on device, location, risk level — a real interview topic for security-minded IT roles","MFA (multi-factor authentication) enforcement is now close to a baseline expectation in any modern M365 tenant"]},
+{t:"Exchange Online & Teams basics",pts:["Mailbox types: user, shared, resource (room/equipment) — common helpdesk ticket category","Distribution lists vs. Microsoft 365 Groups vs. Teams — overlapping but distinct collaboration objects","Most M365 admin tasks are doable via the Microsoft 365 admin center GUI or PowerShell (Exchange Online Management module)"]},
+]},
+{cat:"Virtualization & Storage",icon:"🖥️",topics:[
+{t:"Hypervisors: VMware, Hyper-V, Proxmox",pts:["Type 1 hypervisor runs directly on hardware (ESXi, Hyper-V Server); Type 2 runs as an application on a host OS (VirtualBox, VMware Workstation)","vMotion / Live Migration move a running VM between physical hosts with no downtime — a key enterprise feature interviewers ask about","Snapshots are NOT backups — they're a point-in-time diff that depends on the original disk; losing the base disk loses the snapshot too"]},
+{t:"Storage architecture: SAN/NAS/RAID",pts:["NAS (Network Attached Storage) serves files over the network (SMB/NFS); SAN (Storage Area Network) presents raw block storage, typically over iSCSI or Fibre Channel","RAID 1 = mirroring (redundancy, no extra usable capacity benefit); RAID 5 = striping with parity (one disk can fail); RAID 10 = striped mirrors (best performance+redundancy, costs more drives)","IOPS (I/O operations per second) and latency matter more than raw capacity for performance-sensitive storage workloads"]},
+{t:"Backup strategy and the 3-2-1 rule",pts:["3-2-1 rule: 3 copies of data, on 2 different media types, with 1 copy offsite","Full vs incremental vs differential backups trade off restore speed against backup time/storage space","RPO (Recovery Point Objective: how much data loss is acceptable) and RTO (Recovery Time Objective: how fast must it be restored) drive backup design decisions"]},
+]},
+{cat:"Linux Fundamentals",icon:"🐧",topics:[
+{t:"Core CLI and filesystem",pts:["Filesystem Hierarchy Standard: /etc (config), /var (variable/log data), /home (user dirs), /usr (programs)","chmod/chown manage permission bits and ownership; a permission string like rwxr-xr-- breaks down as owner/group/other","systemctl start/stop/enable/status manages services on most modern distros (systemd-based)"]},
+{t:"Networking from a Linux box",pts:["ip addr / ip route (modern) replaced ifconfig / route (legacy) on most current distros","/etc/resolv.conf (or systemd-resolved) configures DNS resolution locally","SSH key-based auth (~/.ssh/authorized_keys) is the standard for passwordless, more secure remote access than passwords"]},
+]},
+{cat:"Cloud Platforms (Azure/AWS basics)",icon:"🌩️",topics:[
+{t:"Core compute/network/storage concepts",pts:["VPC (AWS) / VNet (Azure) is your private network space in the cloud — subnets, route tables, and security groups/NSGs live inside it","Security Groups (AWS, stateful, attached to instances) vs NACLs (stateless, attached to subnets) — a classic interview distinction","IAM (Identity and Access Management) governs who can do what — least-privilege is the expected default posture, not an afterthought"]},
+{t:"Why cloud networking still needs your CCNA knowledge",pts:["VPNs/Direct Connect/ExpressRoute extend on-prem routing concepts (BGP is common for cloud interconnects) into the cloud","Subnetting, routing tables, and ACL logic transfer almost directly from on-prem CCNA knowledge into cloud VPC/VNet design","Load balancers (ALB/NLB, Azure Load Balancer) operate on concepts adjacent to what you already know about L4 vs L7 traffic handling"]},
+]},
+];
+const IT_TOPICS_COUNT=IT_TOPICS.reduce((s,c)=>s+c.topics.length,0);
+
+function renderITFound(a){
+let h=`<button class="bb" onclick="goMenu()">← Menu</button>`;
+h+=`<div class="sh"><h2>🧰 IT Foundations & Multi-Vendor</h2><p>Real-world IT context beyond pure CCNA, plus Juniper/Arista command parity so you're not Cisco-blind</p></div>`;
+
+h+=`<div class="tab-bar">
+<div class="tab ${itfTab==='sysadmin'?'active':''}" onclick="setITFTab('sysadmin')">🪟 IT/Sysadmin (${IT_TOPICS_COUNT})</div>
+<div class="tab ${itfTab==='vendor'?'active':''}" onclick="setITFTab('vendor')">🌐 Multi-Vendor (${VENDOR_FILES_COUNT})</div>
+<div class="tab ${itfTab==='itcaps'?'active':''}" onclick="setITFTab('itcaps')">🏗️ IT Capstones (${IT_CAPS.length})</div>
+</div>`;
+
+// ---- SYSADMIN TAB ----
+h+=`<div class="tab-content ${itfTab==='sysadmin'?'active':''}">`;
+h+=`<p style="font-size:.72rem;color:var(--mut);margin-bottom:10px;line-height:1.4">This is the "Lowe's For Dummies" layer — the general IT knowledge that real helpdesk/sysadmin/network-engineer jobs assume you already have, even though it's not on the CCNA exam.</p>`;
+IT_TOPICS.forEach(cat=>{
+h+=`<div class="cs"><h3>${cat.icon} ${cat.cat}</h3>`;
+cat.topics.forEach(t=>{h+=`<div style="margin-bottom:8px"><div style="font-size:.76rem;font-weight:700;color:var(--ac);margin-bottom:3px">${t.t}</div><ul style="margin:0">`;
+t.pts.forEach(p=>h+=`<li style="font-size:.7rem">${p}</li>`);h+=`</ul></div>`;});
+h+=`</div>`;});
+h+=`<div class="cs" style="border-color:#3d3500"><h3 style="color:var(--gold)">📖 Bonus Lowe Chapters (general background, no single hub section)</h3>`;
+BONUS_LOWE.forEach(bf=>{h+=`<div style="margin-bottom:4px"><a href="extra_files/${bf.f}" target="_blank" style="color:var(--txt);font-size:.72rem;text-decoration:none">📄 ${bf.label} →</a></div>`;});
+h+=`</div>`;
+h+=`</div>`;
+
+// ---- MULTI-VENDOR TAB ----
+h+=`<div class="tab-content ${itfTab==='vendor'?'active':''}">`;
+h+=`<p style="font-size:.72rem;color:var(--mut);margin-bottom:10px;line-height:1.4">Cisco dominates CCNA training, but plenty of real networks run Juniper (JunOS) or Arista (EOS). These PDFs give the parallel command for each Cisco concept you've already studied, organized by hub section.</p>`;
+const vendorSecs=Object.keys(VENDOR_FILES).map(Number).sort((x,y)=>x-y);
+vendorSecs.forEach(id=>{const sec=SEC[id];if(!sec)return;
+h+=`<div class="cs"><h3 style="cursor:pointer" onclick="goSection(${id})">§${id} ${sec.title} →</h3>`;
+VENDOR_FILES[id].forEach(vf=>{h+=`<div style="margin-bottom:4px"><a href="vendor_files/${vf.f}" target="_blank" style="color:var(--txt);font-size:.74rem;text-decoration:none">🔀 ${vf.label}</a>
+<span style="margin-left:6px">${vf.vendors.map(v=>`<span style="font-size:.6rem;background:#1a0f2e;color:#c4b5fd;border:1px solid #4c1d95;padding:1px 5px;border-radius:3px;margin-right:3px">${v}</span>`).join('')}</span></div>`;});
+h+=`</div>`;});
+h+=`</div>`;
+
+// ---- IT CAPSTONES TAB ----
+h+=`<div class="tab-content ${itfTab==='itcaps'?'active':''}">`;
+h+=`<p style="font-size:.72rem;color:var(--mut);margin-bottom:10px;line-height:1.4">Broader infrastructure builds — these go past pure Cisco topology design into the servers, identity, and cloud pieces a real environment also needs.</p>`;
+IT_CAPS.forEach((cap,i)=>{const dc=cap.diff==='Beginner'?'cap-diff-b':cap.diff==='Intermediate'?'cap-diff-i':'cap-diff-a';
+h+=`<div class="cap-card"><h3>${i+1}. ${cap.title}</h3>
+<div class="cap-meta"><span class="${dc}">${cap.diff}</span><span style="background:#1a1a2d;color:#818cf8;border:1px solid #3a3a5c">⏱ ${cap.time}</span>
+<span style="background:#1a0f2e;color:#c4b5fd;border:1px solid #4c1d95">${cap.stack}</span></div>
+<div class="cap-desc">${cap.desc}</div><ul class="cap-req">`;cap.reqs.forEach(r=>h+=`<li>${r}</li>`);
+h+=`</ul><div class="cap-del">📦 ${cap.deliverable}</div><p style="font-size:.64rem;color:var(--mut);margin-top:3px">Skills: ${cap.skills}</p></div>`;});
+h+=`</div>`;
+
+h+=`<div style="text-align:center;padding:10px"><button class="bb" onclick="goMenu()">← Menu</button></div>`;
+a.innerHTML=h;}
+
+
+
 // ============ SIMLETS ============
 function renderSimlets(a){
 let h=`<button class="bb" onclick="goMenu()">← Menu</button>`;
@@ -2839,6 +3049,7 @@ function go(v){view=v;render();window.scrollTo(0,0);}
 function goSection(id){cur=id;view='section';secTab='study';qAns={};qSub=false;curChap=null;render();window.scrollTo(0,0);}
 function goMenu(){view='menu';cur=null;render();window.scrollTo(0,0);}
 function setTab(t){secTab=t;render();}
+function setITFTab(t){itfTab=t;render();}
 function fG(v){gSrch=v;render();}
 function selA(qi,oi){if(!qSub){qAns[qi]=oi;render();}}
 function submitQuiz(){qSub=true;render();window.scrollTo(0,0);}
