@@ -196,7 +196,7 @@ const CHAP_FILES={
 // ============================================================
 // EXTRA_FILES — supplementary PDFs (Lowe "Networking All-in-One"
 // chapter extracts + original study notes for topics Lowe doesn't
-// cover). Lives in extra_files/, separate from chapters/ so it
+// cover). Lives in chapters/ — same folder as CHAP_FILES — so
 // never collides with CHAP_FILES / the Odom OCG slot.
 // ============================================================
 const EXTRA_FILES={
@@ -2634,7 +2634,7 @@ const vocab=G.filter(g=>g.s.includes(id)).sort((x,y)=>x.t.localeCompare(y.t));
 const hasLab=sec.lab&&sec.lab.length>0;
 const hasPT=!!PKT_FILES[id];const hasLabSec=!!LAB_SEC[id];const hasAnyLab=hasLab||hasPT||hasLabSec;
 const quiz=S.find(s=>s.id===id);const qc=quiz?quiz.q.length:0;
-const chapFiles=CHAP_FILES[id]||[];
+const chapFiles=[...(CHAP_FILES[id]||[]),...(EXTRA_FILES[id]||[]).map(ef=>ef.f)];
 const mm=MIND[id];const iv=INTV[id];
 // Find exam topics for this section
 const examTopics=[];
@@ -2684,14 +2684,6 @@ h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:5px">Where Neil An
 supp.forEach(v=>{h+=`<div style="background:#0a1628;border:1px solid var(--bor);border-radius:5px;padding:7px;margin-bottom:4px">
 <a href="${v.url}" target="_blank" style="color:var(--ac);font-size:.74rem;font-weight:600;text-decoration:none">${v.src}: ${v.title} →</a>
 <div style="font-size:.64rem;color:var(--mut);margin-top:2px">${v.why}</div></div>`;});
-h+=`</div>`;}
-
-// Extra Reading (Lowe chapters + original study notes)
-const extraFiles=EXTRA_FILES[id]||[];
-if(extraFiles.length>0){h+=`<div class="cs" style="border-color:#3d3500"><h3 style="color:var(--gold)">📚 Extra Reading — Real-World IT Context</h3>`;
-h+=`<p style="font-size:.64rem;color:var(--mut);margin-bottom:5px">Vendor-neutral IT background (Lowe's <i>Networking All-in-One</i>) and original notes for topics outside that book</p>`;
-extraFiles.forEach(ef=>{const tag=ef.src==='lowe'?'<span style="background:#1a1500;color:var(--gold);border:1px solid #3d3500;padding:1px 5px;border-radius:3px;font-size:.58rem;margin-right:5px">LOWE</span>':'<span style="background:#0f1a2e;color:var(--ac);border:1px solid var(--bor);padding:1px 5px;border-radius:3px;font-size:.58rem;margin-right:5px">NOTES</span>';
-h+=`<div style="margin-bottom:4px"><a href="extra_files/${ef.f}" target="_blank" style="color:var(--txt);font-size:.72rem;text-decoration:none">${tag}${ef.label} →</a></div>`;});
 h+=`</div>`;}
 
 // Multi-Vendor command references (Juniper/Arista)
@@ -2754,8 +2746,12 @@ h+=`</div>`;}
 
 // ---- READ TAB ----
 if(chapFiles.length>0){h+=`<div class="tab-content ${secTab==='read'?'active':''}">`;
-h+=`<div style="margin-bottom:7px">`;chapFiles.forEach(f=>{const label=f.replace('.pdf','').replace(/v[12]_/,'').replace(/_/g,' ');
-h+=`<span class="ch-btn ${curChap===f?'active':''}" onclick="loadChap('${f}')">${label}</span> `;});h+=`</div>`;
+h+=`<div style="margin-bottom:7px">`;chapFiles.forEach(f=>{
+let label,tagHtml='';
+if(f.startsWith('lowe_')){label=f.replace('.pdf','').replace(/^lowe_bk\d_ch\d+_/,'').replace(/_/g,' ');tagHtml='<span style="font-size:.55rem;background:#1a1500;color:var(--gold);border:1px solid #3d3500;padding:0px 4px;border-radius:3px;margin-right:4px;vertical-align:1px">LOWE</span>';}
+else if(f.startsWith('new_s')){label=f.replace('.pdf','').replace(/^new_s\d+_/,'').replace(/_/g,' ');tagHtml='<span style="font-size:.55rem;background:#0f1a2e;color:var(--ac);border:1px solid var(--bor);padding:0px 4px;border-radius:3px;margin-right:4px;vertical-align:1px">NOTES</span>';}
+else{label=f.replace('.pdf','').replace(/v[12]_/,'').replace(/_/g,' ');}
+h+=`<span class="ch-btn ${curChap===f?'active':''}" onclick="loadChap('${f}')">${tagHtml}${label}</span> `;});h+=`</div>`;
 if(curChap){const pdfUrl='chapters/'+curChap;
 h+=`<div class="pdf-controls"><button class="pdf-ctrl-btn" onclick="window.open('${pdfUrl}','_blank')">⬛ Fullscreen</button>
 <a href="${pdfUrl}" download class="pdf-ctrl-btn" style="text-decoration:none">⬇ Download</a></div>
@@ -2904,7 +2900,7 @@ cat.topics.forEach(t=>{h+=`<div style="margin-bottom:8px"><div style="font-size:
 t.pts.forEach(p=>h+=`<li style="font-size:.7rem">${p}</li>`);h+=`</ul></div>`;});
 h+=`</div>`;});
 h+=`<div class="cs" style="border-color:#3d3500"><h3 style="color:var(--gold)">📖 Bonus Lowe Chapters (general background, no single hub section)</h3>`;
-BONUS_LOWE.forEach(bf=>{h+=`<div style="margin-bottom:4px"><a href="extra_files/${bf.f}" target="_blank" style="color:var(--txt);font-size:.72rem;text-decoration:none">📄 ${bf.label} →</a></div>`;});
+BONUS_LOWE.forEach(bf=>{h+=`<div style="margin-bottom:4px"><a href="chapters/${bf.f}" target="_blank" style="color:var(--txt);font-size:.72rem;text-decoration:none">📄 ${bf.label} →</a></div>`;});
 h+=`</div>`;
 h+=`</div>`;
 
